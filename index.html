@@ -85,48 +85,61 @@
             position: fixed;
             left: 0;
             top: 70px;
-            width: 80px;
+            width: 60px;
             height: calc(100vh - 70px);
-            background: rgba(10, 10, 10, 0.9);
+            background: rgba(10, 10, 10, 0.95);
             border-right: 2px solid #0066ff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem 0;
-            gap: 2rem;
             z-index: 999;
+            transition: width 0.3s ease;
+            overflow: hidden;
+        }
+
+        .sidebar:hover {
+            width: 200px;
+        }
+
+        .sidebar-items {
+            padding: 2rem 0;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            margin: 0.5rem 0;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(0, 102, 255, 0.2);
+            border-left: 4px solid #00d4ff;
         }
 
         .sidebar-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #0066ff;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .sidebar-icon:hover {
-            background: #0066ff;
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(0, 102, 255, 0.6);
-        }
-
-        .sidebar-icon::before {
-            content: '';
-            width: 20px;
-            height: 20px;
+            width: 24px;
+            height: 24px;
+            min-width: 24px;
             background: #00d4ff;
-            border-radius: 3px;
+            border-radius: 5px;
+            margin-right: 1rem;
+        }
+
+        .sidebar-text {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            font-size: 0.95rem;
+            color: #ffffff;
+        }
+
+        .sidebar:hover .sidebar-text {
+            opacity: 1;
         }
 
         /* Main Content */
         .main-content {
-            margin-left: 80px;
+            margin-left: 60px;
             margin-top: 70px;
             padding: 3rem;
             min-height: calc(100vh - 70px);
@@ -271,6 +284,218 @@
             padding: 2rem;
         }
 
+        /* About Section */
+        .about-section {
+            padding: 5rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #00d4ff;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #b0b0b0;
+            margin-bottom: 1rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .skill-card {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 212, 255, 0.1));
+            border: 2px solid #0066ff;
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.4);
+        }
+
+        .skill-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #00d4ff;
+        }
+
+        .skill-level {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #0066ff, #00d4ff);
+            border-radius: 3px;
+            transition: width 1s ease;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 0;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 212, 255, 0.1));
+            border: 2px solid #0066ff;
+            border-radius: 15px;
+            padding: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            min-width: 50px;
+            background: linear-gradient(135deg, #0066ff, #00d4ff);
+            border-radius: 10px;
+            margin-right: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .contact-item h4 {
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-item p {
+            color: #b0b0b0;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: rgba(0, 102, 255, 0.05);
+            border: 2px solid #0066ff;
+            border-radius: 10px;
+            padding: 1rem;
+            color: #ffffff;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #00d4ff;
+            box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 150px;
+        }
+
+        .submit-button {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            background: linear-gradient(135deg, #0066ff, #00d4ff);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.4);
+        }
+
+        .submit-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 102, 255, 0.6);
+        }
+
+        /* Work Page Enhancements */
+        .work-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+            padding: 2rem;
+        }
+
+        .work-intro p {
+            font-size: 1.2rem;
+            color: #b0b0b0;
+            line-height: 1.8;
+        }
+
+        .project-details {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 1.5rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover .project-details {
+            transform: translateY(0);
+        }
+
+        .project-details p {
+            font-size: 0.9rem;
+            color: #b0b0b0;
+            margin-top: 0.5rem;
+        }
+
         /* Footer */
         .footer {
             background: rgba(10, 10, 10, 0.95);
@@ -319,10 +544,24 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-        <div class="sidebar-icon" title="Projects"></div>
-        <div class="sidebar-icon" title="Gallery"></div>
-        <div class="sidebar-icon" title="Blog"></div>
-        <div class="sidebar-icon" title="Social"></div>
+        <div class="sidebar-items">
+            <div class="sidebar-item" onclick="scrollToSection('home')">
+                <div class="sidebar-icon"></div>
+                <span class="sidebar-text">Home</span>
+            </div>
+            <div class="sidebar-item" onclick="scrollToSection('work')">
+                <div class="sidebar-icon"></div>
+                <span class="sidebar-text">Projects</span>
+            </div>
+            <div class="sidebar-item" onclick="scrollToSection('about')">
+                <div class="sidebar-icon"></div>
+                <span class="sidebar-text">About</span>
+            </div>
+            <div class="sidebar-item" onclick="scrollToSection('contact')">
+                <div class="sidebar-icon"></div>
+                <span class="sidebar-text">Contact</span>
+            </div>
+        </div>
     </div>
 
     <!-- Main Content -->
@@ -337,43 +576,177 @@
         <!-- Gallery Section -->
         <section class="gallery" id="work">
             <h2 class="section-title">Featured Projects</h2>
+            <div class="work-intro">
+                <p>Explore a curated selection of my latest work spanning digital art, interactive web experiences, and cutting-edge technology solutions. Each project represents a unique challenge solved through creativity and innovation.</p>
+            </div>
             <div class="gallery-grid">
                 <div class="gallery-item">
                     <div class="gallery-item-content">
-                        <h3>Digital Art</h3>
-                        <p>Creative visual designs</p>
+                        <h3>Neural Canvas</h3>
+                        <div class="project-details">
+                            <p>An AI-powered digital art generator that transforms emotions into visual masterpieces using machine learning algorithms.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="gallery-item">
                     <div class="gallery-item-content">
-                        <h3>Web Development</h3>
-                        <p>Modern web solutions</p>
+                        <h3>Quantum Dashboard</h3>
+                        <div class="project-details">
+                            <p>Real-time data visualization platform built with React and D3.js, featuring holographic UI elements and gesture controls.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="gallery-item">
                     <div class="gallery-item-content">
-                        <h3>UI/UX Design</h3>
-                        <p>User-centered interfaces</p>
+                        <h3>Cyber Interface</h3>
+                        <div class="project-details">
+                            <p>Futuristic UI/UX design system for a tech startup, emphasizing accessibility and immersive user experiences.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="gallery-item">
                     <div class="gallery-item-content">
-                        <h3>3D Graphics</h3>
-                        <p>Immersive experiences</p>
+                        <h3>VoxelVerse</h3>
+                        <div class="project-details">
+                            <p>3D voxel-based world builder with real-time rendering, physics simulation, and multiplayer collaboration features.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="gallery-item">
                     <div class="gallery-item-content">
-                        <h3>Animation</h3>
-                        <p>Motion & storytelling</p>
+                        <h3>Flux Motion</h3>
+                        <div class="project-details">
+                            <p>Award-winning motion graphics reel featuring fluid animations, particle systems, and abstract visual storytelling.</p>
+                        </div>
                     </div>
                 </div>
                 <div class="gallery-item">
                     <div class="gallery-item-content">
-                        <h3>Tech Solutions</h3>
-                        <p>Innovative applications</p>
+                        <h3>CodeStream</h3>
+                        <div class="project-details">
+                            <p>Open-source developer tool that visualizes code execution flow in real-time, helping teams debug faster.</p>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section class="about-section" id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Digital Creator & Technologist</h3>
+                    <p>I'm a multidisciplinary artist and developer based in the intersection of creativity and technology. With over 8 years of experience, I specialize in crafting immersive digital experiences that push the boundaries of what's possible.</p>
+                    <p>My work explores the synthesis of art, code, and emerging technologies. From generative art installations to interactive web applications, I believe in creating meaningful experiences that resonate with people on both aesthetic and functional levels.</p>
+                    <p>When I'm not designing or coding, you'll find me experimenting with new frameworks, contributing to open-source projects, or exploring the latest advancements in AI and machine learning.</p>
+                </div>
+                <div class="about-text">
+                    <h3>Philosophy & Approach</h3>
+                    <p>I believe that technology should be intuitive, beautiful, and accessible to everyone. My design philosophy centers on creating experiences that feel natural while incorporating cutting-edge innovation.</p>
+                    <p>Every project is an opportunity to learn, iterate, and push creative boundaries. I approach challenges with curiosity and a commitment to excellence, always striving to deliver work that exceeds expectations.</p>
+                </div>
+            </div>
+
+            <h3 style="text-align: center; color: #00d4ff; margin-bottom: 2rem; font-size: 2rem;">Technical Expertise</h3>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h4>Web Development</h4>
+                    <p style="color: #b0b0b0;">React, Node.js, Three.js</p>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 95%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h4>Digital Art</h4>
+                    <p style="color: #b0b0b0;">Photoshop, Illustrator, Blender</p>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h4>UI/UX Design</h4>
+                    <p style="color: #b0b0b0;">Figma, Sketch, Prototyping</p>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 88%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h4>3D Graphics</h4>
+                    <p style="color: #b0b0b0;">WebGL, Unity, Cinema 4D</p>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h4>Animation</h4>
+                    <p style="color: #b0b0b0;">After Effects, GSAP, Lottie</p>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 92%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h4>AI/ML</h4>
+                    <p style="color: #b0b0b0;">TensorFlow, PyTorch, GPT APIs</p>
+                    <div class="skill-level">
+                        <div class="skill-progress" style="width: 80%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <h2 class="section-title">Get In Touch</h2>
+            <p style="text-align: center; color: #b0b0b0; font-size: 1.1rem; margin-bottom: 2rem;">Have a project in mind or just want to chat? I'd love to hear from you. Let's create something amazing together.</p>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <h4>Email</h4>
+                            <p>hello@portfolio.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">💼</div>
+                        <div>
+                            <h4>LinkedIn</h4>
+                            <p>linkedin.com/in/portfolio</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🐙</div>
+                        <div>
+                            <h4>GitHub</h4>
+                            <p>github.com/portfolio</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">🎨</div>
+                        <div>
+                            <h4>Behance</h4>
+                            <p>behance.net/portfolio</p>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="contact-form" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required placeholder="Tell me about your project..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-button">Send Message</button>
+                </form>
             </div>
         </section>
     </div>
@@ -395,6 +768,14 @@
             });
         });
 
+        // Scroll to section function for sidebar
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
         // CTA Button functionality
         document.querySelector('.cta-button').addEventListener('click', function() {
             document.querySelector('#work').scrollIntoView({ behavior: 'smooth' });
@@ -409,6 +790,38 @@
                 }, 200);
             });
         });
+
+        // Animate skill bars on scroll
+        const observerOptions = {
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const progressBars = entry.target.querySelectorAll('.skill-progress');
+                    progressBars.forEach(bar => {
+                        bar.style.width = bar.style.width;
+                    });
+                }
+            });
+        }, observerOptions);
+
+        const skillsSection = document.querySelector('.skills-grid');
+        if (skillsSection) {
+            observer.observe(skillsSection);
+        }
+
+        // Form submission handler
+        function handleSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            
+            // Simulate form submission
+            alert('Thank you for your message! I\'ll get back to you soon.');
+            form.reset();
+        }
     </script>
 </body>
 </html>
