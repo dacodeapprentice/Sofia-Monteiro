@@ -512,11 +512,21 @@
             }
             
             .sidebar {
-                width: 60px;
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .mobile-menu {
+                display: block;
             }
             
             .main-content {
-                margin-left: 60px;
+                margin-left: 0;
                 padding: 1.5rem;
             }
             
@@ -526,6 +536,308 @@
             
             .hero-subtitle {
                 font-size: 1.2rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Page Container */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Project Detail Page */
+        .project-page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 0;
+        }
+
+        .project-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .project-title {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, #ffffff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .project-subtitle {
+            font-size: 1.3rem;
+            color: #b0b0b0;
+            margin-bottom: 2rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            padding: 0.5rem 1.5rem;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 212, 255, 0.2));
+            border: 2px solid #0066ff;
+            border-radius: 20px;
+            color: #00d4ff;
+            font-size: 0.9rem;
+        }
+
+        .project-hero-image {
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 212, 255, 0.2));
+            border: 2px solid #0066ff;
+            border-radius: 20px;
+            margin-bottom: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #00d4ff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-hero-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .project-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .project-description h3 {
+            font-size: 2rem;
+            color: #00d4ff;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-description p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #b0b0b0;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-info-card {
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 212, 255, 0.1));
+            border: 2px solid #0066ff;
+            border-radius: 15px;
+            padding: 2rem;
+            height: fit-content;
+        }
+
+        .info-item {
+            margin-bottom: 2rem;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-label {
+            font-size: 0.9rem;
+            color: #00d4ff;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info-value {
+            font-size: 1.1rem;
+            color: #ffffff;
+        }
+
+        .project-gallery {
+            margin-top: 4rem;
+        }
+
+        .project-gallery h3 {
+            font-size: 2rem;
+            color: #00d4ff;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .gallery-images {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .gallery-image {
+            height: 300px;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.15), rgba(0, 212, 255, 0.15));
+            border: 2px solid #0066ff;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #00d4ff;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.4);
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 212, 255, 0.2));
+            border: 2px solid #0066ff;
+            border-radius: 50px;
+            color: #ffffff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+            text-decoration: none;
+        }
+
+        .back-button:hover {
+            background: linear-gradient(135deg, #0066ff, #00d4ff);
+            transform: translateX(-5px);
+            box-shadow: 0 5px 20px rgba(0, 102, 255, 0.4);
+        }
+
+        /* About Page Specific */
+        .about-page {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 0;
+        }
+
+        .about-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            margin-bottom: 4rem;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 212, 255, 0.2));
+            border: 2px solid #0066ff;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .about-text-main h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #ffffff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text-main p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: #b0b0b0;
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 212, 255, 0.2));
+            border: 2px solid #0066ff;
+            border-radius: 50px;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(135deg, #0066ff, #00d4ff);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 102, 255, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .project-content {
+                grid-template-columns: 1fr;
+            }
+
+            .about-hero {
+                grid-template-columns: 1fr;
+            }
+
+            .project-title {
+                font-size: 2.5rem;
+            }
+
+            .gallery-images {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -542,22 +854,37 @@
         </div>
     </nav>
 
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" id="mobileMenuToggle">
+        <div class="hamburger"></div>
+    </button>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-items">
+            <div class="mobile-menu-item" onclick="showPage('home')">Home</div>
+            <div class="mobile-menu-item" onclick="showPage('work')">Projects</div>
+            <div class="mobile-menu-item" onclick="showPage('about-page')">About</div>
+            <div class="mobile-menu-item" onclick="showPage('contact')">Contact</div>
+        </div>
+    </div>
+
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="sidebar-items">
-            <div class="sidebar-item" onclick="scrollToSection('home')">
+            <div class="sidebar-item" onclick="showPage('home')">
                 <div class="sidebar-icon"></div>
                 <span class="sidebar-text">Home</span>
             </div>
-            <div class="sidebar-item" onclick="scrollToSection('work')">
+            <div class="sidebar-item" onclick="showPage('work')">
                 <div class="sidebar-icon"></div>
                 <span class="sidebar-text">Projects</span>
             </div>
-            <div class="sidebar-item" onclick="scrollToSection('about')">
+            <div class="sidebar-item" onclick="showPage('about-page')">
                 <div class="sidebar-icon"></div>
                 <span class="sidebar-text">About</span>
             </div>
-            <div class="sidebar-item" onclick="scrollToSection('contact')">
+            <div class="sidebar-item" onclick="showPage('contact')">
                 <div class="sidebar-icon"></div>
                 <span class="sidebar-text">Contact</span>
             </div>
@@ -566,189 +893,368 @@
 
     <!-- Main Content -->
     <div class="main-content">
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-            <h1 class="hero-title">Digital Art & Technology</h1>
-            <p class="hero-subtitle">Creating the future through creativity and innovation</p>
-            <button class="cta-button">Explore My Work</button>
-        </section>
+        <!-- Home Page -->
+        <div class="page active" id="home">
+            <!-- Hero Section -->
+            <section class="hero">
+                <h1 class="hero-title">Digital Art & Technology</h1>
+                <p class="hero-subtitle">Creating the future through creativity and innovation</p>
+                <button class="cta-button" onclick="showPage('work')">Explore My Work</button>
+            </section>
+        </div>
 
-        <!-- Gallery Section -->
-        <section class="gallery" id="work">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="work-intro">
-                <p>Explore a curated selection of my latest work spanning digital art, interactive web experiences, and cutting-edge technology solutions. Each project represents a unique challenge solved through creativity and innovation.</p>
-            </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <div class="gallery-item-content">
-                        <h3>Neural Canvas</h3>
-                        <div class="project-details">
-                            <p>An AI-powered digital art generator that transforms emotions into visual masterpieces using machine learning algorithms.</p>
+        <!-- Work Page -->
+        <div class="page" id="work">
+            <section class="gallery">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="work-intro">
+                    <p>Explore a curated selection of my latest work spanning digital art, interactive web experiences, and cutting-edge technology solutions. Each project represents a unique challenge solved through creativity and innovation.</p>
+                </div>
+                <div class="gallery-grid">
+                    <div class="gallery-item" onclick="showPage('project-neural-canvas')">
+                        <div class="gallery-item-content">
+                            <h3>Neural Canvas</h3>
+                            <div class="project-details">
+                                <p>An AI-powered digital art generator that transforms emotions into visual masterpieces using machine learning algorithms.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" onclick="showPage('project-quantum-dashboard')">
+                        <div class="gallery-item-content">
+                            <h3>Quantum Dashboard</h3>
+                            <div class="project-details">
+                                <p>Real-time data visualization platform built with React and D3.js, featuring holographic UI elements and gesture controls.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" onclick="showPage('project-cyber-interface')">
+                        <div class="gallery-item-content">
+                            <h3>Cyber Interface</h3>
+                            <div class="project-details">
+                                <p>Futuristic UI/UX design system for a tech startup, emphasizing accessibility and immersive user experiences.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" onclick="showPage('project-voxelverse')">
+                        <div class="gallery-item-content">
+                            <h3>VoxelVerse</h3>
+                            <div class="project-details">
+                                <p>3D voxel-based world builder with real-time rendering, physics simulation, and multiplayer collaboration features.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" onclick="showPage('project-flux-motion')">
+                        <div class="gallery-item-content">
+                            <h3>Flux Motion</h3>
+                            <div class="project-details">
+                                <p>Award-winning motion graphics reel featuring fluid animations, particle systems, and abstract visual storytelling.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="gallery-item" onclick="showPage('project-codestream')">
+                        <div class="gallery-item-content">
+                            <h3>CodeStream</h3>
+                            <div class="project-details">
+                                <p>Open-source developer tool that visualizes code execution flow in real-time, helping teams debug faster.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <div class="gallery-item-content">
-                        <h3>Quantum Dashboard</h3>
-                        <div class="project-details">
-                            <p>Real-time data visualization platform built with React and D3.js, featuring holographic UI elements and gesture controls.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-item-content">
-                        <h3>Cyber Interface</h3>
-                        <div class="project-details">
-                            <p>Futuristic UI/UX design system for a tech startup, emphasizing accessibility and immersive user experiences.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-item-content">
-                        <h3>VoxelVerse</h3>
-                        <div class="project-details">
-                            <p>3D voxel-based world builder with real-time rendering, physics simulation, and multiplayer collaboration features.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-item-content">
-                        <h3>Flux Motion</h3>
-                        <div class="project-details">
-                            <p>Award-winning motion graphics reel featuring fluid animations, particle systems, and abstract visual storytelling.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <div class="gallery-item-content">
-                        <h3>CodeStream</h3>
-                        <div class="project-details">
-                            <p>Open-source developer tool that visualizes code execution flow in real-time, helping teams debug faster.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
-        <!-- About Section -->
-        <section class="about-section" id="about">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Digital Creator & Technologist</h3>
-                    <p>I'm a multidisciplinary artist and developer based in the intersection of creativity and technology. With over 8 years of experience, I specialize in crafting immersive digital experiences that push the boundaries of what's possible.</p>
-                    <p>My work explores the synthesis of art, code, and emerging technologies. From generative art installations to interactive web applications, I believe in creating meaningful experiences that resonate with people on both aesthetic and functional levels.</p>
-                    <p>When I'm not designing or coding, you'll find me experimenting with new frameworks, contributing to open-source projects, or exploring the latest advancements in AI and machine learning.</p>
+        <!-- Project Detail Pages -->
+        <div class="page" id="project-neural-canvas">
+            <div class="project-page">
+                <a href="#" class="back-button" onclick="showPage('work'); return false;">← Back to Projects</a>
+                
+                <div class="project-header">
+                    <h1 class="project-title">Neural Canvas</h1>
+                    <p class="project-subtitle">AI-Powered Generative Art Platform</p>
+                    <div class="project-tags">
+                        <span class="tag">Artificial Intelligence</span>
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">Digital Art</span>
+                        <span class="tag">Python</span>
+                        <span class="tag">TensorFlow</span>
+                    </div>
                 </div>
-                <div class="about-text">
-                    <h3>Philosophy & Approach</h3>
-                    <p>I believe that technology should be intuitive, beautiful, and accessible to everyone. My design philosophy centers on creating experiences that feel natural while incorporating cutting-edge innovation.</p>
-                    <p>Every project is an opportunity to learn, iterate, and push creative boundaries. I approach challenges with curiosity and a commitment to excellence, always striving to deliver work that exceeds expectations.</p>
-                </div>
-            </div>
 
-            <h3 style="text-align: center; color: #00d4ff; margin-bottom: 2rem; font-size: 2rem;">Technical Expertise</h3>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h4>Web Development</h4>
-                    <p style="color: #b0b0b0;">React, Node.js, Three.js</p>
-                    <div class="skill-level">
-                        <div class="skill-progress" style="width: 95%"></div>
-                    </div>
+                <div class="project-hero-image">
+                    🎨 Project Hero Image
                 </div>
-                <div class="skill-card">
-                    <h4>Digital Art</h4>
-                    <p style="color: #b0b0b0;">Photoshop, Illustrator, Blender</p>
-                    <div class="skill-level">
-                        <div class="skill-progress" style="width: 90%"></div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h4>UI/UX Design</h4>
-                    <p style="color: #b0b0b0;">Figma, Sketch, Prototyping</p>
-                    <div class="skill-level">
-                        <div class="skill-progress" style="width: 88%"></div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h4>3D Graphics</h4>
-                    <p style="color: #b0b0b0;">WebGL, Unity, Cinema 4D</p>
-                    <div class="skill-level">
-                        <div class="skill-progress" style="width: 85%"></div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h4>Animation</h4>
-                    <p style="color: #b0b0b0;">After Effects, GSAP, Lottie</p>
-                    <div class="skill-level">
-                        <div class="skill-progress" style="width: 92%"></div>
-                    </div>
-                </div>
-                <div class="skill-card">
-                    <h4>AI/ML</h4>
-                    <p style="color: #b0b0b0;">TensorFlow, PyTorch, GPT APIs</p>
-                    <div class="skill-level">
-                        <div class="skill-progress" style="width: 80%"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Contact Section -->
-        <section class="contact-section" id="contact">
-            <h2 class="section-title">Get In Touch</h2>
-            <p style="text-align: center; color: #b0b0b0; font-size: 1.1rem; margin-bottom: 2rem;">Have a project in mind or just want to chat? I'd love to hear from you. Let's create something amazing together.</p>
-            
-            <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">📧</div>
-                        <div>
-                            <h4>Email</h4>
-                            <p>hello@portfolio.com</p>
-                        </div>
+                <div class="project-content">
+                    <div class="project-description">
+                        <h3>Overview</h3>
+                        <p>Neural Canvas is an innovative AI-powered art generation platform that bridges the gap between human emotion and visual expression. Using advanced machine learning algorithms, the system analyzes emotional inputs and translates them into unique, stunning visual compositions.</p>
+                        
+                        <h3>The Challenge</h3>
+                        <p>Traditional digital art tools require extensive technical skills and time investment. We set out to democratize art creation by building a system that could understand abstract emotional concepts and translate them into concrete visual representations, making artistic expression accessible to everyone.</p>
+                        
+                        <h3>Solution & Implementation</h3>
+                        <p>We developed a custom neural network trained on thousands of artworks, each tagged with emotional metadata. The system uses a combination of GANs (Generative Adversarial Networks) and style transfer techniques to create original compositions. Users input their emotional state through a simple interface, and the AI generates a unique piece of art within seconds.</p>
+                        
+                        <h3>Results & Impact</h3>
+                        <p>Since launch, Neural Canvas has generated over 100,000 unique artworks and built a community of 15,000 active users. The platform has been featured in several art exhibitions and is being used by therapists as a tool for emotional expression and mental health therapy.</p>
                     </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">💼</div>
-                        <div>
-                            <h4>LinkedIn</h4>
-                            <p>linkedin.com/in/portfolio</p>
+
+                    <div class="project-info-card">
+                        <div class="info-item">
+                            <div class="info-label">Client</div>
+                            <div class="info-value">Personal Project</div>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">🐙</div>
-                        <div>
-                            <h4>GitHub</h4>
-                            <p>github.com/portfolio</p>
+                        <div class="info-item">
+                            <div class="info-label">Year</div>
+                            <div class="info-value">2024</div>
                         </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">🎨</div>
-                        <div>
-                            <h4>Behance</h4>
-                            <p>behance.net/portfolio</p>
+                        <div class="info-item">
+                            <div class="info-label">Role</div>
+                            <div class="info-value">Lead Developer & Designer</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Technologies</div>
+                            <div class="info-value">Python, TensorFlow, React, Node.js, MongoDB</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Links</div>
+                            <div class="info-value">
+                                <a href="#" style="color: #00d4ff; text-decoration: none;">Live Demo</a><br>
+                                <a href="#" style="color: #00d4ff; text-decoration: none;">GitHub</a>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <form class="contact-form" onsubmit="handleSubmit(event)">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required placeholder="Your name">
+                <div class="project-gallery">
+                    <h3>Project Gallery</h3>
+                    <div class="gallery-images">
+                        <div class="gallery-image">Interface Design</div>
+                        <div class="gallery-image">Generated Artwork 1</div>
+                        <div class="gallery-image">Generated Artwork 2</div>
+                        <div class="gallery-image">Neural Network Visualization</div>
+                        <div class="gallery-image">User Dashboard</div>
+                        <div class="gallery-image">Mobile App</div>
                     </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required placeholder="your.email@example.com">
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required placeholder="Tell me about your project..."></textarea>
-                    </div>
-                    <button type="submit" class="submit-button">Send Message</button>
-                </form>
+                </div>
             </div>
-        </section>
+        </div>
+
+        <!-- Additional project pages would follow the same template -->
+        <!-- For brevity, I'll create one more example -->
+        
+        <div class="page" id="project-quantum-dashboard">
+            <div class="project-page">
+                <a href="#" class="back-button" onclick="showPage('work'); return false;">← Back to Projects</a>
+                
+                <div class="project-header">
+                    <h1 class="project-title">Quantum Dashboard</h1>
+                    <p class="project-subtitle">Next-Gen Data Visualization Platform</p>
+                    <div class="project-tags">
+                        <span class="tag">Data Visualization</span>
+                        <span class="tag">React</span>
+                        <span class="tag">D3.js</span>
+                        <span class="tag">WebGL</span>
+                        <span class="tag">Real-time</span>
+                    </div>
+                </div>
+
+                <div class="project-hero-image">
+                    📊 Project Hero Image
+                </div>
+
+                <div class="project-content">
+                    <div class="project-description">
+                        <h3>Overview</h3>
+                        <p>Quantum Dashboard reimagines how organizations interact with complex data sets. Built for enterprise clients, this platform combines cutting-edge visualization techniques with intuitive gesture controls to create an immersive data exploration experience.</p>
+                        
+                        <h3>The Challenge</h3>
+                        <p>Enterprise teams were drowning in data but lacked tools to visualize relationships and patterns effectively. Traditional dashboards felt static and failed to reveal the dynamic nature of real-time business intelligence.</p>
+                        
+                        <h3>Solution & Implementation</h3>
+                        <p>We developed a holographic-style interface using WebGL and custom shaders, enabling 3D data visualization that users can manipulate through gestures and voice commands. The dashboard processes millions of data points in real-time, using WebWorkers and optimized rendering techniques to maintain 60fps performance.</p>
+                        
+                        <h3>Results & Impact</h3>
+                        <p>Deployed across 50+ enterprise teams, Quantum Dashboard reduced data analysis time by 65% and improved decision-making speed by 40%. The platform won the 2024 Innovation Award at the Tech Summit conference.</p>
+                    </div>
+
+                    <div class="project-info-card">
+                        <div class="info-item">
+                            <div class="info-label">Client</div>
+                            <div class="info-value">Enterprise Solutions Inc.</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Year</div>
+                            <div class="info-value">2024</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Role</div>
+                            <div class="info-value">Technical Lead</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Technologies</div>
+                            <div class="info-value">React, D3.js, WebGL, Three.js, PostgreSQL</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Awards</div>
+                            <div class="info-value">Tech Summit Innovation Award 2024</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-gallery">
+                    <h3>Project Gallery</h3>
+                    <div class="gallery-images">
+                        <div class="gallery-image">3D Visualization</div>
+                        <div class="gallery-image">Gesture Controls</div>
+                        <div class="gallery-image">Real-time Analytics</div>
+                        <div class="gallery-image">Mobile Interface</div>
+                        <div class="gallery-image">Data Flow</div>
+                        <div class="gallery-image">User Testing</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Page -->
+        <div class="page" id="about-page">
+            <div class="about-page">
+                <div class="about-hero">
+                    <div class="about-image">
+                        👤 Your Photo
+                    </div>
+                    <div class="about-text-main">
+                        <h1>About Me</h1>
+                        <p>I'm a multidisciplinary digital creator passionate about blending art with technology. With over 8 years of experience in design and development, I specialize in creating immersive experiences that push creative boundaries.</p>
+                        <p>My journey began with traditional art, evolved through graphic design, and now encompasses everything from AI-powered applications to interactive 3D experiences. I believe technology is most powerful when it amplifies human creativity.</p>
+                        <p>Based in the creative hub of the digital frontier, I work with clients worldwide to bring innovative ideas to life.</p>
+                        
+                        <div class="social-links">
+                            <a href="#" class="social-link">📧 Email</a>
+                            <a href="#" class="social-link">💼 LinkedIn</a>
+                            <a href="#" class="social-link">🐙 GitHub</a>
+                            <a href="#" class="social-link">🎨 Behance</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="about-content">
+                    <div class="about-text">
+                        <h3>What I Do</h3>
+                        <p>I specialize in creating digital experiences that sit at the intersection of art, design, and technology. From AI-powered creative tools to immersive web experiences, my work explores new ways of human-computer interaction.</p>
+                        <p>My approach combines technical excellence with artistic vision, ensuring every project not only functions flawlessly but also delights and inspires users.</p>
+                    </div>
+                    <div class="about-text">
+                        <h3>Let's Collaborate</h3>
+                        <p>I'm always interested in new challenges and creative collaborations. Whether you have a project in mind or just want to chat about the future of digital creativity, feel free to reach out.</p>
+                        <p>Available for freelance projects, consulting, and speaking engagements.</p>
+                    </div>
+                </div>
+
+                <h3 style="text-align: center; color: #00d4ff; margin: 4rem 0 2rem; font-size: 2rem;">Technical Expertise</h3>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <h4>Web Development</h4>
+                        <p style="color: #b0b0b0;">React, Node.js, Three.js</p>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <h4>Digital Art</h4>
+                        <p style="color: #b0b0b0;">Photoshop, Illustrator, Blender</p>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <h4>UI/UX Design</h4>
+                        <p style="color: #b0b0b0;">Figma, Sketch, Prototyping</p>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 88%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <h4>3D Graphics</h4>
+                        <p style="color: #b0b0b0;">WebGL, Unity, Cinema 4D</p>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <h4>Animation</h4>
+                        <p style="color: #b0b0b0;">After Effects, GSAP, Lottie</p>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 92%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <h4>AI/ML</h4>
+                        <p style="color: #b0b0b0;">TensorFlow, PyTorch, GPT APIs</p>
+                        <div class="skill-level">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Page -->
+        <div class="page" id="contact">
+            <section class="contact-section">
+                <h2 class="section-title">Get In Touch</h2>
+                <p style="text-align: center; color: #b0b0b0; font-size: 1.1rem; margin-bottom: 2rem;">Have a project in mind or just want to chat? I'd love to hear from you. Let's create something amazing together.</p>
+                
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">📧</div>
+                            <div>
+                                <h4>Email</h4>
+                                <p>hello@portfolio.com</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">💼</div>
+                            <div>
+                                <h4>LinkedIn</h4>
+                                <p>linkedin.com/in/portfolio</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">🐙</div>
+                            <div>
+                                <h4>GitHub</h4>
+                                <p>github.com/portfolio</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">🎨</div>
+                            <div>
+                                <h4>Behance</h4>
+                                <p>behance.net/portfolio</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form class="contact-form" onsubmit="handleSubmit(event)">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required placeholder="Your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required placeholder="Tell me about your project..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-button">Send Message</button>
+                    </form>
+                </div>
+            </section>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -757,28 +1263,59 @@
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+        // Page Navigation System
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
             });
-        });
-
-        // Scroll to section function for sidebar
-        function scrollToSection(sectionId) {
-            const section = document.getElementById(sectionId);
-            if (section) {
-                section.scrollIntoView({ behavior: 'smooth' });
+            
+            // Show selected page
+            const selectedPage = document.getElementById(pageId);
+            if (selectedPage) {
+                selectedPage.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+            
+            // Close mobile menu if open
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            if (mobileMenu && mobileMenuToggle) {
+                mobileMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
             }
         }
 
-        // CTA Button functionality
-        document.querySelector('.cta-button').addEventListener('click', function() {
-            document.querySelector('#work').scrollIntoView({ behavior: 'smooth' });
+        // Mobile menu toggle
+        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            this.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            
+            if (!mobileMenu.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+                mobileMenuToggle.classList.remove('active');
+            }
+        });
+
+        // Smooth scrolling for navigation links (legacy support)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const href = this.getAttribute('href');
+                if (href && href !== '#') {
+                    const target = document.querySelector(href);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
         });
 
         // Gallery item click effect
