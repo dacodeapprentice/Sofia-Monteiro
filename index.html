@@ -1,1364 +1,232 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio | Digital Art & Technology</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
-            color: #ffffff;
-            overflow-x: hidden;
-        }
-
-        /* Top Navigation Bar */
-        .top-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 70px;
-            background: rgba(10, 10, 10, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid #0066ff;
-            display: flex;
-            align-items: center;
-            padding: 0 2rem;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 102, 255, 0.3);
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #0066ff, #00d4ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 2px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            margin-left: auto;
-        }
-
-        .nav-links a {
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            position: relative;
-            padding: 0.5rem 1rem;
-        }
-
-        .nav-links a:hover {
-            color: #00d4ff;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, #0066ff, #00d4ff);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 70px;
-            width: 60px;
-            height: calc(100vh - 70px);
-            background: rgba(10, 10, 10, 0.95);
-            border-right: 2px solid #0066ff;
-            z-index: 999;
-            transition: width 0.3s ease;
-            overflow: hidden;
-        }
-
-        .sidebar:hover {
-            width: 200px;
-        }
-
-        .sidebar-items {
-            padding: 2rem 0;
-        }
-
-        .sidebar-item {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            white-space: nowrap;
-            margin: 0.5rem 0;
-        }
-
-        .sidebar-item:hover {
-            background: rgba(0, 102, 255, 0.2);
-            border-left: 4px solid #00d4ff;
-        }
-
-        .sidebar-icon {
-            width: 24px;
-            height: 24px;
-            min-width: 24px;
-            background: #00d4ff;
-            border-radius: 5px;
-            margin-right: 1rem;
-        }
-
-        .sidebar-text {
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            font-size: 0.95rem;
-            color: #ffffff;
-        }
-
-        .sidebar:hover .sidebar-text {
-            opacity: 1;
-        }
-
-        /* Main Content */
-        .main-content {
-            margin-left: 60px;
-            margin-top: 70px;
-            padding: 3rem;
-            min-height: calc(100vh - 70px);
-        }
-
-        /* Hero Section */
-        .hero {
-            height: calc(100vh - 140px);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(0, 102, 255, 0.2), transparent);
-            border-radius: 50%;
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-            50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
-        }
-
-        .hero-title {
-            font-size: 4rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #ffffff, #00d4ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            z-index: 1;
-            animation: fadeInUp 1s ease;
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: #b0b0b0;
-            margin-bottom: 2rem;
-            z-index: 1;
-            animation: fadeInUp 1s ease 0.2s both;
-        }
-
-        .cta-button {
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            background: linear-gradient(135deg, #0066ff, #00d4ff);
-            border: none;
-            border-radius: 50px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            z-index: 1;
-            animation: fadeInUp 1s ease 0.4s both;
-            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.4);
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 102, 255, 0.6);
-        }
-
-        /* Gallery Section */
-        .gallery {
-            margin-top: 5rem;
-            animation: fadeInUp 1s ease 0.6s both;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            text-align: center;
-            background: linear-gradient(135deg, #ffffff, #0066ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 5rem;
-        }
-
-        .gallery-item {
-            height: 300px;
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 212, 255, 0.1));
-            border: 2px solid #0066ff;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .gallery-item::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.3), transparent);
-            transform: rotate(45deg);
-            transition: all 0.6s ease;
-        }
-
-        .gallery-item:hover::before {
-            left: 100%;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 102, 255, 0.5);
-            border-color: #00d4ff;
-        }
-
-        .gallery-item-content {
-            font-size: 1.2rem;
-            z-index: 1;
-            text-align: center;
-            padding: 2rem;
-        }
-
-        /* About Section */
-        .about-section {
-            padding: 5rem 0;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            margin-bottom: 4rem;
-        }
-
-        .about-text h3 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            color: #00d4ff;
-        }
-
-        .about-text p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #b0b0b0;
-            margin-bottom: 1rem;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-
-        .skill-card {
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 212, 255, 0.1));
-            border: 2px solid #0066ff;
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.4);
-        }
-
-        .skill-card h4 {
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: #00d4ff;
-        }
-
-        .skill-level {
-            width: 100%;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 3px;
-            margin-top: 1rem;
-            overflow: hidden;
-        }
-
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, #0066ff, #00d4ff);
-            border-radius: 3px;
-            transition: width 1s ease;
-        }
-
-        /* Contact Section */
-        .contact-section {
-            padding: 5rem 0;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            margin-top: 3rem;
-        }
-
-        .contact-info {
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 212, 255, 0.1));
-            border: 2px solid #0066ff;
-            border-radius: 15px;
-            padding: 2rem;
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            min-width: 50px;
-            background: linear-gradient(135deg, #0066ff, #00d4ff);
-            border-radius: 10px;
-            margin-right: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-
-        .contact-item h4 {
-            color: #00d4ff;
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-item p {
-            color: #b0b0b0;
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .form-group label {
-            color: #00d4ff;
-            margin-bottom: 0.5rem;
-            font-size: 1rem;
-        }
-
-        .form-group input,
-        .form-group textarea {
-            background: rgba(0, 102, 255, 0.05);
-            border: 2px solid #0066ff;
-            border-radius: 10px;
-            padding: 1rem;
-            color: #ffffff;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #00d4ff;
-            box-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
-        }
-
-        .form-group textarea {
-            resize: vertical;
-            min-height: 150px;
-        }
-
-        .submit-button {
-            padding: 1rem 2rem;
-            font-size: 1.1rem;
-            background: linear-gradient(135deg, #0066ff, #00d4ff);
-            border: none;
-            border-radius: 50px;
-            color: white;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.4);
-        }
-
-        .submit-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(0, 102, 255, 0.6);
-        }
-
-        /* Work Page Enhancements */
-        .work-intro {
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 4rem;
-            padding: 2rem;
-        }
-
-        .work-intro p {
-            font-size: 1.2rem;
-            color: #b0b0b0;
-            line-height: 1.8;
-        }
-
-        .project-details {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            padding: 1.5rem;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
-            transform: translateY(100%);
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover .project-details {
-            transform: translateY(0);
-        }
-
-        .project-details p {
-            font-size: 0.9rem;
-            color: #b0b0b0;
-            margin-top: 0.5rem;
-        }
-
-        /* Footer */
-        .footer {
-            background: rgba(10, 10, 10, 0.95);
-            border-top: 2px solid #0066ff;
-            padding: 2rem;
-            text-align: center;
-            color: #b0b0b0;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .sidebar {
-                display: none;
-            }
-
-            .mobile-menu-toggle {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-            
-            .main-content {
-                margin-left: 0;
-                padding: 1.5rem;
-            }
-            
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.2rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .gallery-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Page Container */
-        .page {
-            display: none;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        /* Project Detail Page */
-        .project-page {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 0;
-        }
-
-        .project-header {
-            text-align: center;
-            margin-bottom: 4rem;
-        }
-
-        .project-title {
-            font-size: 3.5rem;
-            background: linear-gradient(135deg, #ffffff, #00d4ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1rem;
-        }
-
-        .project-subtitle {
-            font-size: 1.3rem;
-            color: #b0b0b0;
-            margin-bottom: 2rem;
-        }
-
-        .project-tags {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .tag {
-            padding: 0.5rem 1.5rem;
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 212, 255, 0.2));
-            border: 2px solid #0066ff;
-            border-radius: 20px;
-            color: #00d4ff;
-            font-size: 0.9rem;
-        }
-
-        .project-hero-image {
-            width: 100%;
-            height: 500px;
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 212, 255, 0.2));
-            border: 2px solid #0066ff;
-            border-radius: 20px;
-            margin-bottom: 4rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: #00d4ff;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .project-hero-image::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-            animation: shimmer 3s infinite;
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
-        }
-
-        .project-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 4rem;
-            margin-bottom: 4rem;
-        }
-
-        .project-description h3 {
-            font-size: 2rem;
-            color: #00d4ff;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-description p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #b0b0b0;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-info-card {
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.1), rgba(0, 212, 255, 0.1));
-            border: 2px solid #0066ff;
-            border-radius: 15px;
-            padding: 2rem;
-            height: fit-content;
-        }
-
-        .info-item {
-            margin-bottom: 2rem;
-        }
-
-        .info-item:last-child {
-            margin-bottom: 0;
-        }
-
-        .info-label {
-            font-size: 0.9rem;
-            color: #00d4ff;
-            margin-bottom: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .info-value {
-            font-size: 1.1rem;
-            color: #ffffff;
-        }
-
-        .project-gallery {
-            margin-top: 4rem;
-        }
-
-        .project-gallery h3 {
-            font-size: 2rem;
-            color: #00d4ff;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-
-        .gallery-images {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .gallery-image {
-            height: 300px;
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.15), rgba(0, 212, 255, 0.15));
-            border: 2px solid #0066ff;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #00d4ff;
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .gallery-image:hover {
-            transform: scale(1.02);
-            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.4);
-        }
-
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 212, 255, 0.2));
-            border: 2px solid #0066ff;
-            border-radius: 50px;
-            color: #ffffff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 2rem;
-            text-decoration: none;
-        }
-
-        .back-button:hover {
-            background: linear-gradient(135deg, #0066ff, #00d4ff);
-            transform: translateX(-5px);
-            box-shadow: 0 5px 20px rgba(0, 102, 255, 0.4);
-        }
-
-        /* About Page Specific */
-        .about-page {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 3rem 0;
-        }
-
-        .about-hero {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            margin-bottom: 4rem;
-        }
-
-        .about-image {
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 212, 255, 0.2));
-            border: 2px solid #0066ff;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .about-image::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 212, 255, 0.1), transparent);
-            animation: shimmer 3s infinite;
-        }
-
-        .about-text-main h1 {
-            font-size: 3rem;
-            background: linear-gradient(135deg, #ffffff, #00d4ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-text-main p {
-            font-size: 1.2rem;
-            line-height: 1.8;
-            color: #b0b0b0;
-            margin-bottom: 1rem;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .social-link {
-            padding: 1rem 2rem;
-            background: linear-gradient(135deg, rgba(0, 102, 255, 0.2), rgba(0, 212, 255, 0.2));
-            border: 2px solid #0066ff;
-            border-radius: 50px;
-            color: #ffffff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .social-link:hover {
-            background: linear-gradient(135deg, #0066ff, #00d4ff);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 102, 255, 0.4);
-        }
-
-        @media (max-width: 768px) {
-            .project-content {
-                grid-template-columns: 1fr;
-            }
-
-            .about-hero {
-                grid-template-columns: 1fr;
-            }
-
-            .project-title {
-                font-size: 2.5rem;
-            }
-
-            .gallery-images {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alex Chen • Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:Inter,sans-serif;background:#0b1220;color:#e5e7eb;line-height:1.6;overflow-x:hidden}.header{position:sticky;top:0;z-index:1000;background:rgba(11,18,32,.95);backdrop-filter:blur(10px);border-bottom:1px solid #1f3b77}.nav-container{max-width:1200px;margin:0 auto;padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}.brand{display:flex;align-items:center;gap:.75rem;font-size:1.25rem;font-weight:600;color:#93c5fd;text-decoration:none;cursor:pointer}.brand-icon{width:32px;height:32px;background:linear-gradient(135deg,#1f3b77,#2563eb);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.25rem}.nav-links{display:flex;gap:.5rem}.nav-link{padding:.5rem 1rem;color:#e5e7eb;text-decoration:none;border-radius:6px;transition:all .3s;cursor:pointer}.nav-link:hover,.nav-link.active{background:#1f3b77;color:#93c5fd}.mobile-toggle{display:none;background:0 0;border:none;color:#93c5fd;font-size:1.5rem;cursor:pointer}section{display:none;min-height:calc(100vh - 80px);padding:4rem 2rem}section.active{display:block;animation:fadeIn .4s}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.container{max-width:1200px;margin:0 auto}h1{font-size:3rem;color:#eaf2ff;margin-bottom:1rem}h2{font-size:2rem;color:#c7d2fe;margin-bottom:1rem}h3{font-size:1.5rem;color:#93c5fd;margin-bottom:.75rem}.subtitle{font-size:1.25rem;color:#9ca3af;margin-bottom:2rem}.hero{display:flex;align-items:center;gap:3rem;flex-wrap:wrap}.hero-content{flex:1;min-width:300px}.hero-visual{flex:1;min-width:300px}.hero-image{width:100%;height:400px;border-radius:16px;border:1px solid #1f3b77;background:linear-gradient(135deg,#1f3b77,#0d1526);display:flex;align-items:center;justify-content:center;font-size:6rem}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:3rem}.stat-card{background:#14213a;border:1px solid #1f3b77;border-radius:12px;padding:1.5rem;text-align:center}.stat-value{font-size:2.5rem;font-weight:700;color:#2563eb;margin-bottom:.5rem}.stat-label{color:#9ca3af;font-size:.875rem}.cta-buttons{display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap}.btn{padding:.75rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:500;transition:all .3s;cursor:pointer;border:none;font-size:1rem;display:inline-flex;align-items:center;gap:.5rem}.btn-primary{background:#1f3b77;color:#eaf2ff;border:1px solid #2563eb}.btn-primary:hover{background:#2563eb;transform:translateY(-2px)}.btn-secondary{background:0 0;color:#93c5fd;border:1px solid #1f3b77}.btn-secondary:hover{background:#1f3b77}.works-grid,.documents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;margin-top:2rem}.work-card,.doc-card{background:#14213a;border:1px solid #1f3b77;border-radius:12px;overflow:hidden;transition:all .3s}.work-card:hover,.doc-card:hover{transform:translateY(-5px);border-color:#2563eb}.work-image{width:100%;height:200px;background:linear-gradient(135deg,#1f3b77,#0d1526);display:flex;align-items:center;justify-content:center;font-size:4rem}.work-content,.doc-content{padding:1.5rem}.work-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:.75rem}.work-title{font-size:1.25rem;color:#eaf2ff}.work-year{background:#1f3b77;color:#93c5fd;padding:.25rem .75rem;border-radius:4px;font-size:.875rem}.work-description{color:#9ca3af;margin-bottom:1rem;font-size:.925rem}.tags{display:flex;gap:.5rem;flex-wrap:wrap}.tag{background:#0d1526;color:#93c5fd;padding:.25rem .75rem;border-radius:4px;font-size:.875rem;border:1px solid #1f3b77}.doc-card{padding:1.5rem}.doc-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}.doc-icon{width:48px;height:48px;background:#1f3b77;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}.doc-meta{font-size:.875rem;color:#9ca3af;margin-top:.25rem}.about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:3rem;margin-top:2rem}.profile-card{background:#14213a;border:1px solid #1f3b77;border-radius:12px;overflow:hidden}.profile-image{width:100%;height:300px;background:linear-gradient(135deg,#1f3b77,#2563eb);display:flex;align-items:center;justify-content:center;font-size:8rem}.profile-info{padding:1.5rem}.profile-name{font-size:1.5rem;color:#eaf2ff;margin-bottom:.5rem}.profile-role{color:#93c5fd;margin-bottom:1rem}.content-card{background:#14213a;border:1px solid #1f3b77;border-radius:12px;padding:2rem;margin-bottom:1.5rem}.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-top:1rem}.skill-item{display:flex;align-items:center;gap:.75rem;padding:.75rem;background:#0d1526;border-radius:8px;border:1px solid #1f3b77}.form-group{margin-bottom:1.5rem}.form-label{display:block;margin-bottom:.5rem;color:#c7d2fe;font-weight:500}.form-input,.form-textarea{width:100%;padding:.75rem;background:#0d1526;border:1px solid #1f3b77;border-radius:8px;color:#e5e7eb;font-family:inherit;font-size:1rem;transition:all .3s}.form-input:focus,.form-textarea:focus{outline:0;border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}.form-textarea{resize:vertical;min-height:120px}.contact-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-bottom:2rem}.contact-item{display:flex;align-items:center;gap:1rem;padding:1rem;background:#0d1526;border:1px solid #1f3b77;border-radius:8px}.contact-icon{width:40px;height:40px;background:#1f3b77;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.25rem}.contact-label{font-size:.875rem;color:#9ca3af}.contact-value{color:#93c5fd}.footer{background:#0d1526;border-top:1px solid #1f3b77;padding:2rem;margin-top:4rem;text-align:center;color:#9ca3af}@media(max-width:768px){.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(11,18,32,.98);flex-direction:column;padding:1rem;border-top:1px solid #1f3b77}.nav-links.active{display:flex}.mobile-toggle{display:block}h1{font-size:2rem}.hero{flex-direction:column}}
+  </style>
 </head>
 <body>
-    <!-- Top Navigation -->
-    <nav class="top-nav">
-        <div class="logo">PORTFOLIO</div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
-        </div>
+  <header class="header">
+    <nav class="nav-container">
+      <a class="brand" data-nav="home"><div class="brand-icon">💼</div><span>Alex Chen</span></a>
+      <div class="nav-links" id="navLinks">
+        <a class="nav-link active" data-nav="home">Home</a>
+        <a class="nav-link" data-nav="works">Works</a>
+        <a class="nav-link" data-nav="documents">Documents</a>
+        <a class="nav-link" data-nav="about">About</a>
+      </div>
+      <button class="mobile-toggle" id="mobileToggle">☰</button>
     </nav>
+  </header>
 
-    <!-- Mobile Menu Toggle -->
-    <button class="mobile-menu-toggle" id="mobileMenuToggle">
-        <div class="hamburger"></div>
-    </button>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <div class="mobile-menu-items">
-            <div class="mobile-menu-item" onclick="showPage('home')">Home</div>
-            <div class="mobile-menu-item" onclick="showPage('work')">Projects</div>
-            <div class="mobile-menu-item" onclick="showPage('about-page')">About</div>
-            <div class="mobile-menu-item" onclick="showPage('contact')">Contact</div>
+  <section id="home" class="active">
+    <div class="container">
+      <div class="hero">
+        <div class="hero-content">
+          <h1>Hi, I'm Alex Chen</h1>
+          <p class="subtitle">Product Manager • Systems Architect • Technology Leader</p>
+          <p style="color:#9ca3af;max-width:600px;margin-bottom:2rem">I build resilient software systems with a focus on security, performance, and user experience. With 8+ years of experience, I've led teams and delivered solutions across B2B platforms, developer tools, and cloud infrastructure.</p>
+          <div class="cta-buttons">
+            <button class="btn btn-primary" data-nav="works">View My Work</button>
+            <button class="btn btn-secondary" data-nav="about">Get In Touch</button>
+          </div>
         </div>
+        <div class="hero-visual"><div class="hero-image">👨‍💻</div></div>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-value">8+</div><div class="stat-label">Years Experience</div></div>
+        <div class="stat-card"><div class="stat-value">15</div><div class="stat-label">Projects Launched</div></div>
+        <div class="stat-card"><div class="stat-value">6</div><div class="stat-label">Teams Led</div></div>
+      </div>
     </div>
+  </section>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-items">
-            <div class="sidebar-item" onclick="showPage('home')">
-                <div class="sidebar-icon"></div>
-                <span class="sidebar-text">Home</span>
-            </div>
-            <div class="sidebar-item" onclick="showPage('work')">
-                <div class="sidebar-icon"></div>
-                <span class="sidebar-text">Projects</span>
-            </div>
-            <div class="sidebar-item" onclick="showPage('about-page')">
-                <div class="sidebar-icon"></div>
-                <span class="sidebar-text">About</span>
-            </div>
-            <div class="sidebar-item" onclick="showPage('contact')">
-                <div class="sidebar-icon"></div>
-                <span class="sidebar-text">Contact</span>
-            </div>
-        </div>
+  <section id="works">
+    <div class="container">
+      <h1>Selected Works</h1>
+      <p class="subtitle">Projects across platforms, data systems, and developer tools</p>
+      <div class="works-grid">
+        <article class="work-card">
+          <div class="work-image">🏢</div>
+          <div class="work-content">
+            <div class="work-header"><h3 class="work-title">Enterprise Platform Revamp</h3><span class="work-year">2024</span></div>
+            <p class="work-description">Led end-to-end overhaul of navigation, permissions, and reporting, driving +18% feature adoption.</p>
+            <div class="tags"><span class="tag">Platform</span><span class="tag">B2B</span><span class="tag">React</span></div>
+          </div>
+        </article>
+        <article class="work-card">
+          <div class="work-image">💰</div>
+          <div class="work-content">
+            <div class="work-header"><h3 class="work-title">Usage-based Pricing System</h3><span class="work-year">2023</span></div>
+            <p class="work-description">Designed metering and packaging strategy, increasing NRR from 101% to 112% within two quarters.</p>
+            <div class="tags"><span class="tag">SaaS</span><span class="tag">Pricing</span><span class="tag">Analytics</span></div>
+          </div>
+        </article>
+        <article class="work-card">
+          <div class="work-image">🤖</div>
+          <div class="work-content">
+            <div class="work-header"><h3 class="work-title">AI-assisted Review Queues</h3><span class="work-year">2022</span></div>
+            <p class="work-description">Shipped ML prioritization cutting handling time by 28% while maintaining QA standards.</p>
+            <div class="tags"><span class="tag">AI/ML</span><span class="tag">Python</span><span class="tag">Operations</span></div>
+          </div>
+        </article>
+        <article class="work-card">
+          <div class="work-image">🔧</div>
+          <div class="work-content">
+            <div class="work-header"><h3 class="work-title">Developer Platform DX</h3><span class="work-year">2023</span></div>
+            <p class="work-description">Unified docs, SDKs, and auth flows, reducing time-to-first-call from 30 min to under 7 min.</p>
+            <div class="tags"><span class="tag">Platform</span><span class="tag">DevEx</span><span class="tag">API</span></div>
+          </div>
+        </article>
+        <article class="work-card">
+          <div class="work-image">📊</div>
+          <div class="work-content">
+            <div class="work-header"><h3 class="work-title">Real-time Analytics Dashboard</h3><span class="work-year">2024</span></div>
+            <p class="work-description">Built streaming visualization platform handling 100k+ events per second with progressive rendering.</p>
+            <div class="tags"><span class="tag">Web</span><span class="tag">Real-time</span><span class="tag">TypeScript</span></div>
+          </div>
+        </article>
+        <article class="work-card">
+          <div class="work-image">🔄</div>
+          <div class="work-content">
+            <div class="work-header"><h3 class="work-title">Revenue Operations Sync</h3><span class="work-year">2022</span></div>
+            <p class="work-description">Connected CRM, billing, and support systems to improve churn prediction accuracy by 40%.</p>
+            <div class="tags"><span class="tag">SaaS</span><span class="tag">RevOps</span><span class="tag">Integration</span></div>
+          </div>
+        </article>
+      </div>
     </div>
+  </section>
 
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Home Page -->
-        <div class="page active" id="home">
-            <!-- Hero Section -->
-            <section class="hero">
-                <h1 class="hero-title">Digital Art & Technology</h1>
-                <p class="hero-subtitle">Creating the future through creativity and innovation</p>
-                <button class="cta-button" onclick="showPage('work')">Explore My Work</button>
-            </section>
+  <section id="documents">
+    <div class="container">
+      <h1>Documents & Resources</h1>
+      <p class="subtitle">Resumes, case studies, and presentation materials</p>
+      <div class="documents-grid">
+        <div class="doc-card">
+          <div class="doc-header">
+            <div class="doc-icon">📄</div>
+            <div><h3>Resume (2024)</h3><div class="doc-meta">PDF • 2 pages</div></div>
+          </div>
+          <p class="work-description">Latest professional resume highlighting leadership experience, technical skills, and key achievements.</p>
+          <div class="cta-buttons"><button class="btn btn-primary">Download</button><button class="btn btn-secondary">Preview</button></div>
         </div>
-
-        <!-- Work Page -->
-        <div class="page" id="work">
-            <section class="gallery">
-                <h2 class="section-title">Featured Projects</h2>
-                <div class="work-intro">
-                    <p>Explore a curated selection of my latest work spanning digital art, interactive web experiences, and cutting-edge technology solutions. Each project represents a unique challenge solved through creativity and innovation.</p>
-                </div>
-                <div class="gallery-grid">
-                    <div class="gallery-item" onclick="showPage('project-neural-canvas')">
-                        <div class="gallery-item-content">
-                            <h3>Neural Canvas</h3>
-                            <div class="project-details">
-                                <p>An AI-powered digital art generator that transforms emotions into visual masterpieces using machine learning algorithms.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="gallery-item" onclick="showPage('project-quantum-dashboard')">
-                        <div class="gallery-item-content">
-                            <h3>Quantum Dashboard</h3>
-                            <div class="project-details">
-                                <p>Real-time data visualization platform built with React and D3.js, featuring holographic UI elements and gesture controls.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="gallery-item" onclick="showPage('project-cyber-interface')">
-                        <div class="gallery-item-content">
-                            <h3>Cyber Interface</h3>
-                            <div class="project-details">
-                                <p>Futuristic UI/UX design system for a tech startup, emphasizing accessibility and immersive user experiences.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="gallery-item" onclick="showPage('project-voxelverse')">
-                        <div class="gallery-item-content">
-                            <h3>VoxelVerse</h3>
-                            <div class="project-details">
-                                <p>3D voxel-based world builder with real-time rendering, physics simulation, and multiplayer collaboration features.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="gallery-item" onclick="showPage('project-flux-motion')">
-                        <div class="gallery-item-content">
-                            <h3>Flux Motion</h3>
-                            <div class="project-details">
-                                <p>Award-winning motion graphics reel featuring fluid animations, particle systems, and abstract visual storytelling.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="gallery-item" onclick="showPage('project-codestream')">
-                        <div class="gallery-item-content">
-                            <h3>CodeStream</h3>
-                            <div class="project-details">
-                                <p>Open-source developer tool that visualizes code execution flow in real-time, helping teams debug faster.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+        <div class="doc-card">
+          <div class="doc-header">
+            <div class="doc-icon">📊</div>
+            <div><h3>Case Study: Pricing</h3><div class="doc-meta">PDF • 8 pages</div></div>
+          </div>
+          <p class="work-description">Deep dive into usage-based pricing implementation with context, approach, trade-offs, and outcomes.</p>
+          <div class="cta-buttons"><button class="btn btn-primary">Download</button><button class="btn btn-secondary">Preview</button></div>
         </div>
-
-        <!-- Project Detail Pages -->
-        <div class="page" id="project-neural-canvas">
-            <div class="project-page">
-                <a href="#" class="back-button" onclick="showPage('work'); return false;">← Back to Projects</a>
-                
-                <div class="project-header">
-                    <h1 class="project-title">Neural Canvas</h1>
-                    <p class="project-subtitle">AI-Powered Generative Art Platform</p>
-                    <div class="project-tags">
-                        <span class="tag">Artificial Intelligence</span>
-                        <span class="tag">Machine Learning</span>
-                        <span class="tag">Digital Art</span>
-                        <span class="tag">Python</span>
-                        <span class="tag">TensorFlow</span>
-                    </div>
-                </div>
-
-                <div class="project-hero-image">
-                    🎨 Project Hero Image
-                </div>
-
-                <div class="project-content">
-                    <div class="project-description">
-                        <h3>Overview</h3>
-                        <p>Neural Canvas is an innovative AI-powered art generation platform that bridges the gap between human emotion and visual expression. Using advanced machine learning algorithms, the system analyzes emotional inputs and translates them into unique, stunning visual compositions.</p>
-                        
-                        <h3>The Challenge</h3>
-                        <p>Traditional digital art tools require extensive technical skills and time investment. We set out to democratize art creation by building a system that could understand abstract emotional concepts and translate them into concrete visual representations, making artistic expression accessible to everyone.</p>
-                        
-                        <h3>Solution & Implementation</h3>
-                        <p>We developed a custom neural network trained on thousands of artworks, each tagged with emotional metadata. The system uses a combination of GANs (Generative Adversarial Networks) and style transfer techniques to create original compositions. Users input their emotional state through a simple interface, and the AI generates a unique piece of art within seconds.</p>
-                        
-                        <h3>Results & Impact</h3>
-                        <p>Since launch, Neural Canvas has generated over 100,000 unique artworks and built a community of 15,000 active users. The platform has been featured in several art exhibitions and is being used by therapists as a tool for emotional expression and mental health therapy.</p>
-                    </div>
-
-                    <div class="project-info-card">
-                        <div class="info-item">
-                            <div class="info-label">Client</div>
-                            <div class="info-value">Personal Project</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Year</div>
-                            <div class="info-value">2024</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Role</div>
-                            <div class="info-value">Lead Developer & Designer</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Technologies</div>
-                            <div class="info-value">Python, TensorFlow, React, Node.js, MongoDB</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Links</div>
-                            <div class="info-value">
-                                <a href="#" style="color: #00d4ff; text-decoration: none;">Live Demo</a><br>
-                                <a href="#" style="color: #00d4ff; text-decoration: none;">GitHub</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-gallery">
-                    <h3>Project Gallery</h3>
-                    <div class="gallery-images">
-                        <div class="gallery-image">Interface Design</div>
-                        <div class="gallery-image">Generated Artwork 1</div>
-                        <div class="gallery-image">Generated Artwork 2</div>
-                        <div class="gallery-image">Neural Network Visualization</div>
-                        <div class="gallery-image">User Dashboard</div>
-                        <div class="gallery-image">Mobile App</div>
-                    </div>
-                </div>
-            </div>
+        <div class="doc-card">
+          <div class="doc-header">
+            <div class="doc-icon">🎯</div>
+            <div><h3>Discovery Framework</h3><div class="doc-meta">DOCX • 3 pages</div></div>
+          </div>
+          <p class="work-description">Reusable template with interview guides, hypothesis frameworks, and validation checklists.</p>
+          <div class="cta-buttons"><button class="btn btn-primary">Download</button><button class="btn btn-secondary">Preview</button></div>
         </div>
-
-        <!-- Additional project pages would follow the same template -->
-        <!-- For brevity, I'll create one more example -->
-        
-        <div class="page" id="project-quantum-dashboard">
-            <div class="project-page">
-                <a href="#" class="back-button" onclick="showPage('work'); return false;">← Back to Projects</a>
-                
-                <div class="project-header">
-                    <h1 class="project-title">Quantum Dashboard</h1>
-                    <p class="project-subtitle">Next-Gen Data Visualization Platform</p>
-                    <div class="project-tags">
-                        <span class="tag">Data Visualization</span>
-                        <span class="tag">React</span>
-                        <span class="tag">D3.js</span>
-                        <span class="tag">WebGL</span>
-                        <span class="tag">Real-time</span>
-                    </div>
-                </div>
-
-                <div class="project-hero-image">
-                    📊 Project Hero Image
-                </div>
-
-                <div class="project-content">
-                    <div class="project-description">
-                        <h3>Overview</h3>
-                        <p>Quantum Dashboard reimagines how organizations interact with complex data sets. Built for enterprise clients, this platform combines cutting-edge visualization techniques with intuitive gesture controls to create an immersive data exploration experience.</p>
-                        
-                        <h3>The Challenge</h3>
-                        <p>Enterprise teams were drowning in data but lacked tools to visualize relationships and patterns effectively. Traditional dashboards felt static and failed to reveal the dynamic nature of real-time business intelligence.</p>
-                        
-                        <h3>Solution & Implementation</h3>
-                        <p>We developed a holographic-style interface using WebGL and custom shaders, enabling 3D data visualization that users can manipulate through gestures and voice commands. The dashboard processes millions of data points in real-time, using WebWorkers and optimized rendering techniques to maintain 60fps performance.</p>
-                        
-                        <h3>Results & Impact</h3>
-                        <p>Deployed across 50+ enterprise teams, Quantum Dashboard reduced data analysis time by 65% and improved decision-making speed by 40%. The platform won the 2024 Innovation Award at the Tech Summit conference.</p>
-                    </div>
-
-                    <div class="project-info-card">
-                        <div class="info-item">
-                            <div class="info-label">Client</div>
-                            <div class="info-value">Enterprise Solutions Inc.</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Year</div>
-                            <div class="info-value">2024</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Role</div>
-                            <div class="info-value">Technical Lead</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Technologies</div>
-                            <div class="info-value">React, D3.js, WebGL, Three.js, PostgreSQL</div>
-                        </div>
-                        <div class="info-item">
-                            <div class="info-label">Awards</div>
-                            <div class="info-value">Tech Summit Innovation Award 2024</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="project-gallery">
-                    <h3>Project Gallery</h3>
-                    <div class="gallery-images">
-                        <div class="gallery-image">3D Visualization</div>
-                        <div class="gallery-image">Gesture Controls</div>
-                        <div class="gallery-image">Real-time Analytics</div>
-                        <div class="gallery-image">Mobile Interface</div>
-                        <div class="gallery-image">Data Flow</div>
-                        <div class="gallery-image">User Testing</div>
-                    </div>
-                </div>
-            </div>
+        <div class="doc-card">
+          <div class="doc-header">
+            <div class="doc-icon">🎤</div>
+            <div><h3>Talk: AI in PM</h3><div class="doc-meta">PPTX • 24 slides</div></div>
+          </div>
+          <p class="work-description">Conference presentation covering practical patterns for integrating AI responsibly into products.</p>
+          <div class="cta-buttons"><button class="btn btn-primary">Download</button><button class="btn btn-secondary">Preview</button></div>
         </div>
-
-        <!-- About Page -->
-        <div class="page" id="about-page">
-            <div class="about-page">
-                <div class="about-hero">
-                    <div class="about-image">
-                        👤 Your Photo
-                    </div>
-                    <div class="about-text-main">
-                        <h1>About Me</h1>
-                        <p>I'm a multidisciplinary digital creator passionate about blending art with technology. With over 8 years of experience in design and development, I specialize in creating immersive experiences that push creative boundaries.</p>
-                        <p>My journey began with traditional art, evolved through graphic design, and now encompasses everything from AI-powered applications to interactive 3D experiences. I believe technology is most powerful when it amplifies human creativity.</p>
-                        <p>Based in the creative hub of the digital frontier, I work with clients worldwide to bring innovative ideas to life.</p>
-                        
-                        <div class="social-links">
-                            <a href="#" class="social-link">📧 Email</a>
-                            <a href="#" class="social-link">💼 LinkedIn</a>
-                            <a href="#" class="social-link">🐙 GitHub</a>
-                            <a href="#" class="social-link">🎨 Behance</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="about-content">
-                    <div class="about-text">
-                        <h3>What I Do</h3>
-                        <p>I specialize in creating digital experiences that sit at the intersection of art, design, and technology. From AI-powered creative tools to immersive web experiences, my work explores new ways of human-computer interaction.</p>
-                        <p>My approach combines technical excellence with artistic vision, ensuring every project not only functions flawlessly but also delights and inspires users.</p>
-                    </div>
-                    <div class="about-text">
-                        <h3>Let's Collaborate</h3>
-                        <p>I'm always interested in new challenges and creative collaborations. Whether you have a project in mind or just want to chat about the future of digital creativity, feel free to reach out.</p>
-                        <p>Available for freelance projects, consulting, and speaking engagements.</p>
-                    </div>
-                </div>
-
-                <h3 style="text-align: center; color: #00d4ff; margin: 4rem 0 2rem; font-size: 2rem;">Technical Expertise</h3>
-                <div class="skills-grid">
-                    <div class="skill-card">
-                        <h4>Web Development</h4>
-                        <p style="color: #b0b0b0;">React, Node.js, Three.js</p>
-                        <div class="skill-level">
-                            <div class="skill-progress" style="width: 95%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-card">
-                        <h4>Digital Art</h4>
-                        <p style="color: #b0b0b0;">Photoshop, Illustrator, Blender</p>
-                        <div class="skill-level">
-                            <div class="skill-progress" style="width: 90%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-card">
-                        <h4>UI/UX Design</h4>
-                        <p style="color: #b0b0b0;">Figma, Sketch, Prototyping</p>
-                        <div class="skill-level">
-                            <div class="skill-progress" style="width: 88%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-card">
-                        <h4>3D Graphics</h4>
-                        <p style="color: #b0b0b0;">WebGL, Unity, Cinema 4D</p>
-                        <div class="skill-level">
-                            <div class="skill-progress" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-card">
-                        <h4>Animation</h4>
-                        <p style="color: #b0b0b0;">After Effects, GSAP, Lottie</p>
-                        <div class="skill-level">
-                            <div class="skill-progress" style="width: 92%"></div>
-                        </div>
-                    </div>
-                    <div class="skill-card">
-                        <h4>AI/ML</h4>
-                        <p style="color: #b0b0b0;">TensorFlow, PyTorch, GPT APIs</p>
-                        <div class="skill-level">
-                            <div class="skill-progress" style="width: 80%"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Contact Page -->
-        <div class="page" id="contact">
-            <section class="contact-section">
-                <h2 class="section-title">Get In Touch</h2>
-                <p style="text-align: center; color: #b0b0b0; font-size: 1.1rem; margin-bottom: 2rem;">Have a project in mind or just want to chat? I'd love to hear from you. Let's create something amazing together.</p>
-                
-                <div class="contact-grid">
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <div class="contact-icon">📧</div>
-                            <div>
-                                <h4>Email</h4>
-                                <p>hello@portfolio.com</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">💼</div>
-                            <div>
-                                <h4>LinkedIn</h4>
-                                <p>linkedin.com/in/portfolio</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">🐙</div>
-                            <div>
-                                <h4>GitHub</h4>
-                                <p>github.com/portfolio</p>
-                            </div>
-                        </div>
-                        <div class="contact-item">
-                            <div class="contact-icon">🎨</div>
-                            <div>
-                                <h4>Behance</h4>
-                                <p>behance.net/portfolio</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <form class="contact-form" onsubmit="handleSubmit(event)">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required placeholder="Your name">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required placeholder="your.email@example.com">
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" required placeholder="Tell me about your project..."></textarea>
-                        </div>
-                        <button type="submit" class="submit-button">Send Message</button>
-                    </form>
-                </div>
-            </section>
-        </div>
+      </div>
     </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <p>&copy; 2026 Portfolio. Built with passion for art and technology.</p>
-    </footer>
+  <section id="about">
+    <div class="container">
+      <h1>About Me</h1>
+      <p class="subtitle">Background, experience, and how to get in touch</p>
+      <div class="about-grid">
+        <div class="profile-card">
+          <div class="profile-image">👤</div>
+          <div class="profile-info">
+            <h3 class="profile-name">Alex Chen</h3>
+            <p class="profile-role">Product Manager • San Francisco, CA</p>
+            <p style="color:#9ca3af;font-size:.925rem">Available for consulting, collaborations, and speaking opportunities.</p>
+          </div>
+        </div>
+        <div>
+          <div class="content-card">
+            <h2>Bio</h2>
+            <p style="color:#9ca3af">I'm a product manager who thrives on aligning teams around clear outcomes and measurable progress. I partner deeply with design, engineering, and go-to-market teams, turning ambiguity into empathetic, actionable plans. Outside work, I mentor early-career PMs and speak about practical AI integration.</p>
+          </div>
+          <div class="content-card">
+            <h2>Core Skills</h2>
+            <div class="skills-grid">
+              <div class="skill-item"><span style="font-size:1.5rem">🎯</span><span>Product Strategy & Vision</span></div>
+              <div class="skill-item"><span style="font-size:1.5rem">🔬</span><span>Discovery & Experimentation</span></div>
+              <div class="skill-item"><span style="font-size:1.5rem">📋</span><span>Prioritization & Roadmapping</span></div>
+              <div class="skill-item"><span style="font-size:1.5rem">📊</span><span>Analytics & Outcomes</span></div>
+              <div class="skill-item"><span style="font-size:1.5rem">⚙️</span><span>Systems Architecture</span></div>
+              <div class="skill-item"><span style="font-size:1.5rem">🔒</span><span>Security & Compliance</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="content-card" style="margin-top:2rem">
+        <h2>Get In Touch</h2>
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">📧</div>
+            <div><div class="contact-label">Email</div><div class="contact-value">alex.chen@example.com</div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div><div class="contact-label">Location</div><div class="contact-value">San Francisco, CA</div></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">💼</div>
+            <div><div class="contact-label">LinkedIn</div><div class="contact-value">linkedin.com/in/alexchen</div></div>
+          </div>
+        </div>
+        <form onsubmit="alert('Form submitted!');return false">
+          <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-input" required></div>
+          <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" required></div>
+          <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" required></textarea></div>
+          <button type="submit" class="btn btn-primary">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Page Navigation System
-        function showPage(pageId) {
-            // Hide all pages
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Show selected page
-            const selectedPage = document.getElementById(pageId);
-            if (selectedPage) {
-                selectedPage.classList.add('active');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-            
-            // Close mobile menu if open
-            const mobileMenu = document.getElementById('mobileMenu');
-            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-            if (mobileMenu && mobileMenuToggle) {
-                mobileMenu.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-            }
-        }
+  <footer class="footer">
+    <div class="container">© 2024 Alex Chen. All rights reserved.</div>
+  </footer>
 
-        // Mobile menu toggle
-        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
-            const mobileMenu = document.getElementById('mobileMenu');
-            this.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const mobileMenu = document.getElementById('mobileMenu');
-            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
-            
-            if (!mobileMenu.contains(event.target) && !mobileMenuToggle.contains(event.target)) {
-                mobileMenu.classList.remove('active');
-                mobileMenuToggle.classList.remove('active');
-            }
-        });
-
-        // Smooth scrolling for navigation links (legacy support)
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const href = this.getAttribute('href');
-                if (href && href !== '#') {
-                    const target = document.querySelector(href);
-                    if (target) {
-                        target.scrollIntoView({ behavior: 'smooth' });
-                    }
-                }
-            });
-        });
-
-        // Gallery item click effect
-        document.querySelectorAll('.gallery-item').forEach(item => {
-            item.addEventListener('click', function() {
-                this.style.transform = 'scale(0.95)';
-                setTimeout(() => {
-                    this.style.transform = '';
-                }, 200);
-            });
-        });
-
-        // Animate skill bars on scroll
-        const observerOptions = {
-            threshold: 0.5
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const progressBars = entry.target.querySelectorAll('.skill-progress');
-                    progressBars.forEach(bar => {
-                        bar.style.width = bar.style.width;
-                    });
-                }
-            });
-        }, observerOptions);
-
-        const skillsSection = document.querySelector('.skills-grid');
-        if (skillsSection) {
-            observer.observe(skillsSection);
-        }
-
-        // Form submission handler
-        function handleSubmit(event) {
-            event.preventDefault();
-            const form = event.target;
-            const formData = new FormData(form);
-            
-            // Simulate form submission
-            alert('Thank you for your message! I\'ll get back to you soon.');
-            form.reset();
-        }
-    </script>
+  <script>
+    const sections=document.querySelectorAll('section');
+    const navLinks=document.querySelectorAll('[data-nav]');
+    const mobileToggle=document.getElementById('mobileToggle');
+    const navLinksContainer=document.getElementById('navLinks');
+    
+    function showSection(id){
+      sections.forEach(s=>s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      navLinks.forEach(l=>{
+        l.classList.toggle('active',l.dataset.nav===id);
+      });
+      navLinksContainer.classList.remove('active');
+      window.scrollTo(0,0);
+    }
+    
+    navLinks.forEach(link=>{
+      link.addEventListener('click',()=>showSection(link.dataset.nav));
+    });
+    
+    mobileToggle.addEventListener('click',()=>{
+      navLinksContainer.classList.toggle('active');
+    });
+  </script>
 </body>
 </html>
