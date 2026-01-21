@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alex Chen • Portfolio</title>
+  <title>Sofia Monteiro • Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}body{font-family:Inter,sans-serif;background:#0b1220;color:#e5e7eb;line-height:1.6;overflow-x:hidden;display:flex;min-height:100vh}.sidebar{width:280px;background:#0d1526;border-right:1px solid #1f3b77;position:fixed;left:0;top:0;height:100vh;overflow-y:auto;transition:transform .3s ease;z-index:1001}.sidebar.collapsed{transform:translateX(-280px)}.sidebar-header{padding:1.5rem;border-bottom:1px solid #1f3b77;display:flex;align-items:center;justify-content:space-between}.sidebar-brand{display:flex;align-items:center;gap:.75rem;font-size:1.25rem;font-weight:600;color:#93c5fd;cursor:pointer}.sidebar-brand-icon{width:32px;height:32px;background:linear-gradient(135deg,#1f3b77,#2563eb);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.25rem}.sidebar-nav{padding:1rem}.sidebar-section{margin-bottom:2rem}.sidebar-section-title{font-size:.75rem;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.75rem;padding:0 .75rem}.sidebar-link{display:flex;align-items:center;gap:.75rem;padding:.75rem;color:#e5e7eb;text-decoration:none;border-radius:6px;transition:all .3s;cursor:pointer;margin-bottom:.25rem}.sidebar-link:hover,.sidebar-link.active{background:#1f3b77;color:#93c5fd}.sidebar-link-icon{font-size:1.25rem;width:24px;text-align:center}.sidebar-footer{padding:1.5rem;border-top:1px solid #1f3b77;margin-top:auto}.sidebar-footer-text{font-size:.875rem;color:#9ca3af;line-height:1.5}.main-wrapper{flex:1;margin-left:280px;transition:margin-left .3s ease;display:flex;flex-direction:column;min-height:100vh}.main-wrapper.expanded{margin-left:0}.header{position:sticky;top:0;z-index:1000;background:rgba(11,18,32,.95);backdrop-filter:blur(10px);border-bottom:1px solid #1f3b77}.nav-container{padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}.toggle-sidebar{background:#1f3b77;border:1px solid #2563eb;color:#93c5fd;padding:.5rem .75rem;border-radius:6px;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;font-size:1.25rem;width:48px;height:40px}.toggle-sidebar:hover{background:#2563eb}.brand{display:flex;align-items:center;gap:.75rem;font-size:1.25rem;font-weight:600;color:#93c5fd;text-decoration:none;cursor:pointer}.brand-icon{width:32px;height:32px;background:linear-gradient(135deg,#1f3b77,#2563eb);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.25rem}.nav-links{display:flex;gap:.5rem;flex:1;justify-content:center}.nav-link{padding:.5rem 1rem;color:#e5e7eb;text-decoration:none;border-radius:6px;transition:all .3s;cursor:pointer}.nav-link:hover,.nav-link.active{background:#1f3b77;color:#93c5fd}.mobile-toggle{display:none;background:0 0;border:none;color:#93c5fd;font-size:1.5rem;cursor:pointer}section{display:none;padding:4rem 2rem;flex:1}section.active{display:block;animation:fadeIn .4s}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.container{max-width:1200px;margin:0 auto}h1{font-size:3rem;color:#eaf2ff;margin-bottom:1rem}h2{font-size:2rem;color:#c7d2fe;margin-bottom:1rem}h3{font-size:1.5rem;color:#93c5fd;margin-bottom:.75rem}.subtitle{font-size:1.25rem;color:#9ca3af;margin-bottom:2rem}.hero{display:flex;align-items:center;gap:3rem;flex-wrap:wrap}.hero-content{flex:1;min-width:300px}.hero-visual{flex:1;min-width:300px}.hero-image{width:100%;height:400px;border-radius:16px;border:1px solid #1f3b77;background:linear-gradient(135deg,#1f3b77,#0d1526);display:flex;align-items:center;justify-content:center;font-size:6rem}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:3rem}.stat-card{background:#14213a;border:1px solid #1f3b77;border-radius:12px;padding:1.5rem;text-align:center}.stat-value{font-size:2.5rem;font-weight:700;color:#2563eb;margin-bottom:.5rem}.stat-label{color:#9ca3af;font-size:.875rem}.cta-buttons{display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap}.btn{padding:.75rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:500;transition:all .3s;cursor:pointer;border:none;font-size:1rem;display:inline-flex;align-items:center;gap:.5rem}.btn-primary{background:#1f3b77;color:#eaf2ff;border:1px solid #2563eb}.btn-primary:hover{background:#2563eb;transform:translateY(-2px)}.btn-secondary{background:0 0;color:#93c5fd;border:1px solid #1f3b77}.btn-secondary:hover{background:#1f3b77}.works-grid,.documents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;margin-top:2rem}.work-card,.doc-card{background:#14213a;border:1px solid #1f3b77;border-radius:12px;overflow:hidden;transition:all .3s}.work-card:hover,.doc-card:hover{transform:translateY(-5px);border-color:#2563eb}.work-image{width:100%;height:200px;background:linear-gradient(135deg,#1f3b77,#0d1526);display:flex;align-items:center;justify-content:center;font-size:4rem}.work-content,.doc-content{padding:1.5rem}.work-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:.75rem}.work-title{font-size:1.25rem;color:#eaf2ff}.work-year{background:#1f3b77;color:#93c5fd;padding:.25rem .75rem;border-radius:4px;font-size:.875rem}.work-description{color:#9ca3af;margin-bottom:1rem;font-size:.925rem}.tags{display:flex;gap:.5rem;flex-wrap:wrap}.tag{background:#0d1526;color:#93c5fd;padding:.25rem .75rem;border-radius:4px;font-size:.875rem;border:1px solid #1f3b77}.doc-card{padding:1.5rem}.doc-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}.doc-icon{width:48px;height:48px;background:#1f3b77;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}.doc-meta{font-size:.875rem;color:#9ca3af;margin-top:.25rem}.about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:3rem;margin-top:2rem}.profile-card{background:#14213a;border:1px solid #1f3b77;border-radius:12px;overflow:hidden}.profile-image{width:100%;height:300px;background:linear-gradient(135deg,#1f3b77,#2563eb);display:flex;align-items:center;justify-content:center;font-size:8rem}.profile-info{padding:1.5rem}.profile-name{font-size:1.5rem;color:#eaf2ff;margin-bottom:.5rem}.profile-role{color:#93c5fd;margin-bottom:1rem}.content-card{background:#14213a;border:1px solid #1f3b77;border-radius:12px;padding:2rem;margin-bottom:1.5rem}.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-top:1rem}.skill-item{display:flex;align-items:center;gap:.75rem;padding:.75rem;background:#0d1526;border-radius:8px;border:1px solid #1f3b77}.form-group{margin-bottom:1.5rem}.form-label{display:block;margin-bottom:.5rem;color:#c7d2fe;font-weight:500}.form-input,.form-textarea{width:100%;padding:.75rem;background:#0d1526;border:1px solid #1f3b77;border-radius:8px;color:#e5e7eb;font-family:inherit;font-size:1rem;transition:all .3s}.form-input:focus,.form-textarea:focus{outline:0;border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}.form-textarea{resize:vertical;min-height:120px}.contact-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-bottom:2rem}.contact-item{display:flex;align-items:center;gap:1rem;padding:1rem;background:#0d1526;border:1px solid #1f3b77;border-radius:8px}.contact-icon{width:40px;height:40px;background:#1f3b77;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.25rem}.contact-label{font-size:.875rem;color:#9ca3af}.contact-value{color:#93c5fd}.footer{background:#0d1526;border-top:1px solid #1f3b77;padding:2rem;text-align:center;color:#9ca3af}@media(max-width:992px){.sidebar{transform:translateX(-280px)}.sidebar.mobile-open{transform:translateX(0)}.main-wrapper{margin-left:0}.toggle-sidebar{display:flex}}@media(max-width:768px){h1{font-size:2rem}.hero{flex-direction:column}}
+    *{margin:0;padding:0;box-sizing:border-box}body{font-family:Inter,sans-serif;background:#0b1220;color:#e5e7eb;line-height:1.6;overflow-x:hidden;display:flex;min-height:100vh}.sidebar{width:280px;background:#0d1526;border-right:1px solid #1f3b77;position:fixed;left:0;top:0;height:100vh;overflow-y:auto;transition:transform .3s ease;z-index:1001}.sidebar.collapsed{transform:translateX(-280px)}.sidebar-header{padding:1.5rem;border-bottom:1px solid #1f3b77;display:flex;align-items:center;justify-content:space-between}.sidebar-brand{display:flex;align-items:center;gap:.75rem;font-size:1.25rem;font-weight:600;color:#93c5fd;cursor:pointer}.sidebar-brand-icon{width:32px;height:32px;background:linear-gradient(135deg,#1f3b77,#2563eb);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.25rem}.sidebar-nav{padding:1rem}.sidebar-section{margin-bottom:2rem}.sidebar-section-title{font-size:.75rem;font-weight:600;color:#9ca3af;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.75rem;padding:0 .75rem}.sidebar-link{display:flex;align-items:center;gap:.75rem;padding:.75rem;color:#e5e7eb;text-decoration:none;border-radius:6px;transition:all .3s;cursor:pointer;margin-bottom:.25rem}.sidebar-link:hover,.sidebar-link.active{background:#1f3b77;color:#93c5fd}.sidebar-link-icon{font-size:1.25rem;width:24px;text-align:center}.sidebar-footer{padding:1.5rem;border-top:1px solid #1f3b77;margin-top:auto}.sidebar-footer-text{font-size:.875rem;color:#9ca3af;line-height:1.5}.main-wrapper{flex:1;margin-left:0;transition:margin-left .3s ease;display:flex;flex-direction:column;min-height:100vh}.main-wrapper.expanded{margin-left:0}.header{position:sticky;top:0;z-index:1000;background:rgba(11,18,32,.95);backdrop-filter:blur(10px);border-bottom:1px solid #1f3b77}.nav-container{padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center}.toggle-sidebar{background:#1f3b77;border:1px solid #2563eb;color:#93c5fd;padding:.5rem .75rem;border-radius:6px;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;font-size:1.25rem;width:48px;height:40px}.toggle-sidebar:hover{background:#2563eb}.brand{display:flex;align-items:center;gap:.75rem;font-size:1.25rem;font-weight:600;color:#93c5fd;text-decoration:none;cursor:pointer}.brand-icon{width:32px;height:32px;background:linear-gradient(135deg,#1f3b77,#2563eb);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.25rem}.nav-links{display:flex;gap:.5rem;flex:1;justify-content:center}.nav-link{padding:.5rem 1rem;color:#e5e7eb;text-decoration:none;border-radius:6px;transition:all .3s;cursor:pointer}.nav-link:hover,.nav-link.active{background:#1f3b77;color:#93c5fd}.mobile-toggle{display:none;background:0 0;border:none;color:#93c5fd;font-size:1.5rem;cursor:pointer}section{display:none;padding:4rem 2rem;flex:1}section.active{display:block;animation:fadeIn .4s}@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}.container{max-width:1200px;margin:0 auto}h1{font-size:3rem;color:#eaf2ff;margin-bottom:1rem}h2{font-size:2rem;color:#c7d2fe;margin-bottom:1rem}h3{font-size:1.5rem;color:#93c5fd;margin-bottom:.75rem}.subtitle{font-size:1.25rem;color:#9ca3af;margin-bottom:2rem}.hero{display:flex;align-items:center;gap:3rem;flex-wrap:wrap}.hero-content{flex:1;min-width:300px}.hero-visual{flex:1;min-width:300px}.hero-image{width:100%;height:400px;border-radius:16px;border:1px solid #1f3b77;background:linear-gradient(135deg,#1f3b77,#0d1526);display:flex;align-items:center;justify-content:center;font-size:6rem}.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:3rem}.stat-card{background:#14213a;border:1px solid #1f3b77;border-radius:12px;padding:1.5rem;text-align:center}.stat-value{font-size:2.5rem;font-weight:700;color:#2563eb;margin-bottom:.5rem}.stat-label{color:#9ca3af;font-size:.875rem}.cta-buttons{display:flex;gap:1rem;margin-top:2rem;flex-wrap:wrap}.btn{padding:.75rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:500;transition:all .3s;cursor:pointer;border:none;font-size:1rem;display:inline-flex;align-items:center;gap:.5rem}.btn-primary{background:#1f3b77;color:#eaf2ff;border:1px solid #2563eb}.btn-primary:hover{background:#2563eb;transform:translateY(-2px)}.btn-secondary{background:0 0;color:#93c5fd;border:1px solid #1f3b77}.btn-secondary:hover{background:#1f3b77}.works-grid,.documents-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2rem;margin-top:2rem}.work-card,.doc-card{background:#14213a;border:1px solid #1f3b77;border-radius:12px;overflow:hidden;transition:all .3s}.work-card:hover,.doc-card:hover{transform:translateY(-5px);border-color:#2563eb}.work-image{width:100%;height:200px;background:linear-gradient(135deg,#1f3b77,#0d1526);display:flex;align-items:center;justify-content:center;font-size:4rem}.work-content,.doc-content{padding:1.5rem}.work-header{display:flex;justify-content:space-between;align-items:start;margin-bottom:.75rem}.work-title{font-size:1.25rem;color:#eaf2ff}.work-year{background:#1f3b77;color:#93c5fd;padding:.25rem .75rem;border-radius:4px;font-size:.875rem}.work-description{color:#9ca3af;margin-bottom:1rem;font-size:.925rem}.tags{display:flex;gap:.5rem;flex-wrap:wrap}.tag{background:#0d1526;color:#93c5fd;padding:.25rem .75rem;border-radius:4px;font-size:.875rem;border:1px solid #1f3b77}.doc-card{padding:1.5rem}.doc-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem}.doc-icon{width:48px;height:48px;background:#1f3b77;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}.doc-meta{font-size:.875rem;color:#9ca3af;margin-top:.25rem}.about-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:3rem;margin-top:2rem}.profile-card{background:#14213a;border:1px solid #1f3b77;border-radius:12px;overflow:hidden}.profile-image{width:100%;height:300px;background:linear-gradient(135deg,#1f3b77,#2563eb);display:flex;align-items:center;justify-content:center;font-size:8rem}.profile-info{padding:1.5rem}.profile-name{font-size:1.5rem;color:#eaf2ff;margin-bottom:.5rem}.profile-role{color:#93c5fd;margin-bottom:1rem}.content-card{background:#14213a;border:1px solid #1f3b77;border-radius:12px;padding:2rem;margin-bottom:1.5rem}.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-top:1rem}.skill-item{display:flex;align-items:center;gap:.75rem;padding:.75rem;background:#0d1526;border-radius:8px;border:1px solid #1f3b77}.form-group{margin-bottom:1.5rem}.form-label{display:block;margin-bottom:.5rem;color:#c7d2fe;font-weight:500}.form-input,.form-textarea{width:100%;padding:.75rem;background:#0d1526;border:1px solid #1f3b77;border-radius:8px;color:#e5e7eb;font-family:inherit;font-size:1rem;transition:all .3s}.form-input:focus,.form-textarea:focus{outline:0;border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}.form-textarea{resize:vertical;min-height:120px}.contact-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem;margin-bottom:2rem}.contact-item{display:flex;align-items:center;gap:1rem;padding:1rem;background:#0d1526;border:1px solid #1f3b77;border-radius:8px}.contact-icon{width:40px;height:40px;background:#1f3b77;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.25rem}.contact-label{font-size:.875rem;color:#9ca3af}.contact-value{color:#93c5fd}.footer{background:#0d1526;border-top:1px solid #1f3b77;padding:2rem;text-align:center;color:#9ca3af}@media(max-width:992px){.sidebar{transform:translateX(-280px)}.sidebar.mobile-open{transform:translateX(0)}.main-wrapper{margin-left:0}.toggle-sidebar{display:flex}}@media(max-width:768px){h1{font-size:2rem}.hero{flex-direction:column}}
   </style>
 </head>
 <body>
   <!-- Sidebar -->
-  <aside class="sidebar" id="sidebar">
+  <aside class="sidebar collapsed" id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-brand" data-nav="home">
-        <div class="sidebar-brand-icon">💼</div>
-        <span>Alex Chen</span>
+        <div class="sidebar-brand-icon">🎨</div>
+        <span>Sofia Monteiro</span>
       </div>
     </div>
     <nav class="sidebar-nav">
@@ -25,28 +25,28 @@
           <span class="sidebar-link-icon">🏠</span>
           <span>Home</span>
         </a>
-        <a class="sidebar-link" data-nav="works">
+        <a class="sidebar-link" data-nav="projects">
           <span class="sidebar-link-icon">💼</span>
-          <span>Works</span>
-        </a>
-        <a class="sidebar-link" data-nav="documents">
-          <span class="sidebar-link-icon">📄</span>
-          <span>Documents</span>
+          <span>Projects</span>
         </a>
         <a class="sidebar-link" data-nav="about">
           <span class="sidebar-link-icon">👤</span>
           <span>About</span>
         </a>
+        <a class="sidebar-link" data-nav="contact">
+          <span class="sidebar-link-icon">📧</span>
+          <span>Contact</span>
+        </a>
       </div>
       <div class="sidebar-section">
         <div class="sidebar-section-title">Quick Links</div>
-        <a class="sidebar-link" href="#" onclick="alert('Download Resume'); return false">
-          <span class="sidebar-link-icon">⬇️</span>
-          <span>Download Resume</span>
-        </a>
-        <a class="sidebar-link" href="#" onclick="alert('GitHub Profile'); return false">
+        <a class="sidebar-link" href="https://github.com/dacodeapprentice?tab=repositories" target="_blank">
           <span class="sidebar-link-icon">🔗</span>
           <span>GitHub</span>
+        </a>
+        <a class="sidebar-link" href="https://x.com/sofiadmm58" target="_blank">
+          <span class="sidebar-link-icon">🐦</span>
+          <span>X Profile</span>
         </a>
         <a class="sidebar-link" href="#" onclick="alert('LinkedIn Profile'); return false">
           <span class="sidebar-link-icon">💼</span>
@@ -56,14 +56,14 @@
     </nav>
     <div class="sidebar-footer">
       <div class="sidebar-footer-text">
-        © 2024 Alex Chen<br>
-        Product Manager & Tech Leader
+        © 2026 Sofia Monteiro<br>
+        Digital Creator & Technologist
       </div>
     </div>
   </aside>
 
   <!-- Main Content Wrapper -->
-  <div class="main-wrapper" id="mainWrapper">
+  <div class="main-wrapper expanded" id="mainWrapper">
   <header class="header">
     <nav class="nav-container">
       <button class="toggle-sidebar" id="toggleSidebar">
@@ -71,9 +71,9 @@
       </button>
       <div class="nav-links">
         <a class="nav-link active" data-nav="home">Home</a>
-        <a class="nav-link" data-nav="works">Works</a>
-        <a class="nav-link" data-nav="documents">Documents</a>
+        <a class="nav-link" data-nav="projects">Projects</a>
         <a class="nav-link" data-nav="about">About</a>
+        <a class="nav-link" data-nav="contact">Contact</a>
       </div>
       <div style="width:48px"></div>
     </nav>
@@ -83,118 +83,77 @@
     <div class="container">
       <div class="hero">
         <div class="hero-content">
-          <h1>Hi, I'm Alex Chen</h1>
-          <p class="subtitle">Product Manager • Systems Architect • Technology Leader</p>
-          <p style="color:#9ca3af;max-width:600px;margin-bottom:2rem">I build resilient software systems with a focus on security, performance, and user experience. With 8+ years of experience, I've led teams and delivered solutions across B2B platforms, developer tools, and cloud infrastructure.</p>
+          <h1>Hi, I'm Sofia Monteiro</h1>
+          <p class="subtitle">Digital Creator • Technologist • Artist</p>
+          <p style="color:#9ca3af;max-width:600px;margin-bottom:2rem">Blending art and innovation from Porto, Portugal. With experience in digital art and technology, I create immersive experiences and innovative solutions.</p>
           <div class="cta-buttons">
-            <button class="btn btn-primary" data-nav="works">View My Work</button>
-            <button class="btn btn-secondary" data-nav="about">Get In Touch</button>
+            <button class="btn btn-primary" data-nav="projects">View My Projects</button>
+            <button class="btn btn-secondary" data-nav="contact">Get In Touch</button>
           </div>
         </div>
-        <div class="hero-visual"><div class="hero-image">👨‍💻</div></div>
+        <div class="hero-visual"><div class="hero-image">🎨</div></div>
       </div>
       <div class="stats-grid">
-        <div class="stat-card"><div class="stat-value">8+</div><div class="stat-label">Years Experience</div></div>
-        <div class="stat-card"><div class="stat-value">15</div><div class="stat-label">Projects Launched</div></div>
-        <div class="stat-card"><div class="stat-value">6</div><div class="stat-label">Teams Led</div></div>
+        <div class="stat-card"><div class="stat-value">5+</div><div class="stat-label">Years Experience</div></div>
+        <div class="stat-card"><div class="stat-value">10</div><div class="stat-label">Projects Completed</div></div>
+        <div class="stat-card"><div class="stat-value">3</div><div class="stat-label">Collaborations</div></div>
       </div>
     </div>
   </section>
 
-  <section id="works">
+  <section id="projects">
     <div class="container">
-      <h1>Selected Works</h1>
-      <p class="subtitle">Projects across platforms, data systems, and developer tools</p>
+      <h1>Featured Projects</h1>
+      <p class="subtitle">A selection of my creative and technical work</p>
       <div class="works-grid">
         <article class="work-card">
-          <div class="work-image">🏢</div>
+          <div class="work-image">🖼️</div>
           <div class="work-content">
-            <div class="work-header"><h3 class="work-title">Enterprise Platform Revamp</h3><span class="work-year">2024</span></div>
-            <p class="work-description">Led end-to-end overhaul of navigation, permissions, and reporting, driving +18% feature adoption.</p>
-            <div class="tags"><span class="tag">Platform</span><span class="tag">B2B</span><span class="tag">React</span></div>
-          </div>
-        </article>
-        <article class="work-card">
-          <div class="work-image">💰</div>
-          <div class="work-content">
-            <div class="work-header"><h3 class="work-title">Usage-based Pricing System</h3><span class="work-year">2023</span></div>
-            <p class="work-description">Designed metering and packaging strategy, increasing NRR from 101% to 112% within two quarters.</p>
-            <div class="tags"><span class="tag">SaaS</span><span class="tag">Pricing</span><span class="tag">Analytics</span></div>
-          </div>
-        </article>
-        <article class="work-card">
-          <div class="work-image">🤖</div>
-          <div class="work-content">
-            <div class="work-header"><h3 class="work-title">AI-assisted Review Queues</h3><span class="work-year">2022</span></div>
-            <p class="work-description">Shipped ML prioritization cutting handling time by 28% while maintaining QA standards.</p>
-            <div class="tags"><span class="tag">AI/ML</span><span class="tag">Python</span><span class="tag">Operations</span></div>
-          </div>
-        </article>
-        <article class="work-card">
-          <div class="work-image">🔧</div>
-          <div class="work-content">
-            <div class="work-header"><h3 class="work-title">Developer Platform DX</h3><span class="work-year">2023</span></div>
-            <p class="work-description">Unified docs, SDKs, and auth flows, reducing time-to-first-call from 30 min to under 7 min.</p>
-            <div class="tags"><span class="tag">Platform</span><span class="tag">DevEx</span><span class="tag">API</span></div>
+            <div class="work-header"><h3 class="work-title">AI Art Generator</h3><span class="work-year">2025</span></div>
+            <p class="work-description">Developed an AI-powered tool for generating digital art, integrating machine learning models with creative interfaces.</p>
+            <div class="tags"><span class="tag">AI</span><span class="tag">Digital Art</span><span class="tag">Python</span></div>
           </div>
         </article>
         <article class="work-card">
           <div class="work-image">📊</div>
           <div class="work-content">
-            <div class="work-header"><h3 class="work-title">Real-time Analytics Dashboard</h3><span class="work-year">2024</span></div>
-            <p class="work-description">Built streaming visualization platform handling 100k+ events per second with progressive rendering.</p>
-            <div class="tags"><span class="tag">Web</span><span class="tag">Real-time</span><span class="tag">TypeScript</span></div>
+            <div class="work-header"><h3 class="work-title">Web Dashboard</h3><span class="work-year">2024</span></div>
+            <p class="work-description">Created an interactive dashboard for visualizing data with real-time updates and custom visualizations.</p>
+            <div class="tags"><span class="tag">Web</span><span class="tag">React</span><span class="tag">Data Viz</span></div>
           </div>
         </article>
         <article class="work-card">
-          <div class="work-image">🔄</div>
+          <div class="work-image">🤖</div>
           <div class="work-content">
-            <div class="work-header"><h3 class="work-title">Revenue Operations Sync</h3><span class="work-year">2022</span></div>
-            <p class="work-description">Connected CRM, billing, and support systems to improve churn prediction accuracy by 40%.</p>
-            <div class="tags"><span class="tag">SaaS</span><span class="tag">RevOps</span><span class="tag">Integration</span></div>
+            <div class="work-header"><h3 class="work-title">Neural Canvas</h3><span class="work-year">2023</span></div>
+            <p class="work-description">Built a neural network-based canvas for collaborative digital art creation.</p>
+            <div class="tags"><span class="tag">Neural Nets</span><span class="tag">Collaboration</span><span class="tag">JS</span></div>
           </div>
         </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="documents">
-    <div class="container">
-      <h1>Documents & Resources</h1>
-      <p class="subtitle">Resumes, case studies, and presentation materials</p>
-      <div class="documents-grid">
-        <div class="doc-card">
-          <div class="doc-header">
-            <div class="doc-icon">📄</div>
-            <div><h3>Resume (2024)</h3><div class="doc-meta">PDF • 2 pages</div></div>
+        <article class="work-card">
+          <div class="work-image">🎨</div>
+          <div class="work-content">
+            <div class="work-header"><h3 class="work-title">Digital Portfolio App</h3><span class="work-year">2024</span></div>
+            <p class="work-description">Designed and developed a mobile app for showcasing digital artworks with AR features.</p>
+            <div class="tags"><span class="tag">App</span><span class="tag">AR</span><span class="tag">Flutter</span></div>
           </div>
-          <p class="work-description">Latest professional resume highlighting leadership experience, technical skills, and key achievements.</p>
-          <div class="cta-buttons"><button class="btn btn-primary">Download</button><button class="btn btn-secondary">Preview</button></div>
-        </div>
-        <div class="doc-card">
-          <div class="doc-header">
-            <div class="doc-icon">📊</div>
-            <div><h3>Case Study: Pricing</h3><div class="doc-meta">PDF • 8 pages</div></div>
+        </article>
+        <article class="work-card">
+          <div class="work-image">🔧</div>
+          <div class="work-content">
+            <div class="work-header"><h3 class="work-title">Tech Art Installation</h3><span class="work-year">2025</span></div>
+            <p class="work-description">Created an interactive installation blending technology and art for public exhibition.</p>
+            <div class="tags"><span class="tag">Installation</span><span class="tag">Interactive</span><span class="tag">Hardware</span></div>
           </div>
-          <p class="work-description">Deep dive into usage-based pricing implementation with context, approach, trade-offs, and outcomes.</p>
-          <div class="cta-buttons"><button class="btn btn-primary">Download</button><button class="btn btn-secondary">Preview</button></div>
-        </div>
-        <div class="doc-card">
-          <div class="doc-header">
-            <div class="doc-icon">🎯</div>
-            <div><h3>Discovery Framework</h3><div class="doc-meta">DOCX • 3 pages</div></div>
+        </article>
+        <article class="work-card">
+          <div class="work-image">📱</div>
+          <div class="work-content">
+            <div class="work-header"><h3 class="work-title">Mobile Art Tool</h3><span class="work-year">2023</span></div>
+            <p class="work-description">Developed a mobile tool for on-the-go digital art creation with AI assistance.</p>
+            <div class="tags"><span class="tag">Mobile</span><span class="tag">AI</span><span class="tag">Swift</span></div>
           </div>
-          <p class="work-description">Reusable template with interview guides, hypothesis frameworks, and validation checklists.</p>
-          <div class="cta-buttons"><button class="btn btn-primary">Download</button><button class="btn btn-secondary">Preview</button></div>
-        </div>
-        <div class="doc-card">
-          <div class="doc-header">
-            <div class="doc-icon">🎤</div>
-            <div><h3>Talk: AI in PM</h3><div class="doc-meta">PPTX • 24 slides</div></div>
-          </div>
-          <p class="work-description">Conference presentation covering practical patterns for integrating AI responsibly into products.</p>
-          <div class="cta-buttons"><button class="btn btn-primary">Download</button><button class="btn btn-secondary">Preview</button></div>
-        </div>
+        </article>
       </div>
     </div>
   </section>
@@ -202,51 +161,58 @@
   <section id="about">
     <div class="container">
       <h1>About Me</h1>
-      <p class="subtitle">Background, experience, and how to get in touch</p>
+      <p class="subtitle">Background, skills, and passions</p>
       <div class="about-grid">
         <div class="profile-card">
-          <div class="profile-image">👤</div>
+          <div class="profile-image">👩‍🎨</div>
           <div class="profile-info">
-            <h3 class="profile-name">Alex Chen</h3>
-            <p class="profile-role">Product Manager • San Francisco, CA</p>
-            <p style="color:#9ca3af;font-size:.925rem">Available for consulting, collaborations, and speaking opportunities.</p>
+            <h3 class="profile-name">Sofia Monteiro</h3>
+            <p class="profile-role">Digital Creator • Porto, PT</p>
+            <p style="color:#9ca3af;font-size:.925rem">Open to collaborations in digital art and technology projects.</p>
           </div>
         </div>
         <div>
           <div class="content-card">
             <h2>Bio</h2>
-            <p style="color:#9ca3af">I'm a product manager who thrives on aligning teams around clear outcomes and measurable progress. I partner deeply with design, engineering, and go-to-market teams, turning ambiguity into empathetic, actionable plans. Outside work, I mentor early-career PMs and speak about practical AI integration.</p>
+            <p style="color:#9ca3af">I'm a digital creator and technologist passionate about blending art with innovative technology. Based in Porto, Portugal, I explore creative expressions through code and design, creating experiences that inspire and engage.</p>
           </div>
           <div class="content-card">
             <h2>Core Skills</h2>
             <div class="skills-grid">
-              <div class="skill-item"><span style="font-size:1.5rem">🎯</span><span>Product Strategy & Vision</span></div>
-              <div class="skill-item"><span style="font-size:1.5rem">🔬</span><span>Discovery & Experimentation</span></div>
-              <div class="skill-item"><span style="font-size:1.5rem">📋</span><span>Prioritization & Roadmapping</span></div>
-              <div class="skill-item"><span style="font-size:1.5rem">📊</span><span>Analytics & Outcomes</span></div>
-              <div class="skill-item"><span style="font-size:1.5rem">⚙️</span><span>Systems Architecture</span></div>
-              <div class="skill-item"><span style="font-size:1.5rem">🔒</span><span>Security & Compliance</span></div>
+              <div class="skill-item"><span style="font-size:1.5rem">🎨</span><span>Digital Art Creation</span></div>
+              <div class="skill-item"><span style="font-size:1.5rem">💻</span><span>Web Development</span></div>
+              <div class="skill-item"><span style="font-size:1.5rem">🤖</span><span>AI Integration</span></div>
+              <div class="skill-item"><span style="font-size:1.5rem">📱</span><span>Mobile App Design</span></div>
+              <div class="skill-item"><span style="font-size:1.5rem">🔧</span><span>Interactive Installations</span></div>
+              <div class="skill-item"><span style="font-size:1.5rem">📊</span><span>Data Visualization</span></div>
             </div>
           </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <h1>Contact</h1>
+      <p class="subtitle">Get in touch for collaborations or inquiries</p>
       <div class="content-card" style="margin-top:2rem">
-        <h2>Get In Touch</h2>
+        <h2>Send a Message</h2>
         <div class="contact-info">
           <div class="contact-item">
             <div class="contact-icon">📧</div>
-            <div><div class="contact-label">Email</div><div class="contact-value">alex.chen@example.com</div></div>
+            <div><div class="contact-label">Email</div><div class="contact-value">sofia.monteiro@example.com</div></div>
           </div>
           <div class="contact-item">
             <div class="contact-icon">📍</div>
-            <div><div class="contact-label">Location</div><div class="contact-value">San Francisco, CA</div></div>
+            <div><div class="contact-label">Location</div><div class="contact-value">Porto, PT</div></div>
           </div>
           <div class="contact-item">
-            <div class="contact-icon">💼</div>
-            <div><div class="contact-label">LinkedIn</div><div class="contact-value">linkedin.com/in/alexchen</div></div>
+            <div class="contact-icon">🐦</div>
+            <div><div class="contact-label">X</div><div class="contact-value">@sofiadmm58</div></div>
           </div>
         </div>
-        <form onsubmit="alert('Form submitted!');return false">
+        <form onsubmit="alert('Message sent!');return false">
           <div class="form-group"><label class="form-label">Name</label><input type="text" class="form-input" required></div>
           <div class="form-group"><label class="form-label">Email</label><input type="email" class="form-input" required></div>
           <div class="form-group"><label class="form-label">Message</label><textarea class="form-textarea" required></textarea></div>
@@ -257,62 +223,68 @@
   </section>
 
   <footer class="footer">
-    <div class="container">© 2024 Alex Chen. All rights reserved.</div>
+    <div class="container">© 2026 Sofia Monteiro. All rights reserved.</div>
   </footer>
   </div>
 
   <script>
-    const sidebar=document.getElementById('sidebar');
-    const mainWrapper=document.getElementById('mainWrapper');
-    const toggleSidebar=document.getElementById('toggleSidebar');
-    const sections=document.querySelectorAll('section');
-    const navLinks=document.querySelectorAll('[data-nav]');
+    const sidebar = document.getElementById('sidebar');
+    const mainWrapper = document.getElementById('mainWrapper');
+    const toggleSidebar = document.getElementById('toggleSidebar');
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('[data-nav]');
     
-    let sidebarCollapsed=window.innerWidth<=992;
+    let sidebarCollapsed = true; // Start collapsed always
     
-    function updateSidebarState(){
-      if(sidebarCollapsed){
+    function updateSidebarState() {
+      if (sidebarCollapsed) {
         sidebar.classList.add('collapsed');
         mainWrapper.classList.add('expanded');
-      }else{
+      } else {
         sidebar.classList.remove('collapsed');
         mainWrapper.classList.remove('expanded');
       }
     }
     
-    toggleSidebar.addEventListener('click',()=>{
-      if(window.innerWidth<=992){
-        sidebar.classList.toggle('mobile-open');
-      }else{
-        sidebarCollapsed=!sidebarCollapsed;
+    toggleSidebar.addEventListener('click', () => {
+      sidebarCollapsed = !sidebarCollapsed;
+      updateSidebarState();
+    });
+    
+    function showSection(id) {
+      sections.forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelectorAll('.sidebar-link').forEach(l => {
+        l.classList.toggle('active', l.dataset.nav === id);
+      });
+      document.querySelectorAll('.nav-link').forEach(l => {
+        l.classList.toggle('active', l.dataset.nav === id);
+      });
+      if (window.innerWidth <= 992) {
+        sidebarCollapsed = true;
+        updateSidebarState();
+      }
+      window.scrollTo(0, 0);
+    }
+    
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (link.dataset.nav) showSection(link.dataset.nav);
+      });
+    });
+    
+    // Close on outside click
+    document.addEventListener('click', (event) => {
+      if (!sidebar.contains(event.target) && !toggleSidebar.contains(event.target)) {
+        sidebarCollapsed = true;
         updateSidebarState();
       }
     });
     
-    function showSection(id){
-      sections.forEach(s=>s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
-      document.querySelectorAll('.sidebar-link').forEach(l=>{
-        l.classList.toggle('active',l.dataset.nav===id);
-      });
-      document.querySelectorAll('.nav-link').forEach(l=>{
-        l.classList.toggle('active',l.dataset.nav===id);
-      });
-      if(window.innerWidth<=992){
-        sidebar.classList.remove('mobile-open');
-      }
-      window.scrollTo(0,0);
-    }
-    
-    navLinks.forEach(link=>{
-      link.addEventListener('click',()=>{
-        if(link.dataset.nav)showSection(link.dataset.nav);
-      });
-    });
-    
-    window.addEventListener('resize',()=>{
-      if(window.innerWidth<=992){
-        sidebar.classList.remove('mobile-open');
+    window.addEventListener('resize', () => {
+      if (window.innerWidth <= 992) {
+        sidebarCollapsed = true;
+        updateSidebarState();
       }
     });
     
