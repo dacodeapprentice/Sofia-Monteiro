@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sofia .M. M Monteiro • Portfolio</title>
+  <title>SofiaMonteiro</title>
 
   <!-- Google Fonts: DM Sans for UI / Cormorant Garamond for elegant display -->
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
@@ -25,8 +25,7 @@
       --navy-light:    #334155;
       --accent:        #1e40af;
       --accent-light:  #3b82f6;
-      --accent-pale:   #dbeafe;
-      --green:         #10b981;
+git      --green:         #10b981;
       --green-pale:    #d1fae5;
       --text-primary:  #111827;
       --text-secondary:#4b5563;
@@ -295,7 +294,8 @@
       padding: 0 1.75rem;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
+      gap: 1rem;
       max-width: 1400px;
       margin: 0 auto;
     }
@@ -397,7 +397,8 @@
 
     /* Right spacer to balance layout */
     .nav-spacer {
-      width: 40px;
+      flex: 1;
+      width: auto;
       flex-shrink: 0;
     }
 
@@ -1436,7 +1437,10 @@
         </button>
 
         <!-- Center brand name -->
-        <span class="nav-brand" data-nav="home" role="button" tabindex="0">My Little goofball</span>
+        <span class="nav-brand" data-nav="home" role="button" tabindex="0">Sofia Monteiro</span>
+
+        <!-- Spacer to push nav links to the right -->
+        <div class="nav-spacer" aria-hidden="true"></div>
 
         <!-- Right nav links (desktop) -->
         <div class="nav-links" role="navigation">
