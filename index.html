@@ -1095,6 +1095,115 @@ git      --green:         #10b981;
     }
 
     /* =============================================
+       ARCHIVE SECTION — Document sharing & files
+    ============================================= */
+    #archive {
+      background: var(--white);
+    }
+
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .archive-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .archive-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(59,130,246,0.3);
+    }
+
+    .archive-icon {
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      background: linear-gradient(135deg, var(--light-blue) 0%, var(--pale-blue) 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .archive-icon::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 50%, rgba(15,23,42,0.04));
+    }
+
+    .archive-body {
+      padding: 1.375rem 1.5rem 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .archive-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .archive-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      flex: 1;
+    }
+
+    .archive-size {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.875rem;
+      font-weight: 500;
+    }
+
+    .archive-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.375rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--accent);
+      transition: gap var(--transition);
+      align-self: flex-start;
+    }
+
+    .archive-card:hover .archive-download {
+      gap: 0.625rem;
+    }
+
+    @media (max-width: 1024px) {
+      .archive-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .archive-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* =============================================
        CONTACT SECTION
     ============================================= */
     #contact {
@@ -1369,6 +1478,15 @@ git      --green:         #10b981;
           <span>Projects</span>
         </button>
 
+        <button class="sidebar-link" data-nav="archive">
+          <span class="sidebar-link-icon" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 3h16a2 2 0 012 2v14a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2z"/><path d="M8 7h8M8 11h8M8 15h4"/>
+            </svg>
+          </span>
+          <span>Archive</span>
+        </button>
+
         <button class="sidebar-link" data-nav="contact">
           <span class="sidebar-link-icon" aria-hidden="true">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -1447,6 +1565,7 @@ git      --green:         #10b981;
           <button class="nav-link active" data-nav="home">Home</button>
           <button class="nav-link" data-nav="about">About</button>
           <button class="nav-link" data-nav="projects">Projects</button>
+          <button class="nav-link" data-nav="archive">Archive</button>
           <button class="nav-link" data-nav="contact">Contact</button>
         </div>
 
@@ -2366,6 +2485,128 @@ git      --green:         #10b981;
           </form>
 
         </div>
+      </div>
+    </section>
+
+
+    <!-- ============================================
+         SECTION: ARCHIVE
+         Document library for sharing files
+         and resources with collaborators
+    ============================================= -->
+    <section id="archive" aria-label="Document Archive">
+      <div class="section-wrapper">
+
+        <!-- Section header -->
+        <div class="section-header">
+          <span class="section-label" aria-hidden="true">Resources</span>
+          <h2 class="section-title">Document Archive</h2>
+          <p class="section-subtitle">
+            Curated files, resources, and documents available for download. Find presentations, case studies, design documents, and more.
+          </p>
+        </div>
+
+        <!-- Archive grid -->
+        <div class="archive-grid" role="list" aria-label="Document files">
+
+          <!-- File 1: Brand Guidelines -->
+          <article class="archive-card" role="listitem">
+            <div class="archive-icon" aria-hidden="true">📘</div>
+            <div class="archive-body">
+              <h3 class="archive-title">Brand Guidelines</h3>
+              <p class="archive-desc">Complete visual identity system including typography, color palette, and usage standards.</p>
+              <div class="archive-size">2.4 MB · PDF</div>
+              <a href="#" class="archive-download" target="_blank" rel="noopener noreferrer">
+                Download
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- File 2: Case Study -->
+          <article class="archive-card" role="listitem">
+            <div class="archive-icon" aria-hidden="true">📊</div>
+            <div class="archive-body">
+              <h3 class="archive-title">AI Art Generator Case Study</h3>
+              <p class="archive-desc">In-depth analysis and findings from the AI Art Generator project with metrics and insights.</p>
+              <div class="archive-size">1.8 MB · PDF</div>
+              <a href="#" class="archive-download" target="_blank" rel="noopener noreferrer">
+                Download
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- File 3: Design System -->
+          <article class="archive-card" role="listitem">
+            <div class="archive-icon" aria-hidden="true">🎨</div>
+            <div class="archive-body">
+              <h3 class="archive-title">Figma Design System</h3>
+              <p class="archive-desc">Complete component library and design tokens for creating consistent interfaces and prototypes.</p>
+              <div class="archive-size">Link · Figma</div>
+              <a href="#" class="archive-download" target="_blank" rel="noopener noreferrer">
+                Access File
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- File 4: Technical Documentation -->
+          <article class="archive-card" role="listitem">
+            <div class="archive-icon" aria-hidden="true">💻</div>
+            <div class="archive-body">
+              <h3 class="archive-title">Technical Documentation</h3>
+              <p class="archive-desc">API reference, architecture diagrams, and implementation guides for integration projects.</p>
+              <div class="archive-size">3.2 MB · PDF</div>
+              <a href="#" class="archive-download" target="_blank" rel="noopener noreferrer">
+                Download
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- File 5: Portfolio Presentation -->
+          <article class="archive-card" role="listitem">
+            <div class="archive-icon" aria-hidden="true">📽️</div>
+            <div class="archive-body">
+              <h3 class="archive-title">Portfolio Presentation</h3>
+              <p class="archive-desc">Slide deck showcasing recent projects, achievements, and creative philosophy with full notes.</p>
+              <div class="archive-size">5.1 MB · PPTX</div>
+              <a href="#" class="archive-download" target="_blank" rel="noopener noreferrer">
+                Download
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- File 6: Contact & Collaboration Info -->
+          <article class="archive-card" role="listitem">
+            <div class="archive-icon" aria-hidden="true">📋</div>
+            <div class="archive-body">
+              <h3 class="archive-title">Collaboration Guide</h3>
+              <p class="archive-desc">Overview of collaboration workflows, communication preferences, and project working standards.</p>
+              <div class="archive-size">1.2 MB · PDF</div>
+              <a href="#" class="archive-download" target="_blank" rel="noopener noreferrer">
+                Download
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+        </div>
+
       </div>
     </section>
 
