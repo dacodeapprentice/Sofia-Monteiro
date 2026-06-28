@@ -1,1458 +1,496 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SofiaMonteiro</title>
-
-  <!-- Google Fonts: DM Sans for UI / Cormorant Garamond for elegant display -->
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
-
-  <style>
-    /* =============================================
-       CSS CUSTOM PROPERTIES — Design Tokens
-    ============================================= */
-    :root {
-      --white:         #ffffff;
-      --off-white:     #f8f9fa;
-      --light-blue:    #f0f5ff;
-      --pale-blue:     #e8f0fe;
-      --mid-gray:      #6b7280;
-      --light-gray:    #d1d5db;
-      --border:        #e5e9f2;
-      --navy:          #0f172a;
-      --navy-mid:      #1e293b;
-      --navy-light:    #334155;
-      --accent:        #1e40af;
-      --accent-light:  #3b82f6;
-git      --green:         #10b981;
-      --green-pale:    #d1fae5;
-      --text-primary:  #111827;
-      --text-secondary:#4b5563;
-      --text-muted:    #9ca3af;
-      --sidebar-width: 280px;
-      --header-height: 64px;
-      --radius-sm:     6px;
-      --radius-md:     10px;
-      --radius-lg:     16px;
-      --radius-xl:     24px;
-      --shadow-sm:     0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
-      --shadow-md:     0 4px 16px rgba(15,23,42,0.08), 0 2px 6px rgba(15,23,42,0.05);
-      --shadow-lg:     0 12px 40px rgba(15,23,42,0.12), 0 4px 12px rgba(15,23,42,0.06);
-      --shadow-card:   0 2px 12px rgba(30,64,175,0.06);
-      --transition:    0.28s cubic-bezier(0.4, 0, 0.2, 1);
-      --font-ui:       'DM Sans', sans-serif;
-      --font-display:  'Cormorant Garamond', serif;
-    }
-
-    /* =============================================
-       GLOBAL RESET & BASE
-    ============================================= */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* Hide default scrollbar — elegant invisible scroll */
-    html {
-      scroll-behavior: smooth;
-      scrollbar-width: none; /* Firefox */
-      -ms-overflow-style: none; /* IE 11 */
-    }
-    html::-webkit-scrollbar,
-    body::-webkit-scrollbar,
-    .sidebar::-webkit-scrollbar {
-      display: none;
-    }
-
-    body {
-      font-family: var(--font-ui);
-      background: var(--white);
-      color: var(--text-primary);
-      line-height: 1.65;
-      overflow-x: hidden;
-      display: flex;
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    a { text-decoration: none; color: inherit; }
-    button { font-family: var(--font-ui); cursor: pointer; }
-    ul { list-style: none; }
-    img { max-width: 100%; display: block; }
-
-    /* =============================================
-       SIDEBAR — Retractable, Deep Navy, Refined
-    ============================================= */
-    .sidebar {
-      width: var(--sidebar-width);
-      background: var(--navy);
-      position: fixed;
-      left: 0;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-      overflow-x: hidden;
-      transition: transform var(--transition), width var(--transition);
-      z-index: 1001;
-      display: flex;
-      flex-direction: column;
-      border-right: 1px solid rgba(255,255,255,0.06);
-    }
-
-    /* Collapsed state — slides fully off-screen */
-    .sidebar.collapsed {
-      transform: translateX(calc(-1 * var(--sidebar-width)));
-    }
-
-    /* Sidebar top brand area */
-    .sidebar-header {
-      padding: 1.75rem 1.5rem 1.25rem;
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      flex-shrink: 0;
-    }
-
-    /* Brand / name — DM Sans, luminous white */
-    .sidebar-brand {
-      display: flex;
-      flex-direction: column;
-      gap: 0.2rem;
-      cursor: pointer;
-    }
-
-    .sidebar-brand-monogram {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, var(--accent), var(--accent-light));
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-display);
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: var(--white);
-      letter-spacing: 0.02em;
-      margin-bottom: 0.6rem;
-      box-shadow: 0 2px 12px rgba(30,64,175,0.4);
-    }
-
-    .sidebar-brand-name {
-      font-family: var(--font-ui);
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--white);
-      letter-spacing: -0.01em;
-      line-height: 1.2;
-    }
-
-    .sidebar-brand-title {
-      font-family: var(--font-ui);
-      font-size: 0.72rem;
-      font-weight: 400;
-      color: rgba(255,255,255,0.38);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-top: 0.15rem;
-    }
-
-    /* Nav body */
-    .sidebar-nav {
-      padding: 1.25rem 0.875rem;
-      flex: 1;
-      overflow-y: auto;
-      overflow-x: hidden;
-      scrollbar-width: none;
-    }
-    .sidebar-nav::-webkit-scrollbar { display: none; }
-
-    /* Section label */
-    .sidebar-section {
-      margin-bottom: 2rem;
-    }
-
-    .sidebar-section-title {
-      font-size: 0.66rem;
-      font-weight: 600;
-      color: rgba(255,255,255,0.28);
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      margin-bottom: 0.5rem;
-      padding: 0 0.625rem;
-    }
-
-    /* Nav links */
-    .sidebar-link {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.65rem 0.75rem;
-      color: rgba(255,255,255,0.62);
-      border-radius: var(--radius-sm);
-      transition: background var(--transition), color var(--transition);
-      cursor: pointer;
-      margin-bottom: 0.15rem;
-      font-size: 0.9rem;
-      font-weight: 500;
-      border: none;
-      background: none;
-      width: 100%;
-      text-align: left;
-    }
-
-    .sidebar-link:hover {
-      background: rgba(255,255,255,0.07);
-      color: var(--white);
-    }
-
-    .sidebar-link.active {
-      background: rgba(59,130,246,0.18);
-      color: var(--accent-light);
-    }
-
-    .sidebar-link-icon {
-      font-size: 0.95rem;
-      width: 20px;
-      text-align: center;
-      flex-shrink: 0;
-      opacity: 0.8;
-    }
-
-    /* Divider between nav sections */
-    .sidebar-divider {
-      height: 1px;
-      background: rgba(255,255,255,0.07);
-      margin: 0.75rem 0.625rem 1.25rem;
-    }
-
-    /* External links in sidebar */
-    .sidebar-link-ext {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.6rem 0.75rem;
-      color: rgba(255,255,255,0.5);
-      border-radius: var(--radius-sm);
-      transition: background var(--transition), color var(--transition);
-      cursor: pointer;
-      margin-bottom: 0.1rem;
-      font-size: 0.85rem;
-      font-weight: 400;
-      text-decoration: none;
-    }
-
-    .sidebar-link-ext:hover {
-      background: rgba(255,255,255,0.06);
-      color: rgba(255,255,255,0.8);
-    }
-
-    .sidebar-link-ext svg {
-      width: 14px;
-      height: 14px;
-      opacity: 0.6;
-      flex-shrink: 0;
-    }
-
-    /* Sidebar footer */
-    .sidebar-footer {
-      padding: 1.25rem 1.5rem;
-      border-top: 1px solid rgba(255,255,255,0.07);
-      flex-shrink: 0;
-    }
-
-    .sidebar-footer-text {
-      font-size: 0.75rem;
-      color: rgba(255,255,255,0.25);
-      line-height: 1.6;
-    }
-
-    /* =============================================
-       HEADER / TOP NAV — Crisp white, sticky
-    ============================================= */
-    .header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: var(--header-height);
-      z-index: 1000;
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(16px) saturate(180%);
-      -webkit-backdrop-filter: blur(16px) saturate(180%);
-      border-bottom: 1px solid var(--border);
-      transition: box-shadow var(--transition);
-    }
-
-    .header.scrolled {
-      box-shadow: var(--shadow-sm);
-    }
-
-    .nav-container {
-      height: 100%;
-      padding: 0 1.75rem;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 1rem;
-      max-width: 1400px;
-      margin: 0 auto;
-    }
-
-    /* Hamburger / toggle button */
-    .toggle-sidebar {
-      width: 40px;
-      height: 40px;
-      border: 1px solid var(--border);
-      background: var(--white);
-      border-radius: var(--radius-sm);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: background var(--transition), border-color var(--transition);
-      flex-shrink: 0;
-    }
-
-    .toggle-sidebar:hover {
-      background: var(--off-white);
-      border-color: var(--light-gray);
-    }
-
-    /* Animated hamburger lines */
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      width: 18px;
-    }
-
-    .hamburger span {
-      display: block;
-      height: 1.5px;
-      background: var(--navy);
-      border-radius: 2px;
-      transition: transform var(--transition), opacity var(--transition), width var(--transition);
-      transform-origin: center;
-    }
-
-    .hamburger span:nth-child(2) {
-      width: 70%;
-    }
-
-    /* Open state — X icon */
-    .toggle-sidebar.open .hamburger span:nth-child(1) {
-      transform: translateY(5.5px) rotate(45deg);
-    }
-    .toggle-sidebar.open .hamburger span:nth-child(2) {
-      opacity: 0;
-      transform: scaleX(0);
-    }
-    .toggle-sidebar.open .hamburger span:nth-child(3) {
-      transform: translateY(-5.5px) rotate(-45deg);
-    }
-
-    /* Top nav brand (center) */
-    .nav-brand {
-      font-family: var(--font-ui);
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: var(--navy);
-      letter-spacing: -0.01em;
-      cursor: pointer;
-      transition: opacity var(--transition);
-    }
-
-    .nav-brand:hover { opacity: 0.7; }
-
-    /* Top nav links */
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-
-    .nav-link {
-      padding: 0.45rem 0.875rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      border-radius: var(--radius-sm);
-      transition: background var(--transition), color var(--transition);
-      cursor: pointer;
-      border: none;
-      background: none;
-    }
-
-    .nav-link:hover {
-      background: var(--off-white);
-      color: var(--text-primary);
-    }
-
-    .nav-link.active {
-      color: var(--accent);
-      background: var(--pale-blue);
-    }
-
-    /* Right spacer to balance layout */
-    .nav-spacer {
-      flex: 1;
-      width: auto;
-      flex-shrink: 0;
-    }
-
-    /* =============================================
-       SIDEBAR OVERLAY (mobile)
-    ============================================= */
-    .sidebar-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(15,23,42,0.45);
-      z-index: 1000;
-      backdrop-filter: blur(2px);
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
-
-    .sidebar-overlay.visible {
-      opacity: 1;
-    }
-
-    /* =============================================
-       MAIN WRAPPER — shifts when sidebar opens on desktop
-    ============================================= */
-    .main-wrapper {
-      flex: 1;
-      margin-left: 0;
-      transition: margin-left var(--transition);
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      padding-top: var(--header-height);
-      width: 100%;
-    }
-
-    /* =============================================
-       SECTIONS — Show/hide system
-    ============================================= */
-    section {
-      display: none;
-      min-height: calc(100vh - var(--header-height));
-      animation: none;
-    }
-
-    section.active {
-      display: block;
-      animation: sectionFadeIn 0.38s cubic-bezier(0.4, 0, 0.2, 1) both;
-    }
-
-    @keyframes sectionFadeIn {
-      from { opacity: 0; transform: translateY(14px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* =============================================
-       TYPOGRAPHY — Refined Scale
-    ============================================= */
-    .display-title {
-      font-family: var(--font-display);
-      font-size: clamp(3rem, 6vw, 5.5rem);
-      font-weight: 300;
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-      color: var(--navy);
-    }
-
-    .display-title em {
-      font-style: italic;
-      color: var(--accent);
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 300;
-      line-height: 1.15;
-      letter-spacing: -0.02em;
-      color: var(--navy);
-      margin-bottom: 0.5rem;
-    }
-
-    .section-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.18em;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-      display: block;
-    }
-
-    .section-subtitle {
-      font-size: 1.05rem;
-      color: var(--text-secondary);
-      font-weight: 400;
-      max-width: 520px;
-      line-height: 1.7;
-      margin-bottom: 0;
-    }
-
-    /* =============================================
-       HERO SECTION
-    ============================================= */
-    #home {
-      background: var(--white);
-      position: relative;
-      overflow: hidden;
-      padding: 0;
-    }
-
-    /* Subtle background geometry */
-    .hero-bg-decor {
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 0;
-    }
-
-    .hero-bg-decor::before {
-      content: '';
-      position: absolute;
-      top: -120px;
-      right: -120px;
-      width: 640px;
-      height: 640px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(219,234,254,0.55) 0%, rgba(248,249,250,0) 70%);
-    }
-
-    .hero-bg-decor::after {
-      content: '';
-      position: absolute;
-      bottom: -80px;
-      left: -80px;
-      width: 420px;
-      height: 420px;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(209,250,229,0.35) 0%, rgba(248,249,250,0) 70%);
-    }
-
-    /* Fine grid texture */
-    .hero-grid-texture {
-      position: absolute;
-      inset: 0;
-      opacity: 0.022;
-      background-image:
-        linear-gradient(rgba(15,23,42,1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(15,23,42,1) 1px, transparent 1px);
-      background-size: 48px 48px;
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: calc(100vh - var(--header-height));
-      text-align: center;
-      padding: 5rem 2rem 4rem;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    /* Small welcome eyebrow */
-    .hero-eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: var(--pale-blue);
-      border: 1px solid var(--accent-pale);
-      color: var(--accent);
-      font-size: 0.72rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.16em;
-      padding: 0.35rem 0.875rem;
-      border-radius: 100px;
-      margin-bottom: 2rem;
-      animation: sectionFadeIn 0.5s 0.1s both;
-    }
-
-    .hero-eyebrow-dot {
-      width: 6px;
-      height: 6px;
-      background: var(--green);
-      border-radius: 50%;
-      animation: pulse 2.4s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50%       { opacity: 0.6; transform: scale(0.8); }
-    }
-
-    .hero-headline {
-      font-family: var(--font-display);
-      font-size: clamp(2.8rem, 7vw, 5.8rem);
-      font-weight: 300;
-      line-height: 1.05;
-      letter-spacing: -0.025em;
-      color: var(--navy);
-      margin-bottom: 1.5rem;
-      animation: sectionFadeIn 0.55s 0.18s both;
-    }
-
-    .hero-headline em {
-      font-style: italic;
-      color: var(--accent);
-      font-weight: 300;
-    }
-
-    .hero-subtext {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      line-height: 1.75;
-      max-width: 560px;
-      margin: 0 auto 2.75rem;
-      font-weight: 400;
-      animation: sectionFadeIn 0.55s 0.26s both;
-    }
-
-    .hero-cta-group {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      animation: sectionFadeIn 0.55s 0.34s both;
-    }
-
-    /* Primary CTA */
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.8rem 1.875rem;
-      background: var(--navy);
-      color: var(--white);
-      font-family: var(--font-ui);
-      font-size: 0.875rem;
-      font-weight: 500;
-      letter-spacing: 0.01em;
-      border-radius: var(--radius-sm);
-      border: 1.5px solid var(--navy);
-      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .btn-primary:hover {
-      background: var(--navy-mid);
-      box-shadow: 0 4px 20px rgba(15,23,42,0.22);
-      transform: translateY(-1px);
-    }
-
-    /* Secondary CTA */
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.8rem 1.875rem;
-      background: transparent;
-      color: var(--text-primary);
-      font-family: var(--font-ui);
-      font-size: 0.875rem;
-      font-weight: 500;
-      letter-spacing: 0.01em;
-      border-radius: var(--radius-sm);
-      border: 1.5px solid var(--border);
-      transition: background var(--transition), border-color var(--transition), transform var(--transition);
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .btn-secondary:hover {
-      background: var(--off-white);
-      border-color: var(--light-gray);
-      transform: translateY(-1px);
-    }
-
-    /* Green accent button */
-    .btn-green {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.8rem 1.875rem;
-      background: var(--green);
-      color: var(--white);
-      font-family: var(--font-ui);
-      font-size: 0.875rem;
-      font-weight: 500;
-      border-radius: var(--radius-sm);
-      border: 1.5px solid var(--green);
-      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .btn-green:hover {
-      background: #059669;
-      box-shadow: 0 4px 16px rgba(16,185,129,0.3);
-      transform: translateY(-1px);
-    }
-
-    /* Hero scroll indicator */
-    .hero-scroll {
-      position: absolute;
-      bottom: 2.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
-      color: var(--text-muted);
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      font-weight: 500;
-      cursor: pointer;
-      animation: sectionFadeIn 0.55s 0.5s both;
-    }
-
-    .hero-scroll-line {
-      width: 1px;
-      height: 32px;
-      background: linear-gradient(to bottom, var(--light-gray), transparent);
-      animation: scrollPulse 2s ease-in-out infinite;
-    }
-
-    @keyframes scrollPulse {
-      0%, 100% { opacity: 0.4; transform: scaleY(1); }
-      50%       { opacity: 1; transform: scaleY(1.2); }
-    }
-
-    /* Hero stat chips */
-    .hero-stats {
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 3.5rem;
-      padding-top: 3rem;
-      border-top: 1px solid var(--border);
-      width: 100%;
-      animation: sectionFadeIn 0.55s 0.42s both;
-    }
-
-    .hero-stat {
-      text-align: center;
-    }
-
-    .hero-stat-value {
-      font-family: var(--font-display);
-      font-size: 2.5rem;
-      font-weight: 300;
-      color: var(--navy);
-      line-height: 1;
-      letter-spacing: -0.03em;
-    }
-
-    .hero-stat-label {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-top: 0.3rem;
-      font-weight: 500;
-    }
-
-    .hero-stat-sep {
-      width: 1px;
-      height: 36px;
-      background: var(--border);
-    }
-
-    /* =============================================
-       SECTION WRAPPER (shared padding/layout)
-    ============================================= */
-    .section-wrapper {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 5rem 2rem;
-    }
-
-    .section-header {
-      margin-bottom: 3.5rem;
-    }
-
-    /* =============================================
-       ABOUT SECTION
-    ============================================= */
-    #about {
-      background: var(--off-white);
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3.5rem;
-      align-items: start;
-    }
-
-    /* Portrait placeholder card */
-    .about-portrait {
-      aspect-ratio: 4/5;
-      max-height: 520px;
-      background: linear-gradient(160deg, var(--pale-blue) 0%, var(--light-blue) 60%, var(--accent-pale) 100%);
-      border-radius: var(--radius-xl);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 6rem;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-md);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .about-portrait::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(160deg, transparent 60%, rgba(30,64,175,0.06));
-    }
-
-    .about-content {
-      display: flex;
-      flex-direction: column;
-      gap: 2.25rem;
-    }
-
-    .about-bio {
-      font-size: 1.05rem;
-      color: var(--text-secondary);
-      line-height: 1.8;
-      font-weight: 400;
-    }
-
-    .about-bio p + p {
-      margin-top: 1rem;
-    }
-
-    /* Skills grid */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.625rem;
-    }
-
-    .skill-item {
-      display: flex;
-      align-items: center;
-      gap: 0.625rem;
-      padding: 0.75rem 0.875rem;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--text-primary);
-      transition: border-color var(--transition), box-shadow var(--transition);
-    }
-
-    .skill-item:hover {
-      border-color: var(--accent-light);
-      box-shadow: 0 2px 10px rgba(59,130,246,0.1);
-    }
-
-    .skill-icon {
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-
-    /* About accent block */
-    .about-quote {
-      border-left: 3px solid var(--accent);
-      padding: 1rem 1.25rem;
-      background: var(--pale-blue);
-      border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    }
-
-    .about-quote-text {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      font-style: italic;
-      color: var(--navy);
-      line-height: 1.5;
-      font-weight: 300;
-    }
-
-    /* =============================================
-       PROJECTS SECTION
-    ============================================= */
-    #projects {
-      background: var(--white);
-    }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    /* Project card */
-    .project-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-      cursor: pointer;
-    }
-
-    .project-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-lg);
-      border-color: rgba(59,130,246,0.3);
-    }
-
-    .project-thumb {
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3.5rem;
-      background: linear-gradient(135deg, var(--light-blue) 0%, var(--pale-blue) 100%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-thumb::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, transparent 50%, rgba(15,23,42,0.04));
-    }
-
-    .project-body {
-      padding: 1.375rem 1.5rem 1.5rem;
-    }
-
-    .project-meta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 0.625rem;
-    }
-
-    .project-year {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-
-    .project-title {
-      font-family: var(--font-display);
-      font-size: 1.25rem;
-      font-weight: 400;
-      color: var(--navy);
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-    }
-
-    .project-desc {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
-      margin-bottom: 1rem;
-    }
-
-    .tags {
-      display: flex;
-      gap: 0.4rem;
-      flex-wrap: wrap;
-    }
-
-    .tag {
-      font-size: 0.72rem;
-      font-weight: 500;
-      color: var(--accent);
-      background: var(--pale-blue);
-      border: 1px solid rgba(59,130,246,0.18);
-      padding: 0.2rem 0.6rem;
-      border-radius: 100px;
-      letter-spacing: 0.01em;
-    }
-
-    /* View arrow on card */
-    .project-arrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.375rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--accent);
-      margin-top: 0.875rem;
-      transition: gap var(--transition);
-    }
-
-    .project-card:hover .project-arrow {
-      gap: 0.625rem;
-    }
-
-    /* =============================================
-       PROJECT DETAIL SECTIONS
-    ============================================= */
-    .project-detail-section {
-      background: var(--white);
-    }
-
-    .project-detail-hero {
-      height: 320px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 6rem;
-      background: linear-gradient(135deg, var(--light-blue) 0%, var(--pale-blue) 60%, var(--white) 100%);
-      border-radius: var(--radius-xl);
-      margin-bottom: 2.5rem;
-      border: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .project-detail-hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, transparent, rgba(30,64,175,0.04));
-    }
-
-    .content-card {
-      background: var(--off-white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 2rem 2.25rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .content-card h2 {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 400;
-      color: var(--navy);
-      margin-bottom: 1rem;
-      letter-spacing: -0.01em;
-    }
-
-    .content-card p,
-    .content-card li {
-      color: var(--text-secondary);
-      font-size: 0.95rem;
-      line-height: 1.75;
-    }
-
-    .content-card ul {
-      list-style: disc;
-      padding-left: 1.25rem;
-    }
-
-    .content-card ul li {
-      margin-bottom: 0.5rem;
-    }
-
-    /* Back button */
-    .btn-back {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--text-secondary);
-      background: none;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-sm);
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      transition: background var(--transition), color var(--transition);
-      margin-bottom: 2rem;
-    }
-
-    .btn-back:hover {
-      background: var(--off-white);
-      color: var(--text-primary);
-    }
-
-    /* =============================================
-       ARCHIVE SECTION — Document sharing & files
-    ============================================= */
-    #archive {
-      background: var(--white);
-    }
-
-    .archive-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1.5rem;
-    }
-
-    .archive-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .archive-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-      border-color: rgba(59,130,246,0.3);
-    }
-
-    .archive-icon {
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.5rem;
-      background: linear-gradient(135deg, var(--light-blue) 0%, var(--pale-blue) 100%);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .archive-icon::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to bottom, transparent 50%, rgba(15,23,42,0.04));
-    }
-
-    .archive-body {
-      padding: 1.375rem 1.5rem 1.5rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .archive-title {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      font-weight: 400;
-      color: var(--navy);
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.01em;
-      line-height: 1.3;
-    }
-
-    .archive-desc {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 1rem;
-      flex: 1;
-    }
-
-    .archive-size {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.875rem;
-      font-weight: 500;
-    }
-
-    .archive-download {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.375rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--accent);
-      transition: gap var(--transition);
-      align-self: flex-start;
-    }
-
-    .archive-card:hover .archive-download {
-      gap: 0.625rem;
-    }
-
-    @media (max-width: 1024px) {
-      .archive-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .archive-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* =============================================
-       CONTACT SECTION
-    ============================================= */
-    #contact {
-      background: var(--navy);
-    }
-
-    #contact .section-title {
-      color: var(--white);
-    }
-
-    #contact .section-label {
-      color: rgba(147,197,253,0.9);
-    }
-
-    #contact .section-subtitle {
-      color: rgba(255,255,255,0.5);
-    }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3.5rem;
-      align-items: start;
-    }
-
-    .contact-info {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 1.125rem;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.09);
-      border-radius: var(--radius-md);
-      transition: background var(--transition);
-    }
-
-    .contact-item:hover {
-      background: rgba(255,255,255,0.08);
-    }
-
-    .contact-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: var(--radius-sm);
-      background: rgba(59,130,246,0.2);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      flex-shrink: 0;
-    }
-
-    .contact-label {
-      font-size: 0.72rem;
-      color: rgba(255,255,255,0.4);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      font-weight: 600;
-    }
-
-    .contact-value {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.8);
-      font-weight: 400;
-      margin-top: 0.1rem;
-    }
-
-    /* Contact form */
-    .contact-form {
-      display: flex;
-      flex-direction: column;
-      gap: 1.125rem;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-    }
-
-    .form-label {
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: rgba(255,255,255,0.55);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
-
-    .form-input,
-    .form-textarea {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.12);
-      border-radius: var(--radius-md);
-      color: var(--white);
-      font-family: var(--font-ui);
-      font-size: 0.9rem;
-      transition: border-color var(--transition), background var(--transition);
-      outline: none;
-    }
-
-    .form-input::placeholder,
-    .form-textarea::placeholder {
-      color: rgba(255,255,255,0.25);
-    }
-
-    .form-input:focus,
-    .form-textarea:focus {
-      border-color: rgba(59,130,246,0.6);
-      background: rgba(255,255,255,0.09);
-      box-shadow: 0 0 0 3px rgba(59,130,246,0.12);
-    }
-
-    .form-textarea {
-      resize: vertical;
-      min-height: 130px;
-    }
-
-    /* =============================================
-       FOOTER
-    ============================================= */
-    .footer {
-      background: var(--navy);
-      border-top: 1px solid rgba(255,255,255,0.07);
-      padding: 2rem;
-      text-align: center;
-    }
-
-    .footer-text {
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.3);
-      letter-spacing: 0.04em;
-    }
-
-    .footer-text a {
-      color: rgba(255,255,255,0.5);
-      transition: color var(--transition);
-    }
-
-    .footer-text a:hover {
-      color: rgba(255,255,255,0.8);
-    }
-
-    /* =============================================
-       RESPONSIVE
-    ============================================= */
-    @media (max-width: 1024px) {
-      .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .about-grid {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-
-      .about-portrait {
-        max-height: 320px;
-        aspect-ratio: 16/7;
-      }
-
-      .contact-grid {
-        grid-template-columns: 1fr;
-        gap: 2.5rem;
-      }
-    }
-
-    @media (max-width: 768px) {
-      :root {
-        --header-height: 56px;
-      }
-
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .skills-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-stats {
-        gap: 1.25rem;
-      }
-
-      .hero-stat-sep {
-        display: none;
-      }
-
-      .section-wrapper {
-        padding: 3.5rem 1.25rem;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .nav-brand {
-        font-size: 0.875rem;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .hero-inner {
-        padding: 3.5rem 1.25rem 3rem;
-      }
-
-      .hero-cta-group {
-        flex-direction: column;
-        width: 100%;
-      }
-
-      .btn-primary, .btn-secondary, .btn-green {
-        width: 100%;
-        justify-content: center;
-      }
-    }
-  </style>
+<!--
+  THE LABORATORY ARCHIVE — built as a sidebar + single-page app, in the same
+  structural language as the SofiaMonteiro reference: retractable navy sidebar,
+  fixed white header, full-page sections that show/hide (no scrolling between
+  them, no modals), elegant serif display type over a clean sans UI face.
+
+  HOW TO MAKE THIS YOURS
+  1. Search "[Your Name]" / "[Your City], [Your Country]" and replace everywhere
+     (sidebar header, hero, about, contact, footer).
+  2. Replace the placeholder email and social links (sidebar footer + contact
+     section: search for "example.com", "github.com/yourhandle", etc).
+  3. Open the <script> tag near the bottom and find `const DATA = [ ... ]`.
+     Every investigation — experiment, project, research note, or tool — is one
+     object in that array. Edit the existing ones or copy the pattern to add
+     new ones. The archive grid, the filters, the detail pages, and the
+     connections map are all generated from this array automatically.
+  4. To link two entries, add the other entry's `id` to either one's
+     `connections` array — the link is made two-way automatically, and shows
+     up as a clickable chip on both entries' pages and as a line on the map.
+  5. `category` must stay one of: 'Experiment', 'Project', 'Research', 'Tool'.
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Laboratory Archive — [Your Name]</title>
+<meta name="description" content="A living archive of creative investigation — experiments, projects, research, and tools, documented as the discoveries they are.">
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* =============================================
+   CSS CUSTOM PROPERTIES — Design Tokens
+============================================= */
+:root {
+  --white:         #ffffff;
+  --off-white:     #f8f9fa;
+  --light-blue:    #f0f5ff;
+  --pale-blue:     #e8f0fe;
+  --mid-gray:      #6b7280;
+  --light-gray:    #d1d5db;
+  --border:        #e5e9f2;
+  --navy:          #0f172a;
+  --navy-mid:      #1e293b;
+  --navy-light:    #334155;
+  --accent:        #1e40af;
+  --accent-light:  #3b82f6;
+  --accent-pale:   #bfdbfe;
+  --green:         #10b981;
+  --green-pale:    #d1fae5;
+  /* extended category accents — drawn from the same pastel family already
+     used across the reference's project-thumb gradients */
+  --violet:        #7c3aed;
+  --violet-pale:   #ede9fe;
+  --amber:         #b45309;
+  --amber-pale:    #fef3c7;
+  --text-primary:  #111827;
+  --text-secondary:#4b5563;
+  --text-muted:    #9ca3af;
+  --sidebar-width: 280px;
+  --header-height: 64px;
+  --radius-sm:     6px;
+  --radius-md:     10px;
+  --radius-lg:     16px;
+  --radius-xl:     24px;
+  --shadow-sm:     0 1px 3px rgba(15,23,42,0.06), 0 1px 2px rgba(15,23,42,0.04);
+  --shadow-md:     0 4px 16px rgba(15,23,42,0.08), 0 2px 6px rgba(15,23,42,0.05);
+  --shadow-lg:     0 12px 40px rgba(15,23,42,0.12), 0 4px 12px rgba(15,23,42,0.06);
+  --transition:    0.28s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-ui:       'DM Sans', sans-serif;
+  --font-display:  'Cormorant Garamond', serif;
+}
+
+/* =============================================
+   GLOBAL RESET & BASE
+============================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+html::-webkit-scrollbar, body::-webkit-scrollbar, .sidebar::-webkit-scrollbar { display: none; }
+
+body {
+  font-family: var(--font-ui);
+  background: var(--white);
+  color: var(--text-primary);
+  line-height: 1.65;
+  overflow-x: hidden;
+  display: flex;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a { text-decoration: none; color: inherit; }
+button { font-family: var(--font-ui); cursor: pointer; }
+ul { list-style: none; }
+img, svg { max-width: 100%; display: block; }
+:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 2px; }
+
+/* =============================================
+   SIDEBAR
+============================================= */
+.sidebar {
+  width: var(--sidebar-width);
+  background: var(--navy);
+  position: fixed; left: 0; top: 0; height: 100vh;
+  overflow-y: auto; overflow-x: hidden;
+  transition: transform var(--transition);
+  z-index: 1001;
+  display: flex; flex-direction: column;
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+.sidebar.collapsed { transform: translateX(calc(-1 * var(--sidebar-width))); }
+
+.sidebar-header { padding: 1.75rem 1.5rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.07); flex-shrink: 0; }
+.sidebar-brand { display: flex; flex-direction: column; gap: 0.2rem; cursor: pointer; }
+.sidebar-brand-monogram {
+  width: 36px; height: 36px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-light));
+  border-radius: var(--radius-sm);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-size: 1.15rem; font-weight: 600;
+  color: var(--white); letter-spacing: 0.02em; margin-bottom: 0.6rem;
+  box-shadow: 0 2px 12px rgba(30,64,175,0.4);
+}
+.sidebar-brand-name { font-size: 1.05rem; font-weight: 600; color: var(--white); letter-spacing: -0.01em; line-height: 1.2; }
+.sidebar-brand-title { font-size: 0.72rem; font-weight: 400; color: rgba(255,255,255,0.38); text-transform: uppercase; letter-spacing: 0.12em; margin-top: 0.15rem; }
+
+.sidebar-nav { padding: 1.25rem 0.875rem; flex: 1; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; }
+.sidebar-nav::-webkit-scrollbar { display: none; }
+.sidebar-section { margin-bottom: 2rem; }
+.sidebar-section-title { font-size: 0.66rem; font-weight: 600; color: rgba(255,255,255,0.28); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 0.5rem; padding: 0 0.625rem; }
+
+.sidebar-link {
+  display: flex; align-items: center; gap: 0.75rem; padding: 0.65rem 0.75rem;
+  color: rgba(255,255,255,0.62); border-radius: var(--radius-sm);
+  transition: background var(--transition), color var(--transition);
+  cursor: pointer; margin-bottom: 0.15rem; font-size: 0.9rem; font-weight: 500;
+  border: none; background: none; width: 100%; text-align: left;
+}
+.sidebar-link:hover { background: rgba(255,255,255,0.07); color: var(--white); }
+.sidebar-link.active { background: rgba(59,130,246,0.18); color: var(--accent-light); }
+.sidebar-link-icon { font-size: 0.95rem; width: 20px; text-align: center; flex-shrink: 0; opacity: 0.8; }
+.sidebar-link-icon svg { width: 16px; height: 16px; }
+
+.sidebar-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 0.75rem 0.625rem 1.25rem; }
+
+.sidebar-link-ext {
+  display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0.75rem;
+  color: rgba(255,255,255,0.5); border-radius: var(--radius-sm);
+  transition: background var(--transition), color var(--transition);
+  cursor: pointer; margin-bottom: 0.1rem; font-size: 0.85rem; font-weight: 400; text-decoration: none;
+}
+.sidebar-link-ext:hover { background: rgba(255,255,255,0.06); color: rgba(255,255,255,0.8); }
+.sidebar-link-ext svg { width: 14px; height: 14px; opacity: 0.6; flex-shrink: 0; }
+
+.sidebar-footer { padding: 1.25rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.07); flex-shrink: 0; }
+.sidebar-footer-text { font-size: 0.75rem; color: rgba(255,255,255,0.25); line-height: 1.6; }
+
+/* =============================================
+   HEADER / TOP NAV
+============================================= */
+.header {
+  position: fixed; top: 0; left: 0; right: 0; height: var(--header-height); z-index: 1000;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow var(--transition);
+}
+.header.scrolled { box-shadow: var(--shadow-sm); }
+
+.nav-container { height: 100%; padding: 0 1.75rem; display: flex; align-items: center; gap: 1rem; max-width: 1400px; margin: 0 auto; }
+
+.toggle-sidebar {
+  width: 40px; height: 40px; border: 1px solid var(--border); background: var(--white);
+  border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background var(--transition), border-color var(--transition); flex-shrink: 0;
+}
+.toggle-sidebar:hover { background: var(--off-white); border-color: var(--light-gray); }
+.hamburger { display: flex; flex-direction: column; gap: 4px; width: 18px; }
+.hamburger span { display: block; height: 1.5px; background: var(--navy); border-radius: 2px; transition: transform var(--transition), opacity var(--transition), width var(--transition); transform-origin: center; }
+.hamburger span:nth-child(2) { width: 70%; }
+.toggle-sidebar.open .hamburger span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+.toggle-sidebar.open .hamburger span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.toggle-sidebar.open .hamburger span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+.nav-brand { font-size: 0.95rem; font-weight: 600; color: var(--navy); letter-spacing: -0.01em; cursor: pointer; transition: opacity var(--transition); border: none; background: none; }
+.nav-brand:hover { opacity: 0.7; }
+.nav-links { display: flex; align-items: center; gap: 0.25rem; }
+.nav-link { padding: 0.45rem 0.875rem; font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); border-radius: var(--radius-sm); transition: background var(--transition), color var(--transition); cursor: pointer; border: none; background: none; }
+.nav-link:hover { background: var(--off-white); color: var(--text-primary); }
+.nav-link.active { color: var(--accent); background: var(--pale-blue); }
+.nav-spacer { flex: 1; }
+
+/* =============================================
+   SIDEBAR OVERLAY (mobile)
+============================================= */
+.sidebar-overlay {
+  display: none; position: fixed; inset: 0; background: rgba(15,23,42,0.45); z-index: 1000;
+  backdrop-filter: blur(2px); opacity: 0; transition: opacity var(--transition);
+}
+.sidebar-overlay.visible { opacity: 1; }
+
+/* =============================================
+   MAIN WRAPPER
+============================================= */
+.main-wrapper { flex: 1; display: flex; flex-direction: column; min-height: 100vh; padding-top: var(--header-height); width: 100%; }
+
+/* =============================================
+   SECTIONS — show / hide system
+============================================= */
+section { display: none; min-height: calc(100vh - var(--header-height)); }
+section.active { display: block; animation: sectionFadeIn 0.38s cubic-bezier(0.4,0,0.2,1) both; }
+@keyframes sectionFadeIn { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  section.active { animation: none; }
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+/* =============================================
+   TYPOGRAPHY
+============================================= */
+.section-title { font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.15; letter-spacing: -0.02em; color: var(--navy); margin-bottom: 0.5rem; }
+.section-label { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.18em; color: var(--accent); margin-bottom: 0.75rem; display: block; }
+.section-subtitle { font-size: 1.05rem; color: var(--text-secondary); font-weight: 400; max-width: 560px; line-height: 1.7; }
+.section-wrapper { max-width: 1160px; margin: 0 auto; padding: 5rem 2rem; }
+.section-header { margin-bottom: 3.5rem; }
+
+/* =============================================
+   HERO
+============================================= */
+#home { background: var(--white); position: relative; overflow: hidden; padding: 0; }
+.hero-bg-decor { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.hero-bg-decor::before { content:''; position:absolute; top:-120px; right:-120px; width:640px; height:640px; border-radius:50%; background: radial-gradient(circle, rgba(219,234,254,0.55) 0%, rgba(248,249,250,0) 70%); }
+.hero-bg-decor::after { content:''; position:absolute; bottom:-80px; left:-80px; width:420px; height:420px; border-radius:50%; background: radial-gradient(circle, rgba(209,250,229,0.35) 0%, rgba(248,249,250,0) 70%); }
+.hero-grid-texture { position:absolute; inset:0; opacity:0.022; background-image: linear-gradient(rgba(15,23,42,1) 1px, transparent 1px), linear-gradient(90deg, rgba(15,23,42,1) 1px, transparent 1px); background-size:48px 48px; pointer-events:none; }
+
+.hero-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: calc(100vh - var(--header-height)); text-align: center; padding: 5rem 2rem 4rem; max-width: 900px; margin: 0 auto; }
+
+.hero-eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--pale-blue); border: 1px solid var(--accent-pale); color: var(--accent); font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.16em; padding: 0.35rem 0.875rem; border-radius: 100px; margin-bottom: 2rem; animation: sectionFadeIn 0.5s 0.1s both; }
+.hero-eyebrow-dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2.4s ease-in-out infinite; }
+@keyframes pulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.8); } }
+
+.hero-headline { font-family: var(--font-display); font-size: clamp(2.8rem, 7vw, 5.8rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.025em; color: var(--navy); margin-bottom: 1.5rem; animation: sectionFadeIn 0.55s 0.18s both; }
+.hero-headline em { font-style: italic; color: var(--accent); font-weight: 300; }
+.hero-subtext { font-size: 1.1rem; color: var(--text-secondary); line-height: 1.75; max-width: 580px; margin: 0 auto 2.75rem; font-weight: 400; animation: sectionFadeIn 0.55s 0.26s both; }
+.hero-cta-group { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: center; animation: sectionFadeIn 0.55s 0.34s both; }
+
+.btn-primary, .btn-secondary, .btn-green {
+  display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.8rem 1.875rem;
+  font-size: 0.875rem; font-weight: 500; letter-spacing: 0.01em; border-radius: var(--radius-sm);
+  transition: background var(--transition), transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  cursor: pointer; text-decoration: none; border: 1.5px solid transparent;
+}
+.btn-primary { background: var(--navy); color: var(--white); border-color: var(--navy); }
+.btn-primary:hover { background: var(--navy-mid); box-shadow: 0 4px 20px rgba(15,23,42,0.22); transform: translateY(-1px); }
+.btn-secondary { background: transparent; color: var(--text-primary); border-color: var(--border); }
+.btn-secondary:hover { background: var(--off-white); border-color: var(--light-gray); transform: translateY(-1px); }
+.btn-green { background: var(--green); color: var(--white); border-color: var(--green); }
+.btn-green:hover { background: #059669; box-shadow: 0 4px 16px rgba(16,185,129,0.3); transform: translateY(-1px); }
+
+.hero-scroll { position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 0.4rem; color: var(--text-muted); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; cursor: pointer; animation: sectionFadeIn 0.55s 0.5s both; }
+.hero-scroll-line { width: 1px; height: 32px; background: linear-gradient(to bottom, var(--light-gray), transparent); animation: scrollPulse 2s ease-in-out infinite; }
+@keyframes scrollPulse { 0%,100% { opacity: 0.4; transform: scaleY(1); } 50% { opacity: 1; transform: scaleY(1.2); } }
+
+.hero-stats { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; justify-content: center; margin-top: 3.5rem; padding-top: 3rem; border-top: 1px solid var(--border); width: 100%; animation: sectionFadeIn 0.55s 0.42s both; }
+.hero-stat { text-align: center; }
+.hero-stat-value { font-family: var(--font-display); font-size: 2.5rem; font-weight: 300; color: var(--navy); line-height: 1; letter-spacing: -0.03em; }
+.hero-stat-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.3rem; font-weight: 500; }
+.hero-stat-sep { width: 1px; height: 36px; background: var(--border); }
+
+/* =============================================
+   ABOUT
+============================================= */
+#about { background: var(--off-white); }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
+.about-portrait {
+  aspect-ratio: 4/5; max-height: 520px;
+  background: linear-gradient(160deg, var(--pale-blue) 0%, var(--light-blue) 60%, var(--accent-pale) 100%);
+  border-radius: var(--radius-xl); display: flex; align-items: center; justify-content: center;
+  font-size: 6rem; border: 1px solid var(--border); box-shadow: var(--shadow-md); position: relative; overflow: hidden;
+}
+.about-portrait::after { content:''; position:absolute; inset:0; background: linear-gradient(160deg, transparent 60%, rgba(30,64,175,0.06)); }
+.about-content { display: flex; flex-direction: column; gap: 2.25rem; }
+.about-bio { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.8; }
+.about-bio p + p { margin-top: 1rem; }
+.about-quote { border-left: 3px solid var(--accent); padding: 1rem 1.25rem; background: var(--pale-blue); border-radius: 0 var(--radius-md) var(--radius-md) 0; }
+.about-quote-text { font-family: var(--font-display); font-size: 1.2rem; font-style: italic; color: var(--navy); line-height: 1.5; font-weight: 300; }
+
+.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.625rem; }
+.skill-item { display: flex; align-items: center; gap: 0.625rem; padding: 0.75rem 0.875rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); font-size: 0.875rem; font-weight: 500; color: var(--text-primary); transition: border-color var(--transition), box-shadow var(--transition); }
+.skill-item:hover { border-color: var(--accent-light); box-shadow: 0 2px 10px rgba(59,130,246,0.1); }
+.skill-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+.principles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.625rem; }
+.principle-item { padding: 0.85rem 1rem; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-md); font-family: var(--font-display); font-style: italic; font-size: 1.02rem; color: var(--navy-mid); line-height: 1.35; }
+
+/* =============================================
+   ARCHIVE TOOLBAR — search, category tabs, filters
+============================================= */
+#archive { background: var(--white); }
+.archive-toolbar { margin-bottom: 2rem; }
+.toolbar-row { display: flex; gap: 0.7rem; align-items: center; flex-wrap: wrap; margin-bottom: 1.1rem; }
+.search-field { position: relative; flex: 1 1 260px; min-width: 200px; }
+.search-field svg { position: absolute; left: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); width: 15px; height: 15px; }
+#searchInput { width: 100%; font-family: var(--font-ui); font-size: 0.92rem; padding: 0.65rem 0.9rem 0.65rem 2.1rem; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--off-white); color: var(--text-primary); transition: border-color var(--transition), background var(--transition), box-shadow var(--transition); }
+#searchInput::placeholder { color: var(--text-muted); }
+#searchInput:focus { outline: none; border-color: var(--accent-light); background: var(--white); box-shadow: 0 0 0 3px rgba(59,130,246,0.12); }
+
+.btn-ghost {
+  font-size: 0.82rem; font-weight: 500; letter-spacing: 0.01em; background: var(--white);
+  border: 1px solid var(--border); color: var(--text-secondary); border-radius: var(--radius-sm);
+  padding: 0.62rem 0.95rem; display: inline-flex; align-items: center; gap: 0.45rem; white-space: nowrap;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+.btn-ghost:hover { background: var(--off-white); color: var(--text-primary); }
+.btn-ghost[aria-pressed="true"] { background: var(--pale-blue); border-color: var(--accent-pale); color: var(--accent); }
+.filter-count { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; background: var(--accent); color: #fff; border-radius: 50%; font-size: 0.68rem; padding: 0 0.3rem; }
+
+.category-tabs { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.cat-tab {
+  display: flex; align-items: center; gap: 0.4rem; padding: 0.5rem 1rem; font-size: 0.85rem; font-weight: 500;
+  color: var(--text-secondary); border-radius: 100px; border: 1px solid var(--border); background: var(--white);
+  transition: background var(--transition), color var(--transition), border-color var(--transition);
+}
+.cat-tab .n { font-size: 0.72rem; opacity: 0.7; }
+.cat-tab:hover { background: var(--off-white); }
+.cat-tab.active { background: var(--tab-pale, var(--pale-blue)); border-color: var(--tab-accent, var(--accent-pale)); color: var(--tab-accent, var(--accent)); }
+.cat-tab-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--tab-accent, var(--accent)); flex-shrink: 0; }
+
+#filtersPanel { padding-top: 1.1rem; margin-top: 0.3rem; border-top: 1px dashed var(--border); display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 1.1rem 1.6rem; }
+#filtersPanel[hidden] { display: none; }
+.facet-group summary { cursor: pointer; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; list-style: none; }
+.facet-group summary::-webkit-details-marker { display: none; }
+.facet-group summary::before { content: "▸ "; color: var(--accent); }
+.facet-group[open] summary::before { content: "▾ "; }
+.chip-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.45rem; }
+.chip { font-size: 0.78rem; padding: 0.32rem 0.65rem; border-radius: 100px; border: 1px solid var(--border); background: var(--white); color: var(--text-secondary); transition: background var(--transition), border-color var(--transition), color var(--transition); }
+.chip[aria-pressed="true"] { background: var(--pale-blue); border-color: var(--accent-pale); color: var(--accent); }
+
+.active-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; align-items: center; }
+.active-filters[hidden] { display: none; }
+.active-chip { font-size: 0.76rem; background: var(--off-white); border: 1px solid var(--border); border-radius: 100px; padding: 0.3rem 0.4rem 0.3rem 0.7rem; display: inline-flex; align-items: center; gap: 0.4rem; color: var(--text-secondary); }
+.active-chip button { background: none; border: none; font-size: 0.9rem; line-height: 1; color: var(--accent); padding: 0; }
+.clear-all { font-size: 0.78rem; text-decoration: underline; color: var(--text-muted); background: none; border: none; }
+
+.empty-state { text-align: center; padding: 4rem 1rem; font-family: var(--font-display); font-style: italic; font-size: 1.4rem; color: var(--text-muted); }
+
+/* =============================================
+   PROJECT / ARCHIVE CARDS
+============================================= */
+.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.project-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition); cursor: pointer; }
+.project-card:hover, .project-card:focus-visible { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: rgba(59,130,246,0.3); }
+.project-thumb { height: 150px; display: flex; align-items: center; justify-content: center; font-size: 3rem; position: relative; overflow: hidden; }
+.project-thumb::after { content:''; position:absolute; inset:0; background: linear-gradient(to bottom, transparent 50%, rgba(15,23,42,0.04)); }
+.project-body { padding: 1.25rem 1.4rem 1.4rem; }
+.project-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.6rem; }
+.project-year { font-size: 0.72rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; }
+.project-title { font-family: var(--font-display); font-size: 1.22rem; font-weight: 400; color: var(--navy); margin-bottom: 0.5rem; letter-spacing: -0.01em; line-height: 1.3; }
+.project-desc { font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem; font-style: italic; }
+.tags { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+.tag { font-size: 0.7rem; font-weight: 500; color: var(--accent); background: var(--pale-blue); border: 1px solid rgba(59,130,246,0.18); padding: 0.2rem 0.6rem; border-radius: 100px; letter-spacing: 0.01em; }
+.tag-link { cursor: pointer; transition: background var(--transition), border-color var(--transition); }
+.tag-link:hover { background: var(--accent-pale); }
+.project-arrow { display: inline-flex; align-items: center; gap: 0.375rem; font-size: 0.8rem; font-weight: 600; color: var(--accent); margin-top: 0.875rem; transition: gap var(--transition); }
+.project-card:hover .project-arrow { gap: 0.625rem; }
+
+/* =============================================
+   PROJECT / ENTRY DETAIL SECTIONS
+============================================= */
+.project-detail-section { background: var(--white); }
+.project-detail-hero { height: 280px; display: flex; align-items: center; justify-content: center; font-size: 5.5rem; border-radius: var(--radius-xl); margin-bottom: 2.5rem; border: 1px solid var(--border); position: relative; overflow: hidden; }
+.project-detail-hero::after { content:''; position:absolute; inset:0; background: linear-gradient(135deg, transparent, rgba(30,64,175,0.04)); }
+.content-card { background: var(--off-white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem 2.25rem; margin-bottom: 1.5rem; }
+.content-card h2 { font-family: var(--font-display); font-size: 1.45rem; font-weight: 500; color: var(--navy); margin-bottom: 0.9rem; letter-spacing: -0.01em; }
+.content-card p { color: var(--text-secondary); font-size: 0.98rem; line-height: 1.75; }
+.content-card .lede { font-family: var(--font-display); font-style: italic; font-size: 1.2rem; color: var(--navy); line-height: 1.5; }
+.content-card ul { display: flex; flex-direction: column; gap: 0.65rem; }
+.content-card li { padding-left: 1.3rem; position: relative; color: var(--text-secondary); font-size: 0.98rem; line-height: 1.6; }
+.content-card li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
+.detail-pill { display: inline-block; font-size: 0.72rem; font-weight: 600; padding: 0.28rem 0.7rem; border-radius: 100px; margin: 0 0.4rem 0.5rem 0; letter-spacing: 0.02em; }
+
+.btn-back { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); background: none; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.5rem 1rem; cursor: pointer; transition: background var(--transition), color var(--transition); margin-bottom: 2rem; }
+.btn-back:hover { background: var(--off-white); color: var(--text-primary); }
+
+/* =============================================
+   CONNECTIONS MAP
+============================================= */
+#connections { background: var(--white); }
+.map-panel { position: relative; border: 1px solid var(--border); border-radius: var(--radius-xl); background: var(--off-white); overflow: hidden; box-shadow: var(--shadow-sm); }
+.map-panel::before { content:''; position:absolute; top:-100px; right:-100px; width:420px; height:420px; border-radius:50%; background: radial-gradient(circle, rgba(219,234,254,0.6) 0%, rgba(248,249,250,0) 70%); pointer-events:none; }
+.map-panel::after { content:''; position:absolute; bottom:-90px; left:-90px; width:360px; height:360px; border-radius:50%; background: radial-gradient(circle, rgba(209,250,229,0.45) 0%, rgba(248,249,250,0) 70%); pointer-events:none; }
+.map-board { position: relative; z-index: 1; }
+.map-board svg { width: 100%; height: auto; display: block; }
+.pin { cursor: pointer; transition: opacity .15s; }
+.pin circle.pin-head { transition: r .15s, stroke-width .15s; }
+.pin:hover circle.pin-head, .pin.is-active circle.pin-head { stroke: var(--navy); stroke-width: 2px; }
+.pin-label { font-size: 9.5px; font-family: var(--font-ui); fill: var(--text-secondary); pointer-events: none; }
+.pin.is-dim, .string.is-dim { opacity: .15; }
+.pin.is-filtered-out { opacity: .12; }
+.string { fill: none; stroke: var(--light-gray); stroke-width: 1.4; opacity: .7; transition: opacity .15s, stroke-width .15s, stroke .15s; }
+.string.is-active { stroke: var(--accent-light); stroke-width: 2.2; opacity: 1; }
+.map-legend { position: relative; z-index: 1; display: flex; gap: 1.4rem; flex-wrap: wrap; padding: 1.1rem 1.4rem; border-top: 1px solid var(--border); background: var(--white); }
+.legend-item { display: flex; align-items: center; gap: 0.45rem; font-size: 0.8rem; color: var(--text-secondary); font-weight: 500; }
+.legend-dot { width: 9px; height: 9px; border-radius: 50%; display: inline-block; }
+.map-hint { font-family: var(--font-display); font-style: italic; font-size: 1.1rem; color: var(--text-muted); padding: 0.9rem 1.4rem 1.2rem; background: var(--white); }
+
+/* =============================================
+   CONTACT
+============================================= */
+#contact { background: var(--navy); }
+#contact .section-title { color: var(--white); }
+#contact .section-label { color: rgba(147,197,253,0.9); }
+#contact .section-subtitle { color: rgba(255,255,255,0.5); }
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3.5rem; align-items: start; }
+.contact-info { display: flex; flex-direction: column; gap: 1.25rem; }
+.contact-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 1.125rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.09); border-radius: var(--radius-md); transition: background var(--transition); }
+.contact-item:hover { background: rgba(255,255,255,0.08); }
+.contact-icon { width: 40px; height: 40px; border-radius: var(--radius-sm); background: rgba(59,130,246,0.2); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.contact-label { font-size: 0.72rem; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
+.contact-value { font-size: 0.9rem; color: rgba(255,255,255,0.8); font-weight: 400; margin-top: 0.1rem; }
+
+.contact-form { display: flex; flex-direction: column; gap: 1.125rem; }
+.form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.form-label { font-size: 0.8rem; font-weight: 500; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.08em; }
+.form-input, .form-textarea { width: 100%; padding: 0.8rem 1rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius-md); color: var(--white); font-family: var(--font-ui); font-size: 0.9rem; transition: border-color var(--transition), background var(--transition); outline: none; }
+.form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.25); }
+.form-input:focus, .form-textarea:focus { border-color: rgba(59,130,246,0.6); background: rgba(255,255,255,0.09); box-shadow: 0 0 0 3px rgba(59,130,246,0.12); }
+.form-textarea { resize: vertical; min-height: 130px; }
+
+/* =============================================
+   FOOTER
+============================================= */
+.footer { background: var(--navy); border-top: 1px solid rgba(255,255,255,0.07); padding: 2rem; text-align: center; }
+.footer-text { font-size: 0.8rem; color: rgba(255,255,255,0.3); letter-spacing: 0.04em; }
+.footer-text a { color: rgba(255,255,255,0.5); transition: color var(--transition); }
+.footer-text a:hover { color: rgba(255,255,255,0.8); }
+
+/* =============================================
+   RESPONSIVE
+============================================= */
+@media (max-width: 1024px) {
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .about-portrait { max-height: 320px; aspect-ratio: 16/7; }
+  .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+@media (max-width: 768px) {
+  :root { --header-height: 56px; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .skills-grid, .principles-grid { grid-template-columns: 1fr; }
+  .hero-stats { gap: 1.25rem; }
+  .hero-stat-sep { display: none; }
+  .section-wrapper { padding: 3.5rem 1.25rem; }
+  .nav-links { display: none; }
+  .nav-brand { font-size: 0.875rem; }
+}
+@media (max-width: 480px) {
+  .hero-inner { padding: 3.5rem 1.25rem 3rem; }
+  .hero-cta-group { flex-direction: column; width: 100%; }
+  .btn-primary, .btn-secondary, .btn-green { width: 100%; justify-content: center; }
+}
+</style>
 </head>
 <body>
 
   <!-- ============================================
-       SIDEBAR — Retractable navigation panel
+       SIDEBAR
   ============================================= -->
   <aside class="sidebar collapsed" id="sidebar" aria-label="Site navigation">
 
     <div class="sidebar-header">
       <div class="sidebar-brand" data-nav="home" role="button" tabindex="0" aria-label="Go to Home">
-        <div class="sidebar-brand-monogram">S</div>
-        <span class="sidebar-brand-name">Sofia Monteiro</span>
-        <span class="sidebar-brand-title">Digital Creator &amp; Technologist</span>
+        <div class="sidebar-brand-monogram">Y</div>
+        <span class="sidebar-brand-name">[Your Name]</span>
+        <span class="sidebar-brand-title">Creative Laboratory Archive</span>
       </div>
     </div>
 
     <nav class="sidebar-nav" aria-label="Main navigation">
-
-      <!-- Main Pages -->
       <div class="sidebar-section">
         <div class="sidebar-section-title">Pages</div>
 
         <button class="sidebar-link active" data-nav="home" aria-current="page">
           <span class="sidebar-link-icon" aria-hidden="true">
-            <!-- Home icon (inline SVG for crispness) -->
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/>
             </svg>
@@ -1469,22 +507,22 @@ git      --green:         #10b981;
           <span>About</span>
         </button>
 
-        <button class="sidebar-link" data-nav="projects">
+        <button class="sidebar-link" data-nav="archive">
           <span class="sidebar-link-icon" aria-hidden="true">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
             </svg>
           </span>
-          <span>Projects</span>
+          <span>Archive</span>
         </button>
 
-        <button class="sidebar-link" data-nav="archive">
+        <button class="sidebar-link" data-nav="connections">
           <span class="sidebar-link-icon" aria-hidden="true">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 3h16a2 2 0 012 2v14a2 2 0 01-2 2H4a2 2 0 01-2-2V5a2 2 0 012-2z"/><path d="M8 7h8M8 11h8M8 15h4"/>
+              <circle cx="6" cy="7" r="2.3"/><circle cx="18" cy="7" r="2.3"/><circle cx="12" cy="18" r="2.3"/><path d="M7.8 8.3L10.5 16M16.2 8.3L13.5 16M8.3 7H15.7"/>
             </svg>
           </span>
-          <span>Archive</span>
+          <span>Connections</span>
         </button>
 
         <button class="sidebar-link" data-nav="contact">
@@ -1499,41 +537,29 @@ git      --green:         #10b981;
 
       <div class="sidebar-divider"></div>
 
-      <!-- External Links -->
       <div class="sidebar-section">
         <div class="sidebar-section-title">Links</div>
 
-        <a class="sidebar-link-ext" href="https://github.com/dacodeapprentice?tab=repositories" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
-          </svg>
+        <a class="sidebar-link-ext" href="https://github.com/yourhandle" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
           <span>GitHub</span>
         </a>
-
-        <a class="sidebar-link-ext" href="https://x.com/sofiadmm58" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-          </svg>
-          <span>X (Twitter)</span>
+        <a class="sidebar-link-ext" href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.97.24 2.43.4a4.92 4.92 0 011.77 1.15 4.92 4.92 0 011.15 1.77c.17.46.36 1.26.4 2.43.07 1.25.07 1.65.07 4.85s0 3.6-.07 4.85c-.05 1.17-.24 1.97-.4 2.43a4.92 4.92 0 01-1.15 1.77 4.92 4.92 0 01-1.77 1.15c-.46.17-1.26.36-2.43.4-1.25.07-1.65.07-4.85.07s-3.6 0-4.85-.07c-1.17-.05-1.97-.24-2.43-.4a4.92 4.92 0 01-1.77-1.15 4.92 4.92 0 01-1.15-1.77c-.17-.46-.36-1.26-.4-2.43C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.85c.05-1.17.24-1.97.4-2.43A4.92 4.92 0 012.82 2.95 4.92 4.92 0 014.59 1.8c.46-.17 1.26-.36 2.43-.4C8.27 1.33 8.67 1.33 12 1.33zm0 3.13a5.67 5.67 0 100 11.34 5.67 5.67 0 000-11.34zm0 9.35a3.68 3.68 0 110-7.36 3.68 3.68 0 010 7.36zm5.9-9.58a1.32 1.32 0 11-2.65 0 1.32 1.32 0 012.65 0z"/></svg>
+          <span>Instagram</span>
         </a>
-
-        <a class="sidebar-link-ext" href="#" onclick="alert('LinkedIn coming soon'); return false;">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-          </svg>
-          <span>LinkedIn</span>
+        <a class="sidebar-link-ext" href="mailto:[email protected]">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>Email</span>
         </a>
       </div>
-
     </nav>
 
     <div class="sidebar-footer">
-      <p class="sidebar-footer-text">© 2026 Sofia Monteiro<br>Porto, Portugal</p>
+      <p class="sidebar-footer-text">© 2026 [Your Name]<br>[Your City], [Your Country]</p>
     </div>
-
   </aside>
 
-  <!-- Overlay (mobile) -->
   <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
 
   <!-- ============================================
@@ -1541,879 +567,206 @@ git      --green:         #10b981;
   ============================================= -->
   <div class="main-wrapper" id="mainWrapper">
 
-    <!-- FIXED TOP HEADER -->
     <header class="header" id="header" role="banner">
       <nav class="nav-container" aria-label="Top navigation">
-
-        <!-- Hamburger toggle -->
         <button class="toggle-sidebar" id="toggleSidebar" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="sidebar">
-          <div class="hamburger" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
-          </div>
+          <div class="hamburger" aria-hidden="true"><span></span><span></span><span></span></div>
         </button>
 
-        <!-- Center brand name -->
-        <span class="nav-brand" data-nav="home" role="button" tabindex="0">Sofia Monteiro</span>
-
-        <!-- Spacer to push nav links to the right -->
+        <button class="nav-brand" data-nav="home">[Your Name]</button>
         <div class="nav-spacer" aria-hidden="true"></div>
 
-        <!-- Right nav links (desktop) -->
         <div class="nav-links" role="navigation">
           <button class="nav-link active" data-nav="home">Home</button>
           <button class="nav-link" data-nav="about">About</button>
-          <button class="nav-link" data-nav="projects">Projects</button>
           <button class="nav-link" data-nav="archive">Archive</button>
+          <button class="nav-link" data-nav="connections">Connections</button>
           <button class="nav-link" data-nav="contact">Contact</button>
         </div>
-
       </nav>
     </header>
+
     <!-- ============================================
-         SECTION: HOME / HERO
-         Grand welcoming entrance — full viewport height,
-         elegant serif headline, ambient background decor
+         HOME / HERO
     ============================================= -->
     <section id="home" class="active" aria-label="Welcome">
-
-      <!-- Ambient decorative background elements -->
       <div class="hero-bg-decor" aria-hidden="true"></div>
       <div class="hero-grid-texture" aria-hidden="true"></div>
 
       <div class="hero-inner">
-
-        <!-- Eyebrow label with live pulse dot -->
         <div class="hero-eyebrow" aria-hidden="true">
           <span class="hero-eyebrow-dot"></span>
-          Porto, Portugal · Available for Collaborations
+          [Your City], [Your Country] · Archive Updated Continuously
         </div>
 
-        <!-- Main display headline -->
-        <h1 class="hero-headline">
-          Where <em>precision</em><br>meets beauty
-        </h1>
+        <h1 class="hero-headline">Where curiosity becomes <em>investigation</em></h1>
 
-        <!-- Supporting subtext -->
         <p class="hero-subtext">
-          Welcome. This is the creative and technical space of Sofia Monteiro — a digital creator and technologist blending art, code, and imagination from Porto, Portugal.
+          Welcome to [Your Name]'s laboratory archive — experiments, projects, research, and tools, kept as the investigations they actually were. Not a gallery of what got made. A map of how the ideas got found.
         </p>
 
-        <!-- Call-to-action buttons -->
         <div class="hero-cta-group">
-          <button class="btn-primary" data-nav="about" aria-label="Learn more about Sofia">
-            Meet Sofia
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
+          <button class="btn-primary" data-nav="archive">
+            Enter the Archive
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
           </button>
-          <button class="btn-secondary" data-nav="projects" aria-label="View Sofia's projects">
-            Explore Work
-          </button>
+          <button class="btn-secondary" data-nav="about">Read the Philosophy</button>
         </div>
 
-        <!-- Stats row -->
-        <div class="hero-stats" role="list" aria-label="Key statistics">
-          <div class="hero-stat" role="listitem">
-            <div class="hero-stat-value">5+</div>
-            <div class="hero-stat-label">Years Experience</div>
-          </div>
-          <div class="hero-stat-sep" aria-hidden="true"></div>
-          <div class="hero-stat" role="listitem">
-            <div class="hero-stat-value">10</div>
-            <div class="hero-stat-label">Projects Completed</div>
-          </div>
-          <div class="hero-stat-sep" aria-hidden="true"></div>
-          <div class="hero-stat" role="listitem">
-            <div class="hero-stat-value">3</div>
-            <div class="hero-stat-label">Collaborations</div>
-          </div>
-        </div>
-
+        <div class="hero-stats" role="list" aria-label="Archive statistics" id="heroStats"></div>
       </div>
 
-      <!-- Scroll indicator -->
       <div class="hero-scroll" role="button" tabindex="0" aria-label="Scroll down" data-nav="about">
         <span class="hero-scroll-line" aria-hidden="true"></span>
         Scroll
       </div>
-
     </section>
 
-
     <!-- ============================================
-         SECTION: ABOUT
-         Bio, portrait placeholder, skills grid,
-         and elegant quote accent
+         ABOUT
     ============================================= -->
-    <section id="about" aria-label="About Sofia Monteiro">
+    <section id="about" aria-label="About [Your Name]">
       <div class="section-wrapper">
-
-        <!-- Section header -->
         <div class="section-header">
           <span class="section-label" aria-hidden="true">About</span>
-          <h2 class="section-title">The mind behind the work</h2>
-          <p class="section-subtitle">
-            A digital creator and technologist passionate about the intersection of art and innovation.
-          </p>
+          <h2 class="section-title">The mind behind the archive</h2>
+          <p class="section-subtitle">A maker who'd rather document the searching than just show the finding.</p>
         </div>
 
-        <!-- Two-column grid: portrait + content -->
         <div class="about-grid">
+          <div class="about-portrait" role="img" aria-label="[Your Name] portrait placeholder">🔬</div>
 
-          <!-- Left: Portrait placeholder -->
-          <div class="about-portrait" role="img" aria-label="Sofia Monteiro portrait placeholder">
-            &#x1F469;&#x200D;&#x1F3A8;
-          </div>
-
-          <!-- Right: Bio + skills + quote -->
           <div class="about-content">
-
-            <!-- Bio text -->
             <div>
               <span class="section-label">Bio</span>
               <div class="about-bio">
-                <p>I'm a digital creator and technologist based in Porto, Portugal. My work lives at the intersection of art and code — I create immersive digital experiences that are as thoughtful in their engineering as they are in their aesthetic.</p>
-                <p>With over five years of experience spanning web development, AI integration, mobile design, and interactive installations, I bring a multidisciplinary approach to every project I undertake.</p>
-                <p>I'm open to collaborations that challenge convention — if you have an idea that blends the technical and the beautiful, I'd love to hear it.</p>
+                <p>I'm [Your Name], a creative and technologist working across illustration, code, and design. My process tends to start with a question rather than a brief — what holds a pose together, why a fold resists twisting, how a story can branch without breaking.</p>
+                <p>This site exists because most of what I learn while making something never makes it into the finished thing. The archive is where that part lives — the dead ends, the half-answers, the discovery that came from the attempt that didn't quite work.</p>
+                <p>If you're curious about how something here was made, or want to build on it together, I'd love to hear from you.</p>
               </div>
             </div>
 
-            <!-- Elegant quote block -->
             <div class="about-quote" role="blockquote">
-              <p class="about-quote-text">"Art without technology is incomplete. Technology without art is cold."</p>
+              <p class="about-quote-text">"An unfinished experiment may contain the most important discovery."</p>
             </div>
 
-            <!-- Core skills -->
             <div>
-              <span class="section-label">Core Skills</span>
-              <div class="skills-grid" role="list" aria-label="Core skills">
-
-                <div class="skill-item" role="listitem">
-                  <span class="skill-icon" aria-hidden="true">🎨</span>
-                  <span>Digital Art Creation</span>
-                </div>
-
-                <div class="skill-item" role="listitem">
-                  <span class="skill-icon" aria-hidden="true">💻</span>
-                  <span>Web Development</span>
-                </div>
-
-                <div class="skill-item" role="listitem">
-                  <span class="skill-icon" aria-hidden="true">🤖</span>
-                  <span>AI Integration</span>
-                </div>
-
-                <div class="skill-item" role="listitem">
-                  <span class="skill-icon" aria-hidden="true">📱</span>
-                  <span>Mobile App Design</span>
-                </div>
-
-                <div class="skill-item" role="listitem">
-                  <span class="skill-icon" aria-hidden="true">🔧</span>
-                  <span>Interactive Installations</span>
-                </div>
-
-                <div class="skill-item" role="listitem">
-                  <span class="skill-icon" aria-hidden="true">📊</span>
-                  <span>Data Visualization</span>
-                </div>
-
+              <span class="section-label">Core Disciplines</span>
+              <div class="skills-grid" role="list" aria-label="Core disciplines">
+                <div class="skill-item" role="listitem"><span class="skill-icon" aria-hidden="true">✏️</span><span>Illustration</span></div>
+                <div class="skill-item" role="listitem"><span class="skill-icon" aria-hidden="true">💻</span><span>Code &amp; Tools</span></div>
+                <div class="skill-item" role="listitem"><span class="skill-icon" aria-hidden="true">📐</span><span>Design &amp; Systems</span></div>
+                <div class="skill-item" role="listitem"><span class="skill-icon" aria-hidden="true">🏛️</span><span>Architecture</span></div>
+                <div class="skill-item" role="listitem"><span class="skill-icon" aria-hidden="true">📚</span><span>Research</span></div>
+                <div class="skill-item" role="listitem"><span class="skill-icon" aria-hidden="true">🧭</span><span>UX / UI</span></div>
               </div>
             </div>
 
-            <!-- CTA from About -->
+            <div>
+              <span class="section-label">Working Principles</span>
+              <div class="principles-grid" role="list" aria-label="Working principles">
+                <div class="principle-item" role="listitem">Every entry is a question first.</div>
+                <div class="principle-item" role="listitem">Unfinished work stays visible.</div>
+                <div class="principle-item" role="listitem">Connections matter as much as results.</div>
+                <div class="principle-item" role="listitem">Process is the actual content.</div>
+              </div>
+            </div>
+
             <div style="display:flex; gap:0.875rem; flex-wrap:wrap; margin-top:0.5rem;">
-              <button class="btn-primary" data-nav="projects">View My Projects</button>
+              <button class="btn-primary" data-nav="archive">Browse the Archive</button>
               <button class="btn-secondary" data-nav="contact">Get In Touch</button>
             </div>
-
           </div>
         </div>
       </div>
     </section>
 
-
     <!-- ============================================
-         SECTION: PROJECTS (grid listing)
-         Six curated project cards with hover lift,
-         elegant tags, and year badges
+         ARCHIVE — the investigation index
     ============================================= -->
-    <section id="projects" aria-label="Featured Projects">
+    <section id="archive" aria-label="The Laboratory Archive">
       <div class="section-wrapper">
-
-        <!-- Section header -->
         <div class="section-header">
-          <span class="section-label" aria-hidden="true">Work</span>
-          <h2 class="section-title">Featured projects</h2>
-          <p class="section-subtitle">
-            A curated selection of creative and technical work — each one a story of art meeting engineering.
-          </p>
+          <span class="section-label" aria-hidden="true">Investigations</span>
+          <h2 class="section-title">The Laboratory Archive</h2>
+          <p class="section-subtitle">A living index of experiments, projects, research, and tools — searchable, filterable, and quietly connected to each other.</p>
         </div>
 
-        <!-- Projects grid -->
-        <div class="projects-grid" role="list" aria-label="Project cards">
-
-          <!-- Card 1: AI Art Generator -->
-          <article class="project-card" data-nav="project-ai-art-generator" role="listitem" tabindex="0" aria-label="View AI Art Generator project">
-            <div class="project-thumb" aria-hidden="true" style="background: linear-gradient(135deg, #dbeafe 0%, #ede9fe 100%);">
-              🖼️
+        <div class="archive-toolbar">
+          <div class="toolbar-row">
+            <div class="search-field">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+              <input type="search" id="searchInput" placeholder="Search topics, techniques, themes…" aria-label="Search the archive">
             </div>
-            <div class="project-body">
-              <div class="project-meta">
-                <span class="project-year">2025</span>
-              </div>
-              <h3 class="project-title">AI Art Generator</h3>
-              <p class="project-desc">An AI-powered tool for generating digital art, integrating machine learning models with creative, intuitive interfaces.</p>
-              <div class="tags">
-                <span class="tag">AI</span>
-                <span class="tag">Digital Art</span>
-                <span class="tag">Python</span>
-              </div>
-              <div class="project-arrow">
-                View project
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </div>
-            </div>
-          </article>
-
-          <!-- Card 2: Web Dashboard -->
-          <article class="project-card" data-nav="project-web-dashboard" role="listitem" tabindex="0" aria-label="View Web Dashboard project">
-            <div class="project-thumb" aria-hidden="true" style="background: linear-gradient(135deg, #d1fae5 0%, #dbeafe 100%);">
-              📊
-            </div>
-            <div class="project-body">
-              <div class="project-meta">
-                <span class="project-year">2024</span>
-              </div>
-              <h3 class="project-title">Web Dashboard</h3>
-              <p class="project-desc">An interactive dashboard for visualizing data with real-time updates, custom components, and refined visual design.</p>
-              <div class="tags">
-                <span class="tag">Web</span>
-                <span class="tag">React</span>
-                <span class="tag">Data Viz</span>
-              </div>
-              <div class="project-arrow">
-                View project
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </div>
-            </div>
-          </article>
-
-          <!-- Card 3: Neural Canvas -->
-          <article class="project-card" data-nav="project-neural-canvas" role="listitem" tabindex="0" aria-label="View Neural Canvas project">
-            <div class="project-thumb" aria-hidden="true" style="background: linear-gradient(135deg, #fef3c7 0%, #fde8ff 100%);">
-              🤖
-            </div>
-            <div class="project-body">
-              <div class="project-meta">
-                <span class="project-year">2023</span>
-              </div>
-              <h3 class="project-title">Neural Canvas</h3>
-              <p class="project-desc">A neural network-based canvas for real-time collaborative digital art creation, bridging AI and human creativity.</p>
-              <div class="tags">
-                <span class="tag">Neural Nets</span>
-                <span class="tag">Collaboration</span>
-                <span class="tag">JS</span>
-              </div>
-              <div class="project-arrow">
-                View project
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </div>
-            </div>
-          </article>
-
-          <!-- Card 4: Digital Portfolio App -->
-          <article class="project-card" data-nav="project-digital-portfolio-app" role="listitem" tabindex="0" aria-label="View Digital Portfolio App project">
-            <div class="project-thumb" aria-hidden="true" style="background: linear-gradient(135deg, #e0f2fe 0%, #d1fae5 100%);">
-              🎨
-            </div>
-            <div class="project-body">
-              <div class="project-meta">
-                <span class="project-year">2024</span>
-              </div>
-              <h3 class="project-title">Digital Portfolio App</h3>
-              <p class="project-desc">A mobile app for showcasing digital artworks with augmented reality features and immersive viewing experiences.</p>
-              <div class="tags">
-                <span class="tag">App</span>
-                <span class="tag">AR</span>
-                <span class="tag">Flutter</span>
-              </div>
-              <div class="project-arrow">
-                View project
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </div>
-            </div>
-          </article>
-
-          <!-- Card 5: Tech Art Installation -->
-          <article class="project-card" data-nav="project-tech-art-installation" role="listitem" tabindex="0" aria-label="View Tech Art Installation project">
-            <div class="project-thumb" aria-hidden="true" style="background: linear-gradient(135deg, #fce7f3 0%, #ffe4e6 100%);">
-              🔧
-            </div>
-            <div class="project-body">
-              <div class="project-meta">
-                <span class="project-year">2025</span>
-              </div>
-              <h3 class="project-title">Tech Art Installation</h3>
-              <p class="project-desc">An interactive public installation blending hardware, code, and artistic vision for an immersive exhibition experience.</p>
-              <div class="tags">
-                <span class="tag">Installation</span>
-                <span class="tag">Interactive</span>
-                <span class="tag">Hardware</span>
-              </div>
-              <div class="project-arrow">
-                View project
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </div>
-            </div>
-          </article>
-
-          <!-- Card 6: Mobile Art Tool -->
-          <article class="project-card" data-nav="project-mobile-art-tool" role="listitem" tabindex="0" aria-label="View Mobile Art Tool project">
-            <div class="project-thumb" aria-hidden="true" style="background: linear-gradient(135deg, #ecfdf5 0%, #dbeafe 100%);">
-              📱
-            </div>
-            <div class="project-body">
-              <div class="project-meta">
-                <span class="project-year">2023</span>
-              </div>
-              <h3 class="project-title">Mobile Art Tool</h3>
-              <p class="project-desc">A mobile tool for on-the-go digital art creation, enhanced with AI assistance and intuitive gesture controls.</p>
-              <div class="tags">
-                <span class="tag">Mobile</span>
-                <span class="tag">AI</span>
-                <span class="tag">Swift</span>
-              </div>
-              <div class="project-arrow">
-                View project
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </div>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-    <!-- ============================================
-         PROJECT DETAIL: AI Art Generator
-    ============================================= -->
-    <section id="project-ai-art-generator" class="project-detail-section" aria-label="Project: AI Art Generator">
-      <div class="section-wrapper">
-
-        <button class="btn-back" data-nav="projects" aria-label="Back to Projects">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
-          Back to Projects
-        </button>
-
-        <span class="section-label">2025 · AI · Digital Art · Python</span>
-        <h1 class="section-title" style="margin-bottom:0.75rem;">AI Art Generator</h1>
-        <p class="section-subtitle" style="margin-bottom:2.5rem;">[Project tagline or one-sentence description — add details here]</p>
-
-        <!-- Hero image placeholder -->
-        <div class="project-detail-hero" aria-label="AI Art Generator project hero image" role="img">
-          🖼️
-        </div>
-
-        <!-- Overview -->
-        <div class="content-card">
-          <h2>Overview</h2>
-          <p>[Detailed overview paragraph 1 — describe what the project is, why it was built, and who it was built for. Add your own content here.]</p>
-          <p style="margin-top:0.875rem;">[Detailed overview paragraph 2 — go deeper into the context or story behind the project. Add your own content here.]</p>
-        </div>
-
-        <!-- Challenges & Solutions -->
-        <div class="content-card">
-          <h2>Challenges &amp; Solutions</h2>
-          <ul>
-            <li>[Challenge 1: Describe the obstacle encountered and how it was resolved — add details here.]</li>
-            <li>[Challenge 2: Describe the obstacle encountered and how it was resolved — add details here.]</li>
-            <li>[Challenge 3: Optional additional challenge — add details here.]</li>
-          </ul>
-        </div>
-
-        <!-- Technologies Used -->
-        <div class="content-card">
-          <h2>Technologies Used</h2>
-          <div class="tags" style="margin-top:0.25rem;">
-            <span class="tag">AI</span>
-            <span class="tag">Digital Art</span>
-            <span class="tag">Python</span>
+            <button class="btn-ghost" id="filterToggle" aria-pressed="false" aria-controls="filtersPanel">
+              Filters <span class="filter-count" id="filterCount" hidden>0</span>
+            </button>
           </div>
+
+          <div class="category-tabs" id="categoryTabs"></div>
+
+          <div class="active-filters" id="activeFilters" hidden></div>
+          <div id="filtersPanel" hidden></div>
         </div>
 
-        <!-- Results -->
-        <div class="content-card">
-          <h2>Results</h2>
-          <p>[Describe the outcome, impact, or key achievements of this project — add content here.]</p>
-        </div>
-
-        <!-- Action buttons -->
-        <div style="display:flex; gap:0.875rem; flex-wrap:wrap; margin-top:0.5rem;">
-          <a href="#" class="btn-primary" target="_blank" rel="noopener noreferrer">
-            View Live Demo
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-          </a>
-          <a href="#" class="btn-secondary" target="_blank" rel="noopener noreferrer">
-            View Source Code
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
-            </svg>
-          </a>
-        </div>
-
+        <div class="projects-grid" id="archiveGrid" role="list" aria-label="Archive entries"></div>
+        <p class="empty-state" id="emptyState" hidden>Nothing here yet — try a different search, or clear a filter.</p>
       </div>
     </section>
 
+    <!-- entry detail sections are generated here by the script -->
 
     <!-- ============================================
-         PROJECT DETAIL: Web Dashboard
+         CONNECTIONS — the network map
     ============================================= -->
-    <section id="project-web-dashboard" class="project-detail-section" aria-label="Project: Web Dashboard">
+    <section id="connections" aria-label="Connections between investigations">
       <div class="section-wrapper">
-
-        <button class="btn-back" data-nav="projects" aria-label="Back to Projects">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
-          Back to Projects
-        </button>
-
-        <span class="section-label">2024 · Web · React · Data Viz</span>
-        <h1 class="section-title" style="margin-bottom:0.75rem;">Web Dashboard</h1>
-        <p class="section-subtitle" style="margin-bottom:2.5rem;">[Project tagline or one-sentence description — add details here]</p>
-
-        <!-- Hero image placeholder -->
-        <div class="project-detail-hero" aria-label="Web Dashboard project hero image" role="img" style="background: linear-gradient(135deg, #d1fae5 0%, #dbeafe 100%);">
-          📊
-        </div>
-
-        <!-- Overview -->
-        <div class="content-card">
-          <h2>Overview</h2>
-          <p>[Detailed overview paragraph 1 — describe what the project is, why it was built, and who it was built for. Add your own content here.]</p>
-          <p style="margin-top:0.875rem;">[Detailed overview paragraph 2 — go deeper into the context or story behind the project. Add your own content here.]</p>
-        </div>
-
-        <!-- Challenges & Solutions -->
-        <div class="content-card">
-          <h2>Challenges &amp; Solutions</h2>
-          <ul>
-            <li>[Challenge 1: Describe the obstacle encountered and how it was resolved — add details here.]</li>
-            <li>[Challenge 2: Describe the obstacle encountered and how it was resolved — add details here.]</li>
-            <li>[Challenge 3: Optional additional challenge — add details here.]</li>
-          </ul>
-        </div>
-
-        <!-- Technologies Used -->
-        <div class="content-card">
-          <h2>Technologies Used</h2>
-          <div class="tags" style="margin-top:0.25rem;">
-            <span class="tag">Web</span>
-            <span class="tag">React</span>
-            <span class="tag">Data Viz</span>
-          </div>
-        </div>
-
-        <!-- Results -->
-        <div class="content-card">
-          <h2>Results</h2>
-          <p>[Describe the outcome, impact, or key achievements of this project — add content here.]</p>
-        </div>
-
-        <!-- Action buttons -->
-        <div style="display:flex; gap:0.875rem; flex-wrap:wrap; margin-top:0.5rem;">
-          <a href="#" class="btn-primary" target="_blank" rel="noopener noreferrer">
-            View Live Demo
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-          </a>
-          <a href="#" class="btn-secondary" target="_blank" rel="noopener noreferrer">
-            View Source Code
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
-            </svg>
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ============================================
-         PROJECT DETAIL: Neural Canvas
-    ============================================= -->
-    <section id="project-neural-canvas" class="project-detail-section" aria-label="Project: Neural Canvas">
-      <div class="section-wrapper">
-
-        <button class="btn-back" data-nav="projects" aria-label="Back to Projects">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
-          Back to Projects
-        </button>
-
-        <span class="section-label">2023 · Neural Nets · Collaboration · JS</span>
-        <h1 class="section-title" style="margin-bottom:0.75rem;">Neural Canvas</h1>
-        <p class="section-subtitle" style="margin-bottom:2.5rem;">[Project tagline or one-sentence description — add details here]</p>
-
-        <!-- Hero image placeholder -->
-        <div class="project-detail-hero" aria-label="Neural Canvas project hero image" role="img" style="background: linear-gradient(135deg, #fef3c7 0%, #fde8ff 100%);">
-          🤖
-        </div>
-
-        <!-- Overview -->
-        <div class="content-card">
-          <h2>Overview</h2>
-          <p>[Detailed overview paragraph 1 — describe what the project is, why it was built, and who it was built for. Add your own content here.]</p>
-          <p style="margin-top:0.875rem;">[Detailed overview paragraph 2 — go deeper into the context or story behind the project. Add your own content here.]</p>
-        </div>
-
-        <!-- Challenges & Solutions -->
-        <div class="content-card">
-          <h2>Challenges &amp; Solutions</h2>
-          <ul>
-            <li>[Challenge 1: Describe the obstacle encountered and how it was resolved — add details here.]</li>
-            <li>[Challenge 2: Describe the obstacle encountered and how it was resolved — add details here.]</li>
-            <li>[Challenge 3: Optional additional challenge — add details here.]</li>
-          </ul>
-        </div>
-
-        <!-- Technologies Used -->
-        <div class="content-card">
-          <h2>Technologies Used</h2>
-          <div class="tags" style="margin-top:0.25rem;">
-            <span class="tag">Neural Nets</span>
-            <span class="tag">Collaboration</span>
-            <span class="tag">JS</span>
-          </div>
-        </div>
-
-        <!-- Results -->
-        <div class="content-card">
-          <h2>Results</h2>
-          <p>[Describe the outcome, impact, or key achievements of this project — add content here.]</p>
-        </div>
-
-        <!-- Action buttons -->
-        <div style="display:flex; gap:0.875rem; flex-wrap:wrap; margin-top:0.5rem;">
-          <a href="#" class="btn-primary" target="_blank" rel="noopener noreferrer">
-            View Live Demo
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-          </a>
-          <a href="#" class="btn-secondary" target="_blank" rel="noopener noreferrer">
-            View Source Code
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
-            </svg>
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ============================================
-         PROJECT DETAIL: Digital Portfolio App
-    ============================================= -->
-    <section id="project-digital-portfolio-app" class="project-detail-section" aria-label="Project: Digital Portfolio App">
-      <div class="section-wrapper">
-
-        <button class="btn-back" data-nav="projects" aria-label="Back to Projects">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
-          Back to Projects
-        </button>
-
-        <span class="section-label">2024 · App · AR · Flutter</span>
-        <h1 class="section-title" style="margin-bottom:0.75rem;">Digital Portfolio App</h1>
-        <p class="section-subtitle" style="margin-bottom:2.5rem;">[Project tagline or one-sentence description — add details here]</p>
-
-        <!-- Hero image placeholder -->
-        <div class="project-detail-hero" aria-label="Digital Portfolio App project hero image" role="img" style="background: linear-gradient(135deg, #e0f2fe 0%, #d1fae5 100%);">
-          🎨
-        </div>
-
-        <!-- Overview -->
-        <div class="content-card">
-          <h2>Overview</h2>
-          <p>[Detailed overview paragraph 1 — describe what the project is, why it was built, and who it was built for. Add your own content here.]</p>
-          <p style="margin-top:0.875rem;">[Detailed overview paragraph 2 — go deeper into the context or story behind the project. Add your own content here.]</p>
-        </div>
-
-        <!-- Challenges & Solutions -->
-        <div class="content-card">
-          <h2>Challenges &amp; Solutions</h2>
-          <ul>
-            <li>[Challenge 1: Describe the obstacle encountered and how it was resolved — add details here.]</li>
-            <li>[Challenge 2: Describe the obstacle encountered and how it was resolved — add details here.]</li>
-            <li>[Challenge 3: Optional additional challenge — add details here.]</li>
-          </ul>
-        </div>
-
-        <!-- Technologies Used -->
-        <div class="content-card">
-          <h2>Technologies Used</h2>
-          <div class="tags" style="margin-top:0.25rem;">
-            <span class="tag">App</span>
-            <span class="tag">AR</span>
-            <span class="tag">Flutter</span>
-          </div>
-        </div>
-
-        <!-- Results -->
-        <div class="content-card">
-          <h2>Results</h2>
-          <p>[Describe the outcome, impact, or key achievements of this project — add content here.]</p>
-        </div>
-
-        <!-- Action buttons -->
-        <div style="display:flex; gap:0.875rem; flex-wrap:wrap; margin-top:0.5rem;">
-          <a href="#" class="btn-primary" target="_blank" rel="noopener noreferrer">
-            View Live Demo
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-          </a>
-          <a href="#" class="btn-secondary" target="_blank" rel="noopener noreferrer">
-            View Source Code
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
-            </svg>
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ============================================
-         PROJECT DETAIL: Tech Art Installation
-    ============================================= -->
-    <section id="project-tech-art-installation" class="project-detail-section" aria-label="Project: Tech Art Installation">
-      <div class="section-wrapper">
-
-        <button class="btn-back" data-nav="projects" aria-label="Back to Projects">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
-          Back to Projects
-        </button>
-
-        <span class="section-label">2025 · Installation · Interactive · Hardware</span>
-        <h1 class="section-title" style="margin-bottom:0.75rem;">Tech Art Installation</h1>
-        <p class="section-subtitle" style="margin-bottom:2.5rem;">[Project tagline or one-sentence description — add details here]</p>
-
-        <!-- Hero image placeholder -->
-        <div class="project-detail-hero" aria-label="Tech Art Installation project hero image" role="img" style="background: linear-gradient(135deg, #fce7f3 0%, #ffe4e6 100%);">
-          🔧
-        </div>
-
-        <!-- Overview -->
-        <div class="content-card">
-          <h2>Overview</h2>
-          <p>[Detailed overview paragraph 1 — describe what the project is, why it was built, and who it was built for. Add your own content here.]</p>
-          <p style="margin-top:0.875rem;">[Detailed overview paragraph 2 — go deeper into the context or story behind the project. Add your own content here.]</p>
-        </div>
-
-        <!-- Challenges & Solutions -->
-        <div class="content-card">
-          <h2>Challenges &amp; Solutions</h2>
-          <ul>
-            <li>[Challenge 1: Describe the obstacle encountered and how it was resolved — add details here.]</li>
-            <li>[Challenge 2: Describe the obstacle encountered and how it was resolved — add details here.]</li>
-            <li>[Challenge 3: Optional additional challenge — add details here.]</li>
-          </ul>
-        </div>
-
-        <!-- Technologies Used -->
-        <div class="content-card">
-          <h2>Technologies Used</h2>
-          <div class="tags" style="margin-top:0.25rem;">
-            <span class="tag">Installation</span>
-            <span class="tag">Interactive</span>
-            <span class="tag">Hardware</span>
-          </div>
-        </div>
-
-        <!-- Results -->
-        <div class="content-card">
-          <h2>Results</h2>
-          <p>[Describe the outcome, impact, or key achievements of this project — add content here.]</p>
-        </div>
-
-        <!-- Action buttons -->
-        <div style="display:flex; gap:0.875rem; flex-wrap:wrap; margin-top:0.5rem;">
-          <a href="#" class="btn-primary" target="_blank" rel="noopener noreferrer">
-            View Live Demo
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-          </a>
-          <a href="#" class="btn-secondary" target="_blank" rel="noopener noreferrer">
-            View Source Code
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
-            </svg>
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ============================================
-         PROJECT DETAIL: Mobile Art Tool
-    ============================================= -->
-    <section id="project-mobile-art-tool" class="project-detail-section" aria-label="Project: Mobile Art Tool">
-      <div class="section-wrapper">
-
-        <button class="btn-back" data-nav="projects" aria-label="Back to Projects">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M19 12H5M12 19l-7-7 7-7"/>
-          </svg>
-          Back to Projects
-        </button>
-
-        <span class="section-label">2023 · Mobile · AI · Swift</span>
-        <h1 class="section-title" style="margin-bottom:0.75rem;">Mobile Art Tool</h1>
-        <p class="section-subtitle" style="margin-bottom:2.5rem;">[Project tagline or one-sentence description — add details here]</p>
-
-        <!-- Hero image placeholder -->
-        <div class="project-detail-hero" aria-label="Mobile Art Tool project hero image" role="img" style="background: linear-gradient(135deg, #ecfdf5 0%, #dbeafe 100%);">
-          📱
-        </div>
-
-        <!-- Overview -->
-        <div class="content-card">
-          <h2>Overview</h2>
-          <p>[Detailed overview paragraph 1 — describe what the project is, why it was built, and who it was built for. Add your own content here.]</p>
-          <p style="margin-top:0.875rem;">[Detailed overview paragraph 2 — go deeper into the context or story behind the project. Add your own content here.]</p>
-        </div>
-
-        <!-- Challenges & Solutions -->
-        <div class="content-card">
-          <h2>Challenges &amp; Solutions</h2>
-          <ul>
-            <li>[Challenge 1: Describe the obstacle encountered and how it was resolved — add details here.]</li>
-            <li>[Challenge 2: Describe the obstacle encountered and how it was resolved — add details here.]</li>
-            <li>[Challenge 3: Optional additional challenge — add details here.]</li>
-          </ul>
-        </div>
-
-        <!-- Technologies Used -->
-        <div class="content-card">
-          <h2>Technologies Used</h2>
-          <div class="tags" style="margin-top:0.25rem;">
-            <span class="tag">Mobile</span>
-            <span class="tag">AI</span>
-            <span class="tag">Swift</span>
-          </div>
-        </div>
-
-        <!-- Results -->
-        <div class="content-card">
-          <h2>Results</h2>
-          <p>[Describe the outcome, impact, or key achievements of this project — add content here.]</p>
-        </div>
-
-        <!-- Action buttons -->
-        <div style="display:flex; gap:0.875rem; flex-wrap:wrap; margin-top:0.5rem;">
-          <a href="#" class="btn-primary" target="_blank" rel="noopener noreferrer">
-            View Live Demo
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-          </a>
-          <a href="#" class="btn-secondary" target="_blank" rel="noopener noreferrer">
-            View Source Code
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/>
-            </svg>
-          </a>
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ============================================
-         SECTION: CONTACT
-         Dark navy background, two-column layout:
-         contact info left, form right
-    ============================================= -->
-    <section id="contact" aria-label="Contact Sofia Monteiro">
-      <div class="section-wrapper">
-
-        <!-- Section header -->
         <div class="section-header">
-          <span class="section-label">Contact</span>
-          <h2 class="section-title">Let's build something together</h2>
-          <p class="section-subtitle">
-            Open to collaborations, commissions, and interesting conversations. Reach out — I'd love to hear from you.
-          </p>
+          <span class="section-label" aria-hidden="true">Network</span>
+          <h2 class="section-title">How the work connects</h2>
+          <p class="section-subtitle">An anatomy study can lead to a character design. A folded paper experiment can lead to an architecture proposal. Click a node to open its file.</p>
         </div>
 
-        <!-- Two-column contact grid -->
+        <div class="map-panel">
+          <div class="map-board">
+            <svg id="connectionsSvg" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid meet"></svg>
+          </div>
+          <p class="map-hint">Related investigations highlight together as you hover — tap a pin to open it.</p>
+          <div class="map-legend" id="mapLegend"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================
+         CONTACT
+    ============================================= -->
+    <section id="contact" aria-label="Contact">
+      <div class="section-wrapper">
+        <div class="section-header">
+          <span class="section-label" aria-hidden="true">Get in touch</span>
+          <h2 class="section-title">Start an investigation together</h2>
+          <p class="section-subtitle">Open to collaborations, commissions, and conversations about how something here was made.</p>
+        </div>
+
         <div class="contact-grid">
-
-          <!-- Left: Contact info items -->
           <div class="contact-info">
-
             <div class="contact-item">
               <div class="contact-icon" aria-hidden="true">📧</div>
-              <div>
-                <div class="contact-label">Email</div>
-                <div class="contact-value">sofia.monteiro@example.com</div>
-              </div>
+              <div><div class="contact-label">Email</div><div class="contact-value">[email protected]</div></div>
             </div>
-
             <div class="contact-item">
               <div class="contact-icon" aria-hidden="true">📍</div>
-              <div>
-                <div class="contact-label">Location</div>
-                <div class="contact-value">Porto, Portugal</div>
-              </div>
+              <div><div class="contact-label">Location</div><div class="contact-value">[Your City], [Your Country]</div></div>
             </div>
-
-            <div class="contact-item">
-              <div class="contact-icon" aria-hidden="true">🐦</div>
-              <div>
-                <div class="contact-label">X (Twitter)</div>
-                <div class="contact-value">@sofiadmm58</div>
-              </div>
-            </div>
-
             <div class="contact-item">
               <div class="contact-icon" aria-hidden="true">💼</div>
-              <div>
-                <div class="contact-label">GitHub</div>
-                <div class="contact-value">dacodeapprentice</div>
-              </div>
+              <div><div class="contact-label">GitHub</div><div class="contact-value">github.com/yourhandle</div></div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon" aria-hidden="true">📸</div>
+              <div><div class="contact-label">Instagram</div><div class="contact-value">@yourhandle</div></div>
             </div>
 
-            <!-- Availability note -->
             <div style="padding: 1.125rem; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.25); border-radius: 10px; display:flex; align-items:flex-start; gap:0.875rem; margin-top:0.25rem;">
               <div style="width:8px; height:8px; background: var(--green); border-radius:50%; flex-shrink:0; margin-top:0.35rem; animation: pulse 2.4s ease-in-out infinite;"></div>
               <div>
@@ -2421,604 +774,736 @@ git      --green:         #10b981;
                 <div style="font-size:0.875rem; color:rgba(255,255,255,0.55); margin-top:0.2rem; line-height:1.6;">Currently open to new collaborations and freelance projects.</div>
               </div>
             </div>
-
           </div>
 
-          <!-- Right: Contact form -->
-          <form class="contact-form" onsubmit="handleFormSubmit(event)" novalidate aria-label="Send a message">
-
+          <form class="contact-form" id="contactForm" novalidate aria-label="Send a message">
             <div class="form-group">
               <label class="form-label" for="contact-name">Name</label>
-              <input
-                type="text"
-                id="contact-name"
-                name="name"
-                class="form-input"
-                placeholder="Your full name"
-                required
-                autocomplete="name"
-              >
+              <input type="text" id="contact-name" name="name" class="form-input" placeholder="Your full name" required autocomplete="name">
             </div>
-
             <div class="form-group">
               <label class="form-label" for="contact-email">Email</label>
-              <input
-                type="email"
-                id="contact-email"
-                name="email"
-                class="form-input"
-                placeholder="your@email.com"
-                required
-                autocomplete="email"
-              >
+              <input type="email" id="contact-email" name="email" class="form-input" placeholder="your@email.com" required autocomplete="email">
             </div>
-
             <div class="form-group">
               <label class="form-label" for="contact-subject">Subject</label>
-              <input
-                type="text"
-                id="contact-subject"
-                name="subject"
-                class="form-input"
-                placeholder="What's this about?"
-              >
+              <input type="text" id="contact-subject" name="subject" class="form-input" placeholder="What's this about?">
             </div>
-
             <div class="form-group">
               <label class="form-label" for="contact-message">Message</label>
-              <textarea
-                id="contact-message"
-                name="message"
-                class="form-textarea"
-                placeholder="Tell me about your project or idea..."
-                required
-              ></textarea>
+              <textarea id="contact-message" name="message" class="form-textarea" placeholder="Tell me what you're curious about…" required></textarea>
             </div>
-
             <button type="submit" class="btn-green" style="align-self:flex-start;">
               Send Message
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
-              </svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
             </button>
-
           </form>
-
         </div>
       </div>
     </section>
 
-
-    <!-- ============================================
-         SECTION: ARCHIVE
-         Document library for sharing files
-         and resources with collaborators
-    ============================================= -->
-    <section id="archive" aria-label="Document Archive">
-      <div class="section-wrapper">
-
-        <!-- Section header -->
-        <div class="section-header">
-          <span class="section-label" aria-hidden="true">Resources</span>
-          <h2 class="section-title">Document Archive</h2>
-          <p class="section-subtitle">
-            Curated files, resources, and documents available for download. Find presentations, case studies, design documents, and more.
-          </p>
-        </div>
-
-        <!-- Archive grid -->
-        <div class="archive-grid" role="list" aria-label="Document files">
-
-          <!-- File 1: Brand Guidelines -->
-          <article class="archive-card" role="listitem">
-            <div class="archive-icon" aria-hidden="true">📘</div>
-            <div class="archive-body">
-              <h3 class="archive-title">Brand Guidelines</h3>
-              <p class="archive-desc">Complete visual identity system including typography, color palette, and usage standards.</p>
-              <div class="archive-size">2.4 MB · PDF</div>
-              <a href="#" class="archive-download" target="_blank" rel="noopener noreferrer">
-                Download
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- File 2: Case Study -->
-          <article class="archive-card" role="listitem">
-            <div class="archive-icon" aria-hidden="true">📊</div>
-            <div class="archive-body">
-              <h3 class="archive-title">AI Art Generator Case Study</h3>
-              <p class="archive-desc">In-depth analysis and findings from the AI Art Generator project with metrics and insights.</p>
-              <div class="archive-size">1.8 MB · PDF</div>
-              <a href="#" class="archive-download" target="_blank" rel="noopener noreferrer">
-                Download
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- File 3: Design System -->
-          <article class="archive-card" role="listitem">
-            <div class="archive-icon" aria-hidden="true">🎨</div>
-            <div class="archive-body">
-              <h3 class="archive-title">Figma Design System</h3>
-              <p class="archive-desc">Complete component library and design tokens for creating consistent interfaces and prototypes.</p>
-              <div class="archive-size">Link · Figma</div>
-              <a href="#" class="archive-download" target="_blank" rel="noopener noreferrer">
-                Access File
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- File 4: Technical Documentation -->
-          <article class="archive-card" role="listitem">
-            <div class="archive-icon" aria-hidden="true">💻</div>
-            <div class="archive-body">
-              <h3 class="archive-title">Technical Documentation</h3>
-              <p class="archive-desc">API reference, architecture diagrams, and implementation guides for integration projects.</p>
-              <div class="archive-size">3.2 MB · PDF</div>
-              <a href="#" class="archive-download" target="_blank" rel="noopener noreferrer">
-                Download
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- File 5: Portfolio Presentation -->
-          <article class="archive-card" role="listitem">
-            <div class="archive-icon" aria-hidden="true">📽️</div>
-            <div class="archive-body">
-              <h3 class="archive-title">Portfolio Presentation</h3>
-              <p class="archive-desc">Slide deck showcasing recent projects, achievements, and creative philosophy with full notes.</p>
-              <div class="archive-size">5.1 MB · PPTX</div>
-              <a href="#" class="archive-download" target="_blank" rel="noopener noreferrer">
-                Download
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-              </a>
-            </div>
-          </article>
-
-          <!-- File 6: Contact & Collaboration Info -->
-          <article class="archive-card" role="listitem">
-            <div class="archive-icon" aria-hidden="true">📋</div>
-            <div class="archive-body">
-              <h3 class="archive-title">Collaboration Guide</h3>
-              <p class="archive-desc">Overview of collaboration workflows, communication preferences, and project working standards.</p>
-              <div class="archive-size">1.2 MB · PDF</div>
-              <a href="#" class="archive-download" target="_blank" rel="noopener noreferrer">
-                Download
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-              </a>
-            </div>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-
-    <!-- ============================================
-         FOOTER — Minimal, classy
-    ============================================= -->
     <footer class="footer" role="contentinfo">
       <p class="footer-text">
-        © 2026 Sofia Monteiro. All rights reserved. &nbsp;·&nbsp;
-        <a href="https://github.com/dacodeapprentice?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub</a>
+        © 2026 [Your Name]. All rights reserved. &nbsp;·&nbsp;
+        <a href="https://github.com/yourhandle" target="_blank" rel="noopener noreferrer">GitHub</a>
         &nbsp;·&nbsp;
-        <a href="https://x.com/sofiadmm58" target="_blank" rel="noopener noreferrer">X</a>
+        <a href="https://instagram.com/yourhandle" target="_blank" rel="noopener noreferrer">Instagram</a>
       </p>
     </footer>
 
   </div><!-- end .main-wrapper -->
-   <!-- ============================================
-       JAVASCRIPT — Navigation, sidebar toggle,
-       scroll header shadow, keyboard accessibility,
-       form submission feedback
-  ============================================= -->
-  <script>
-    // =============================================
-    // DOM REFERENCES
-    // =============================================
-    const sidebar         = document.getElementById('sidebar');
-    const sidebarOverlay  = document.getElementById('sidebarOverlay');
-    const toggleBtn       = document.getElementById('toggleSidebar');
-    const mainWrapper     = document.getElementById('mainWrapper');
-    const headerEl        = document.getElementById('header');
-    const allSections     = document.querySelectorAll('section');
-    const allNavLinks     = document.querySelectorAll('[data-nav]');
 
-    // =============================================
-    // SIDEBAR STATE
-    // Sidebar starts collapsed on all screen sizes.
-    // On desktop (>1024px) it overlays the content
-    // when open. On mobile it uses the dark overlay.
-    // =============================================
-    let sidebarOpen = false;
+<script>
+(function(){
+"use strict";
 
-    function openSidebar() {
-      sidebarOpen = true;
-      sidebar.classList.remove('collapsed');
-      toggleBtn.classList.add('open');
-      toggleBtn.setAttribute('aria-expanded', 'true');
+/* ============================================================
+   DATA — edit / extend this array to build your real archive
+   ============================================================ */
+const RAW_DATA = [
+  { id:'E1', code:'EXP·01', category:'Experiment', emoji:'🫀', title:'Anatomy Study Series',
+    discipline:'Illustration', medium:'Charcoal & Graphite', subject:'Human Anatomy', purpose:'Observation & Skill-Building',
+    date:'2024-03', dateDisplay:'Mar 2024', level:'Ongoing',
+    question:'How much underlying skeletal and muscular structure does a viewer actually need to read a pose as believable?',
+    process:'Forty timed studies from life and reference, moving from full skeletal underpainting toward gesture-only marks. Each session removed one layer of visible structure to find where believability broke down.',
+    discoveries:[
+      'Believability survives the loss of most internal lines — it depends on a handful of load-bearing landmarks (clavicle, pelvis tilt, weight-bearing leg).',
+      'Speed improved faster than accuracy; the two had to be trained separately.',
+      "Charcoal's smudge-and-rebuild quality matched the iterative nature of the question better than ink would have."
+    ],
+    result:'A working shorthand of roughly twelve landmarks that consistently carry a pose, now used as a warm-up routine before figurative work.',
+    applications:'Useful for illustrators, animators, and character designers who need to draw convincingly from imagination rather than constant reference.',
+    connections:['P1'] },
 
-      // Show overlay on mobile
-      if (window.innerWidth <= 1024) {
-        sidebarOverlay.style.display = 'block';
-        // Force reflow before adding visible class for transition
-        sidebarOverlay.getBoundingClientRect();
-        sidebarOverlay.classList.add('visible');
-        document.body.style.overflow = 'hidden';
-      }
-    }
+  { id:'E2', code:'EXP·02', category:'Experiment', emoji:'📐', title:'Folded Plane Studies',
+    discipline:'Design', medium:'Paper & Physical Models', subject:'Geometry & Form', purpose:'Structural Exploration',
+    date:'2023-11', dateDisplay:'Nov 2023', level:'Resolved',
+    question:'How does a single flat sheet gain rigidity through folding alone, with no added material?',
+    process:'About sixty paper models, starting from known crease patterns and deviating one fold at a time, photographed under raking light to record how shadow revealed structural tension.',
+    discoveries:[
+      'Rigidity came almost entirely from triangulated fold clusters, not from the number of folds.',
+      'A small number of asymmetric folds outperformed symmetric patterns for resisting twist.',
+      'The most structurally interesting failures happened at the edge, not the centre, of each sheet.'
+    ],
+    result:'A small physical library of fold patterns ranked by rigidity-to-material ratio, catalogued for later reference.',
+    applications:'A reference set for architects, product designers, or packaging designers exploring lightweight structural forms.',
+    connections:['P2'] },
 
-    function closeSidebar() {
-      sidebarOpen = false;
-      sidebar.classList.add('collapsed');
-      toggleBtn.classList.remove('open');
-      toggleBtn.setAttribute('aria-expanded', 'false');
+  { id:'E3', code:'EXP·03', category:'Experiment', emoji:'🌀', title:'Generative Noise Sketches',
+    discipline:'Code', medium:'JavaScript & Canvas', subject:'Procedural Generation', purpose:'Visual Exploration',
+    date:'2024-06', dateDisplay:'Jun 2024', level:'Ongoing',
+    question:'What does it look like to walk through noise, instead of just sampling it for texture?',
+    process:'Wrote a small engine that treats a Perlin noise field as terrain a particle can cross, then let hundreds of particles trace paths influenced by that same field over time.',
+    discoveries:[
+      "Particle trails revealed the noise field's structure far more clearly than a static heightmap render did.",
+      'Small changes to particle speed produced disproportionately different compositions — the system was more sensitive than expected.',
+      "The most visually interesting results came from deliberately breaking the field with sharp discontinuities."
+    ],
+    result:'An open-ended sketch engine, still growing, that has produced dozens of generative compositions and a reusable noise-walking technique.',
+    applications:'A generative-art toolkit whose underlying particle-on-field technique transfers directly to interactive storytelling and game feedback systems.',
+    connections:['P3','R1'] },
 
-      // Hide overlay
-      sidebarOverlay.classList.remove('visible');
-      document.body.style.overflow = '';
+  { id:'E4', code:'EXP·04', category:'Experiment', emoji:'🔠', title:'Modular Type Specimens',
+    discipline:'Graphic Design', medium:'Type Design', subject:'Systems & Grids', purpose:'Typeface Exploration',
+    date:'2023-08', dateDisplay:'Aug 2023', level:'Prototype',
+    question:'How few base shapes can a usable typeface actually be built from?',
+    process:'Started from one rounded module and tried to construct a full alphabet using only its rotations, mirrors, and scaled copies — redrawing any letter that broke the rule rather than making an exception for it.',
+    discoveries:[
+      'Roughly 70% of the lowercase alphabet held up under the constraint; the rest needed a second, related module.',
+      'Strict modularity made the face highly legible at large display sizes and weak at small body sizes.',
+      'The constraint surfaced letterforms a freehand approach likely would not have found.'
+    ],
+    result:'A display-only specimen set (uppercase and numerals), still a prototype, with the lowercase set unresolved.',
+    applications:'A reference case for type designers or design-systems teams exploring constraint-based letterform construction.',
+    connections:[] },
 
-      // Wait for overlay fade-out before display:none
-      setTimeout(function () {
-        if (!sidebarOpen) {
-          sidebarOverlay.style.display = 'none';
-        }
-      }, 280);
-    }
+  { id:'P1', code:'PRJ·01', category:'Project', emoji:'🧙', title:'Character Design: The Wanderers',
+    discipline:'Character Design', medium:'Digital Painting', subject:'Character & Narrative', purpose:'Worldbuilding for a Personal IP',
+    date:'2024-05', dateDisplay:'May 2024', level:'Resolved',
+    question:'Can a cast of six characters read as a coherent family of designs while each still carries a distinct personality?',
+    process:'Built a shared design grammar first — silhouette rules, a limited material palette, one proportion system — then designed each character inside those constraints, leaning on the anatomy-study shorthand to keep poses readable at thumbnail size.',
+    discoveries:[
+      'Constraints applied before character ideas made the cast feel related without anyone looking generic.',
+      "Silhouette read at 64px was a better test of a good design than any amount of detail at full size.",
+      'Two characters initially felt redundant; merging their roles strengthened the group as a whole.'
+    ],
+    result:'A finished cast of six characters with a shared visual language, used as the cover cast for an ongoing worldbuilding project.',
+    applications:'A reusable process for designing an ensemble — useful to game studios, illustrators, or writers building a visual identity for a cast.',
+    connections:['E1'] },
 
-    function toggleSidebar() {
-      if (sidebarOpen) {
-        closeSidebar();
-      } else {
-        openSidebar();
-      }
-    }
+  { id:'P2', code:'PRJ·02', category:'Project', emoji:'🏛️', title:'Pavilion — A Modular Structure Concept',
+    discipline:'Architecture', medium:'3D Model & Physical Study', subject:'Modularity', purpose:'Architectural Proposal',
+    date:'2024-01', dateDisplay:'Jan 2024', level:'Resolved',
+    question:'Can a single repeating folded panel assemble into a structure large enough to shelter people, with no specialised joinery?',
+    process:'Scaled the highest-performing fold pattern from the paper studies into one modular panel, then tested how it could repeat, mirror, and stack into a usable enclosure, first in cardboard and then as a small 3D-printed model.',
+    discoveries:[
+      'One panel, mirrored along two axes, was enough to generate a full pavilion form — no second panel type was needed.',
+      'The folded geometry that resisted twist at sheet scale also resisted wind load at structure scale.',
+      'Assembly order mattered more than panel design for keeping the structure stable mid-build.'
+    ],
+    result:'A buildable concept for a small modular pavilion using a single repeating panel, documented with an assembly sequence and structural notes.',
+    applications:'A starting point for temporary event structures, pop-up shelters, or any project needing a fast-to-assemble, low-waste enclosure.',
+    connections:['E2','R3'] },
 
-    // Toggle button click
-    toggleBtn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      toggleSidebar();
+  { id:'P3', code:'PRJ·03', category:'Project', emoji:'🌿', title:'Branching Paths — An Interactive Fiction Engine',
+    discipline:'Code & Writing', medium:'JavaScript', subject:'Interactive Storytelling', purpose:'A Narrative Tool for Writers',
+    date:'2024-07', dateDisplay:'Jul 2024', level:'Resolved',
+    question:'Can a writer build a branching story without needing to think in code at all?',
+    process:"Adapted the particle-and-field thinking from the noise sketches into a narrative field — story beats as nodes with weighted pulls — then wrapped it in a plain-text authoring format so a writer only ever edits story content, never logic.",
+    discoveries:[
+      'Writers moved faster through the format when choices were framed as questions rather than commands.',
+      'A visual map of the story graph caught structural dead-ends that reading the text alone missed.',
+      "The biggest authoring slowdown wasn't the tool — it was writers second-guessing branch count before drafting."
+    ],
+    result:'A working engine and lightweight authoring format, used to build three short interactive stories so far.',
+    applications:'For writers, game-narrative designers, or educators building branching scenarios with no programming background required.',
+    connections:['E3','T2'] },
+
+  { id:'P4', code:'PRJ·04', category:'Project', emoji:'🧭', title:'Wayfinder — An Accessible Navigation App',
+    discipline:'UX / UI Design', medium:'Mobile App Prototype', subject:'Accessibility', purpose:'Help Visually-Impaired Users Navigate Indoor Spaces',
+    date:'2023-12', dateDisplay:'Dec 2023', level:'Resolved',
+    question:'Can indoor wayfinding work well using sound and haptics alone, with no screen attention required?',
+    process:'Designed and prototyped a wayfinding app built around audio cues and haptic pulses rather than a map screen, testing directional-cue timing with visually-impaired volunteers across several iterations.',
+    discoveries:[
+      'Continuous audio cues caused fatigue; short rhythmic pulses that changed pace near turns worked far better.',
+      'Haptic cues alone were too easy to misread — the combination of sound and haptic, not either alone, gave reliable results.',
+      "Testers consistently wanted a way to rehearse a route before walking it — a feature outside the original scope."
+    ],
+    result:'A tested prototype with an audio-haptic navigation system and a route-rehearsal mode added directly from testing feedback.',
+    applications:'For accessibility-focused product teams, or any indoor navigation system — museums, hospitals, transit hubs — wanting non-visual wayfinding.',
+    connections:[] },
+
+  { id:'R1', code:'RES·01', category:'Research', emoji:'🌻', title:'Notes on Phyllotaxis & Natural Growth',
+    discipline:'Research', medium:'Notes & Diagrams', subject:'Biology & Mathematics', purpose:'Reference for Generative Work',
+    date:'2024-02', dateDisplay:'Feb 2024', level:'Reference',
+    question:'Why do so many unrelated natural growth patterns converge on the same spiral angle?',
+    process:'Collected and annotated phyllotaxis diagrams across sunflowers, pinecones, and succulents, cross-referencing them against the golden-angle literature to understand the angle as a packing solution rather than a coincidence.',
+    discoveries:[
+      "The recurring angle (~137.5°) is the most efficient way to avoid ever-aligning overlaps — not an arbitrary magic number.",
+      'The pattern emerges from local rules (each new element rotating a fixed angle from the last), with no global plan.',
+      'The same local-rule logic mapped directly onto the noise-walking particle sketches.'
+    ],
+    result:'A reference set of annotated diagrams and a short written explanation, kept as a standing resource.',
+    applications:'Background reading for generative artists or anyone designing packing or distribution algorithms.',
+    connections:['E3'] },
+
+  { id:'R2', code:'RES·02', category:'Research', emoji:'🎞️', title:'Colour Theory in Early Cinema',
+    discipline:'Research', medium:'Notes & Stills', subject:'Film History', purpose:'Visual Reference',
+    date:'2023-09', dateDisplay:'Sep 2023', level:'Reference',
+    question:'How did filmmakers communicate colour and mood before colour film existed?',
+    process:'Reviewed hand-tinted and stencil-coloured films from the early 1900s, cataloguing which colours were used for which emotional or narrative purpose before standardised colour stock made the choice less deliberate.',
+    discoveries:[
+      'Tinting was used narratively (blue for night, amber for interiors) well before it became a stylistic default.',
+      "Stencil colouring's technical limits — a handful of flat colours per frame — produced a palette discipline that's hard to replicate digitally without imposing it on purpose.",
+      "Several mistakes in hand-tinting (bleed, inconsistency) read as texture rather than error to a modern eye."
+    ],
+    result:'An annotated reference collection of stills and notes, organised by colour-to-emotion mapping.',
+    applications:'A palette reference for illustrators, art directors, or filmmakers wanting a historically grounded, limited-palette approach.',
+    connections:[] },
+
+  { id:'R3', code:'RES·03', category:'Research', emoji:'🏗️', title:'Studies in Modular & Brutalist Architecture',
+    discipline:'Research', medium:'Notes & Photography', subject:'Architecture History', purpose:'Reference for Structural Work',
+    date:'2023-10', dateDisplay:'Oct 2023', level:'Reference',
+    question:'What made modular brutalist housing systems repeatable across wildly different sites?',
+    process:'Documented several modular housing case studies, focusing on the single repeating unit each system was built from and how that unit handled variation in site, light, and orientation.',
+    discoveries:[
+      'The most successful systems standardised structure but deliberately left surface and infill flexible.',
+      'Repetition read as monotonous only when the unit ignored site orientation; rotated or mirrored units avoided this.',
+      "Many criticisms of brutalist sameness were really criticisms of unmaintained material, not the modular logic itself."
+    ],
+    result:'A working set of principles for modular structural design, since applied directly to the pavilion project.',
+    applications:'Reference for architects or product designers building any system meant to repeat across varied conditions.',
+    connections:['P2'] },
+
+  { id:'T1', code:'TL·01', category:'Tool', emoji:'📓', title:'Index — A Creative Process Journal Template',
+    discipline:'Methodology', medium:'Print & Digital Template', subject:'Process & Methodology', purpose:'Help Creatives Document Their Process',
+    date:'2024-04', dateDisplay:'Apr 2024', level:'Resolved',
+    question:'Why do most of the useful discoveries from a creative process disappear before the work is even finished?',
+    process:"Built a one-page-per-investigation journal template — question, process, discoveries, result, applications — and used it daily for three months to record this archive's own entries before designing the website around it.",
+    discoveries:[
+      "Forcing a question to be written before starting work changed how the work was approached, not just how it was recorded.",
+      "The hardest field to fill in honestly was discoveries — most people, this one included, want to skip straight to result.",
+      "This template is, literally, the structure every entry in this archive is built from."
+    ],
+    result:'A free, reusable template, in print and digital form, that this entire archive is based on.',
+    applications:'For any maker who wants to document process well enough to learn from it later, not just to show it off.',
+    connections:[] },
+
+  { id:'T2', code:'TL·02', category:'Tool', emoji:'🧵', title:'Thread — A Branching Narrative Toolkit',
+    discipline:'Code', medium:'Open-Source JavaScript Library', subject:'Interactive Storytelling', purpose:'Help Writers Build Branching Narratives',
+    date:'2024-07', dateDisplay:'Jul 2024', level:'Resolved',
+    question:'Can the engine behind one interactive-fiction project be made useful to other writers, not just this one?',
+    process:'Extracted the core branching logic from the fiction engine into a standalone, documented library with no project-specific assumptions left in it, then rewrote the authoring format to be readable with no explanation needed.',
+    discoveries:[
+      "Most of the original engine's complexity was project-specific and unnecessary for a general tool — it shrank by more than half.",
+      'Documentation written for a stranger caught several confusing design decisions the original project had simply absorbed.',
+      'A short example story shipped with the library mattered more for adoption than any amount of written explanation.'
+    ],
+    result:'A small open-source library with documentation and a working example story.',
+    applications:'For writers and narrative designers who want branching-story logic without building it from scratch.',
+    connections:['P3'] },
+
+  { id:'T3', code:'TL·03', category:'Tool', emoji:'🎨', title:'Palette — A Colour Extraction Tool',
+    discipline:'Code', medium:'Web Application', subject:'Colour & Perception', purpose:'Extract Usable Palettes from Reference Images',
+    date:'2023-06', dateDisplay:'Jun 2023', level:'Resolved',
+    question:'Can a tool tell the difference between a common colour in an image and a load-bearing one?',
+    process:'Built a small web app that clusters image colours by frequency, then re-weights the clusters by visual prominence — the size and contrast of the regions they occupy — rather than raw pixel count alone.',
+    discoveries:[
+      "Raw frequency clustering consistently missed small, high-contrast accent colours that a human eye picks out first.",
+      "Weighting by region size and contrast got much closer to how people intuitively describe an image's palette.",
+      'Five colours, ranked by this method, were enough to recreate the feel of most reference images tested.'
+    ],
+    result:'A working web tool that extracts a five-colour palette from any uploaded image, ranked by visual importance.',
+    applications:'For illustrators, designers, or anyone building a palette from a reference photo, mood board, or piece of art.',
+    connections:[] }
+];
+
+/* make connections symmetrical, so you only ever need to write one direction */
+const byId = {};
+RAW_DATA.forEach(e=>{ byId[e.id]=e; e._links = new Set(e.connections||[]); });
+RAW_DATA.forEach(e=>{ e._links.forEach(id=>{ if(byId[id]) byId[id]._links.add(e.id); }); });
+RAW_DATA.forEach(e=>{ e.connections = Array.from(e._links); e.year = e.date.slice(0,4); });
+const DATA = RAW_DATA;
+
+const CAT_META = {
+  Experiment: { label:'Experiments', color:'var(--accent)',  pale:'var(--pale-blue)',   hex:'#1e40af', gradient:'linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%)' },
+  Project:    { label:'Projects',    color:'var(--green)',   pale:'var(--green-pale)',  hex:'#0d9488', gradient:'linear-gradient(135deg, #d1fae5 0%, #dbeafe 100%)' },
+  Research:   { label:'Research',    color:'var(--violet)',  pale:'var(--violet-pale)', hex:'#7c3aed', gradient:'linear-gradient(135deg, #ede9fe 0%, #fae8ff 100%)' },
+  Tool:       { label:'Tools & Systems', color:'var(--amber)', pale:'var(--amber-pale)', hex:'#b45309', gradient:'linear-gradient(135deg, #fef3c7 0%, #ffedd5 100%)' }
+};
+const FACET_DEFS = [
+  {key:'discipline', label:'Discipline'},
+  {key:'medium',     label:'Medium'},
+  {key:'subject',    label:'Subject'},
+  {key:'purpose',    label:'Purpose'},
+  {key:'year',       label:'Year'},
+  {key:'level',      label:'Level of Development'}
+];
+
+/* ============================================================
+   STATE
+   ============================================================ */
+const state = {
+  category:'all',
+  query:'',
+  filters:{ discipline:new Set(), medium:new Set(), subject:new Set(), purpose:new Set(), year:new Set(), level:new Set() }
+};
+
+function $(sel, root){ return (root||document).querySelector(sel); }
+function $all(sel, root){ return Array.from((root||document).querySelectorAll(sel)); }
+function esc(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function activeFilterCount(){ let n=0; Object.values(state.filters).forEach(s=>n+=s.size); return n; }
+
+function matchesEntry(e){
+  if(state.category!=='all' && e.category!==state.category) return false;
+  const q = state.query.trim().toLowerCase();
+  if(q){
+    const hay = [e.title,e.discipline,e.medium,e.subject,e.purpose,e.question,e.result,e.applications,(e.discoveries||[]).join(' ')].join(' ').toLowerCase();
+    if(!hay.includes(q)) return false;
+  }
+  for(const def of FACET_DEFS){
+    const chosen = state.filters[def.key];
+    if(chosen.size && !chosen.has(e[def.key])) return false;
+  }
+  return true;
+}
+
+/* ============================================================
+   ARCHIVE: category tabs
+   ============================================================ */
+function renderCategoryTabs(){
+  const counts = {all:DATA.length, Experiment:0, Project:0, Research:0, Tool:0};
+  DATA.forEach(e=>counts[e.category]++);
+  const cats = [['all','All']].concat(Object.keys(CAT_META).map(k=>[k,CAT_META[k].label]));
+  const el = $('#categoryTabs');
+  el.innerHTML = cats.map(([key,label])=>{
+    const meta = CAT_META[key];
+    const styleVars = meta ? ` style="--tab-accent:${meta.hex};--tab-pale:${meta.pale};"` : '';
+    return `<button class="cat-tab${state.category===key?' active':''}" data-cat="${key}" aria-pressed="${state.category===key}"${styleVars}>
+      ${meta ? '<span class="cat-tab-dot"></span>' : ''}${esc(label)} <span class="n">${counts[key]}</span>
+    </button>`;
+  }).join('');
+  $all('.cat-tab', el).forEach(btn=>{
+    btn.addEventListener('click', ()=>{ state.category = btn.dataset.cat; renderCategoryTabs(); renderArchiveGrid(); refreshMapDim(); });
+  });
+}
+
+/* ============================================================
+   ARCHIVE: filters
+   ============================================================ */
+function renderFilterPanel(){
+  const panel = $('#filtersPanel');
+  panel.innerHTML = FACET_DEFS.map(def=>{
+    const values = Array.from(new Set(DATA.map(e=>e[def.key]).filter(Boolean))).sort();
+    const chosen = state.filters[def.key];
+    return `<details class="facet-group">
+      <summary>${esc(def.label)} (${values.length})</summary>
+      <div class="chip-row">${values.map(v=>`<button class="chip" data-group="${def.key}" data-value="${esc(v)}" aria-pressed="${chosen.has(v)}">${esc(v)}</button>`).join('')}</div>
+    </details>`;
+  }).join('');
+  $all('.chip', panel).forEach(chip=> chip.addEventListener('click', ()=> toggleFilter(chip.dataset.group, chip.dataset.value)) );
+}
+function toggleFilter(group, value){
+  const set = state.filters[group];
+  if(set.has(value)) set.delete(value); else set.add(value);
+  renderFilterPanel(); renderActiveFilters(); renderArchiveGrid(); refreshMapDim();
+}
+function renderActiveFilters(){
+  const wrap = $('#activeFilters');
+  const chips = [];
+  FACET_DEFS.forEach(def=>{
+    state.filters[def.key].forEach(v=>{
+      chips.push(`<span class="active-chip">${esc(def.label)}: ${esc(v)} <button data-group="${def.key}" data-value="${esc(v)}" aria-label="Remove filter">×</button></span>`);
     });
+  });
+  const n = activeFilterCount();
+  $('#filterCount').hidden = n===0;
+  $('#filterCount').textContent = n;
+  $('#filterToggle').setAttribute('aria-pressed', n>0 ? 'true' : $('#filterToggle').getAttribute('aria-pressed'));
+  if(!chips.length){ wrap.hidden = true; wrap.innerHTML=''; return; }
+  wrap.hidden = false;
+  wrap.innerHTML = chips.join('') + `<button class="clear-all" id="clearAllBtn">Clear all</button>`;
+  $all('button[data-group]', wrap).forEach(b=> b.addEventListener('click', ()=> toggleFilter(b.dataset.group, b.dataset.value)) );
+  $('#clearAllBtn').addEventListener('click', ()=>{
+    FACET_DEFS.forEach(def=> state.filters[def.key].clear());
+    renderFilterPanel(); renderActiveFilters(); renderArchiveGrid(); refreshMapDim();
+  });
+}
 
-    // Overlay click closes sidebar
-    sidebarOverlay.addEventListener('click', function () {
-      closeSidebar();
+/* ============================================================
+   ARCHIVE: grid
+   ============================================================ */
+function renderArchiveGrid(){
+  const list = DATA.filter(matchesEntry).sort((a,b)=> b.date.localeCompare(a.date));
+  const gridEl = $('#archiveGrid');
+  const emptyEl = $('#emptyState');
+  if(!list.length){ gridEl.innerHTML=''; emptyEl.hidden=false; return; }
+  emptyEl.hidden = true;
+  gridEl.innerHTML = list.map(e=>{
+    const meta = CAT_META[e.category];
+    return `<article class="project-card" data-id="${e.id}" role="listitem" tabindex="0" aria-label="Open investigation: ${esc(e.title)}">
+      <div class="project-thumb" aria-hidden="true" style="background:${meta.gradient};">${e.emoji}</div>
+      <div class="project-body">
+        <div class="project-meta">
+          <span class="project-year">${esc(e.dateDisplay)}</span>
+          <span class="tag" style="color:${meta.hex};background:${meta.pale};border-color:${meta.hex}33;">${esc(meta.label)}</span>
+        </div>
+        <h3 class="project-title">${esc(e.title)}</h3>
+        <p class="project-desc">"${esc(e.question)}"</p>
+        <div class="tags">
+          <span class="tag">${esc(e.discipline)}</span>
+          <span class="tag">${esc(e.level)}</span>
+        </div>
+        <div class="project-arrow">
+          Read investigation
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+  $all('.project-card', gridEl).forEach(card=>{
+    card.addEventListener('click', ()=> showSection('entry-'+card.dataset.id));
+    card.addEventListener('keydown', ev=>{ if(ev.key==='Enter' || ev.key===' '){ ev.preventDefault(); showSection('entry-'+card.dataset.id); } });
+  });
+}
+
+/* ============================================================
+   ENTRY DETAIL SECTIONS — generated once, inserted into the DOM
+   ============================================================ */
+function buildDetailSections(){
+  const archiveSection = document.getElementById('archive');
+  const html = DATA.map(e=>{
+    const meta = CAT_META[e.category];
+    const linked = (e.connections||[]).map(id=>byId[id]).filter(Boolean);
+    return `
+    <section class="project-detail-section" id="entry-${e.id}" aria-label="Investigation: ${esc(e.title)}">
+      <div class="section-wrapper">
+        <button class="btn-back" data-nav="archive" aria-label="Back to Archive">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          Back to Archive
+        </button>
+
+        <span class="section-label" style="color:${meta.hex};">${esc(e.code)} · ${esc(meta.label)} · ${esc(e.discipline)}</span>
+        <h1 class="section-title" style="margin-bottom:0.6rem;">${esc(e.title)}</h1>
+        <p class="section-subtitle" style="font-style:italic; margin-bottom:1.2rem;">"${esc(e.question)}"</p>
+
+        <div>
+          <span class="detail-pill" style="background:${meta.pale};color:${meta.hex};">${esc(e.level)}</span>
+          <span class="detail-pill" style="background:var(--off-white);color:var(--text-secondary);border:1px solid var(--border);">${esc(e.medium)}</span>
+          <span class="detail-pill" style="background:var(--off-white);color:var(--text-secondary);border:1px solid var(--border);">${esc(e.dateDisplay)}</span>
+        </div>
+
+        <div class="project-detail-hero" aria-hidden="true" style="background:${meta.gradient}; margin-top:1.5rem;">${e.emoji}</div>
+
+        <div class="content-card"><h2>The Process</h2><p>${esc(e.process)}</p></div>
+        <div class="content-card"><h2>Discoveries</h2><ul>${e.discoveries.map(d=>`<li>${esc(d)}</li>`).join('')}</ul></div>
+        <div class="content-card"><h2>The Result</h2><p>${esc(e.result)}</p></div>
+        <div class="content-card"><h2>Applications &amp; Who May Benefit</h2><p>${esc(e.applications)}</p></div>
+        ${linked.length ? `<div class="content-card"><h2>Connected Investigations</h2>
+          <div class="tags">${linked.map(l=>`<button class="tag tag-link" data-nav="entry-${l.id}">${esc(l.code)} — ${esc(l.title)}</button>`).join('')}</div>
+        </div>` : ''}
+      </div>
+    </section>`;
+  }).join('');
+  archiveSection.insertAdjacentHTML('afterend', html);
+}
+
+/* ============================================================
+   CONNECTIONS MAP
+   ============================================================ */
+let mapBuilt = false;
+function hashStr(s){ let h=0; for(let i=0;i<s.length;i++){ h=(h*31+s.charCodeAt(i))|0; } return Math.abs(h); }
+function seeded01(s){ return (hashStr(s)%1000)/1000; }
+
+function buildMap(){
+  const W=1000, H=600;
+  const clusters = { Experiment:{x:250,y:175}, Project:{x:750,y:175}, Research:{x:250,y:440}, Tool:{x:750,y:440} };
+  const byCat = {Experiment:[],Project:[],Research:[],Tool:[]};
+  DATA.forEach(e=> byCat[e.category].push(e));
+
+  Object.keys(byCat).forEach(cat=>{
+    const items = byCat[cat];
+    const n = items.length;
+    items.forEach((e,i)=>{
+      const angle = (i/n)*Math.PI*2 + seeded01(e.id)*0.7;
+      const radius = 56 + (n>4 ? (n-4)*9 : 0) + seeded01(e.id+'r')*28;
+      let x = clusters[cat].x + radius*Math.cos(angle);
+      let y = clusters[cat].y + radius*Math.sin(angle);
+      x = Math.max(50, Math.min(W-50, x));
+      y = Math.max(40, Math.min(H-60, y));
+      e._x = x; e._y = y;
     });
+  });
 
-    // Close sidebar on Escape key
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && sidebarOpen) {
-        closeSidebar();
-        toggleBtn.focus();
-      }
+  const svg = $('#connectionsSvg');
+  const seenPairs = new Set();
+  let strings = '';
+  DATA.forEach(e=>{
+    (e.connections||[]).forEach(otherId=>{
+      const pairKey = [e.id,otherId].sort().join('-');
+      if(seenPairs.has(pairKey)) return;
+      seenPairs.add(pairKey);
+      const other = byId[otherId];
+      if(!other) return;
+      const a=e, b=other;
+      const mx=(a._x+b._x)/2, my=(a._y+b._y)/2;
+      const dx=b._x-a._x, dy=b._y-a._y;
+      const len=Math.hypot(dx,dy)||1;
+      const nx=-dy/len, ny=dx/len;
+      const bend=(seeded01(pairKey)-0.5)*60;
+      const cx=mx+nx*bend, cy=my+ny*bend;
+      strings += `<path class="string" data-pair="${pairKey}" data-a="${a.id}" data-b="${b.id}" d="M ${a._x} ${a._y} Q ${cx} ${cy} ${b._x} ${b._y}"></path>`;
     });
+  });
 
-    // Close sidebar when clicking outside (desktop)
-    document.addEventListener('click', function (e) {
-      if (
-        sidebarOpen &&
-        !sidebar.contains(e.target) &&
-        !toggleBtn.contains(e.target)
-      ) {
-        closeSidebar();
+  let pins = '';
+  DATA.forEach(e=>{
+    const meta = CAT_META[e.category];
+    const label = e.title.length>22 ? e.title.slice(0,21)+'…' : e.title;
+    pins += `<g class="pin" data-id="${e.id}" tabindex="0" role="button" aria-label="Open: ${esc(e.title)}">
+        <circle cx="${e._x+1.5}" cy="${e._y+2.5}" r="8" fill="rgba(15,23,42,.12)"></circle>
+        <circle class="pin-head" cx="${e._x}" cy="${e._y}" r="7.5" fill="${meta.hex}" stroke="#fff" stroke-width="1.5"></circle>
+        <text class="pin-label" x="${e._x}" y="${e._y+19}" text-anchor="middle">${esc(label)}</text>
+      </g>`;
+  });
+
+  svg.innerHTML = `<g id="stringsLayer">${strings}</g><g id="pinsLayer">${pins}</g>`;
+
+  $all('.pin', svg).forEach(pin=>{
+    const id = pin.dataset.id;
+    pin.addEventListener('mouseenter', ()=> highlightNode(id));
+    pin.addEventListener('mouseleave', ()=> clearHighlight());
+    pin.addEventListener('focus', ()=> highlightNode(id));
+    pin.addEventListener('blur', ()=> clearHighlight());
+    pin.addEventListener('click', ()=> showSection('entry-'+id));
+    pin.addEventListener('keydown', ev=>{ if(ev.key==='Enter' || ev.key===' '){ ev.preventDefault(); showSection('entry-'+id); } });
+  });
+
+  $('#mapLegend').innerHTML = Object.keys(CAT_META).map(cat=>
+    `<span class="legend-item"><span class="legend-dot" style="background:${CAT_META[cat].hex}"></span>${esc(CAT_META[cat].label)}</span>`
+  ).join('');
+
+  mapBuilt = true;
+  refreshMapDim();
+}
+
+function highlightNode(id){
+  const svg = $('#connectionsSvg');
+  const connected = new Set([id, ...(byId[id].connections||[])]);
+  $all('.pin', svg).forEach(p=>{
+    p.classList.toggle('is-dim', !connected.has(p.dataset.id));
+    p.classList.toggle('is-active', p.dataset.id===id);
+  });
+  $all('.string', svg).forEach(s=>{
+    const isLinked = s.dataset.a===id || s.dataset.b===id;
+    s.classList.toggle('is-active', isLinked);
+    s.classList.toggle('is-dim', !isLinked);
+  });
+}
+function clearHighlight(){
+  const svg = $('#connectionsSvg');
+  $all('.pin, .string', svg).forEach(el=> el.classList.remove('is-dim','is-active'));
+  refreshMapDim();
+}
+function refreshMapDim(){
+  if(!mapBuilt) return;
+  $all('.pin', $('#connectionsSvg')).forEach(p=>{
+    p.classList.toggle('is-filtered-out', !matchesEntry(byId[p.dataset.id]));
+  });
+}
+
+/* ============================================================
+   HERO STATS
+   ============================================================ */
+function renderHeroStats(){
+  const totalConnections = new Set(DATA.flatMap(e=> (e.connections||[]).map(id=>[e.id,id].sort().join('-')))).size;
+  const stats = [
+    [DATA.length, 'Investigations Logged'],
+    [Object.keys(CAT_META).length, 'Categories'],
+    [totalConnections, 'Connections Traced']
+  ];
+  $('#heroStats').innerHTML = stats.map((s,i)=>`
+    ${i>0 ? '<div class="hero-stat-sep" aria-hidden="true"></div>' : ''}
+    <div class="hero-stat" role="listitem"><div class="hero-stat-value">${s[0]}</div><div class="hero-stat-label">${esc(s[1])}</div></div>
+  `).join('');
+}
+
+/* ============================================================
+   NAV / SIDEBAR / SECTION SWITCHING  (same behaviour as reference)
+   ============================================================ */
+const sidebar        = document.getElementById('sidebar');
+const sidebarOverlay = document.getElementById('sidebarOverlay');
+const toggleBtn       = document.getElementById('toggleSidebar');
+const headerEl        = document.getElementById('header');
+
+let sidebarOpen = false;
+
+function openSidebar(){
+  sidebarOpen = true;
+  sidebar.classList.remove('collapsed');
+  toggleBtn.classList.add('open');
+  toggleBtn.setAttribute('aria-expanded','true');
+  if(window.innerWidth <= 1024){
+    sidebarOverlay.style.display = 'block';
+    sidebarOverlay.getBoundingClientRect();
+    sidebarOverlay.classList.add('visible');
+    document.body.style.overflow = 'hidden';
+  }
+}
+function closeSidebar(){
+  sidebarOpen = false;
+  sidebar.classList.add('collapsed');
+  toggleBtn.classList.remove('open');
+  toggleBtn.setAttribute('aria-expanded','false');
+  sidebarOverlay.classList.remove('visible');
+  document.body.style.overflow = '';
+  setTimeout(function(){ if(!sidebarOpen){ sidebarOverlay.style.display = 'none'; } }, 280);
+}
+function toggleSidebar(){ sidebarOpen ? closeSidebar() : openSidebar(); }
+
+toggleBtn.addEventListener('click', function(e){ e.stopPropagation(); toggleSidebar(); });
+sidebarOverlay.addEventListener('click', closeSidebar);
+document.addEventListener('keydown', function(e){ if(e.key==='Escape' && sidebarOpen){ closeSidebar(); toggleBtn.focus(); } });
+document.addEventListener('click', function(e){
+  if(sidebarOpen && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)){ closeSidebar(); }
+});
+window.addEventListener('resize', function(){
+  if(window.innerWidth > 1024 && sidebarOpen){
+    document.body.style.overflow = '';
+    sidebarOverlay.classList.remove('visible');
+    setTimeout(function(){ sidebarOverlay.style.display = 'none'; }, 280);
+  }
+});
+
+function showSection(targetId){
+  const target = document.getElementById(targetId);
+  if(!target){ console.warn('Section not found: ' + targetId); return; }
+
+  $all('section').forEach(s=> s.classList.remove('active'));
+  target.classList.add('active');
+
+  $all('.nav-link, .sidebar-link').forEach(link=>{
+    const isMatch = link.dataset.nav === targetId;
+    link.classList.toggle('active', isMatch);
+    if(isMatch) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current');
+  });
+
+  if(window.innerWidth <= 1024 && sidebarOpen) closeSidebar();
+  window.scrollTo({ top:0, behavior:'smooth' });
+
+  if(targetId === 'connections' && !mapBuilt) buildMap();
+  if(targetId === 'connections') refreshMapDim();
+}
+
+function wireNav(scope){
+  scope.querySelectorAll('[data-nav]').forEach(function(link){
+    const href = link.getAttribute('href');
+    if(href && href !== '#' && !href.startsWith('javascript')) return;
+    link.addEventListener('click', function(e){ e.preventDefault(); showSection(link.getAttribute('data-nav')); });
+    link.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); showSection(link.getAttribute('data-nav')); } });
+  });
+}
+
+function handleHeaderScroll(){
+  if(window.scrollY > 10) headerEl.classList.add('scrolled'); else headerEl.classList.remove('scrolled');
+}
+window.addEventListener('scroll', handleHeaderScroll, { passive:true });
+
+/* ============================================================
+   CONTACT FORM
+   ============================================================ */
+function handleFormSubmit(e){
+  e.preventDefault();
+  const form = e.target;
+  const submitBtn  = form.querySelector('button[type="submit"]');
+  const nameInput  = form.querySelector('#contact-name');
+  const emailInput = form.querySelector('#contact-email');
+  const msgInput   = form.querySelector('#contact-message');
+
+  if(!nameInput.value.trim() || !emailInput.value.trim() || !msgInput.value.trim()){
+    showFormFeedback(form, 'error', 'Please fill in all required fields.'); return;
+  }
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if(!emailPattern.test(emailInput.value.trim())){
+    showFormFeedback(form, 'error', 'Please enter a valid email address.'); return;
+  }
+
+  const originalText = submitBtn.innerHTML;
+  submitBtn.innerHTML = 'Sending…';
+  submitBtn.disabled = true;
+  submitBtn.style.opacity = '0.7';
+
+  setTimeout(function(){
+    submitBtn.innerHTML = originalText;
+    submitBtn.disabled = false;
+    submitBtn.style.opacity = '';
+    showFormFeedback(form, 'success', "Message sent — thank you! I'll be in touch shortly.");
+    form.reset();
+  }, 1200);
+}
+function showFormFeedback(form, type, message){
+  const existing = form.querySelector('.form-feedback');
+  if(existing) existing.remove();
+  const feedback = document.createElement('div');
+  feedback.className = 'form-feedback';
+  feedback.setAttribute('role','alert');
+  feedback.setAttribute('aria-live','polite');
+  const isSuccess = type==='success';
+  feedback.style.cssText = [
+    'padding: 0.875rem 1rem','border-radius: 8px','font-size: 0.875rem','font-weight: 500','line-height: 1.5','margin-top: 0.25rem',
+    isSuccess ? 'background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7;'
+              : 'background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5;'
+  ].join(';');
+  feedback.textContent = (isSuccess ? '\u2713  ' : '\u26a0  ') + message;
+  form.appendChild(feedback);
+  if(isSuccess){
+    setTimeout(function(){
+      if(feedback.parentNode){
+        feedback.style.transition = 'opacity 0.4s ease';
+        feedback.style.opacity = '0';
+        setTimeout(function(){ if(feedback.parentNode) feedback.remove(); }, 400);
       }
-    });
+    }, 6000);
+  }
+}
 
-    // Resize: close sidebar if window grows past breakpoint
-    window.addEventListener('resize', function () {
-      if (window.innerWidth > 1024 && sidebarOpen) {
-        // On larger screens keep it open but remove body lock
-        document.body.style.overflow = '';
-        sidebarOverlay.classList.remove('visible');
-        setTimeout(function () {
-          sidebarOverlay.style.display = 'none';
-        }, 280);
-      }
-    });
+/* ============================================================
+   INIT
+   ============================================================ */
+(function init(){
+  buildDetailSections();
+  renderHeroStats();
+  renderCategoryTabs();
+  renderFilterPanel();
+  renderActiveFilters();
+  renderArchiveGrid();
 
-    // =============================================
-    // SECTION NAVIGATION
-    // Shows the target section, hides all others,
-    // updates active states on all nav elements,
-    // closes the sidebar on mobile after navigation,
-    // and scrolls the page back to the top smoothly.
-    // =============================================
-    function showSection(targetId) {
-      // Validate that the target section exists
-      const targetSection = document.getElementById(targetId);
-      if (!targetSection) {
-        console.warn('Section not found: ' + targetId);
-        return;
-      }
+  wireNav(document);
 
-      // Hide all sections and remove active state
-      allSections.forEach(function (section) {
-        section.classList.remove('active');
-      });
+  document.getElementById('searchInput').addEventListener('input', function(ev){
+    state.query = ev.target.value; renderArchiveGrid(); refreshMapDim();
+  });
+  document.getElementById('filterToggle').addEventListener('click', function(){
+    const panel = document.getElementById('filtersPanel');
+    const willShow = panel.hidden;
+    panel.hidden = !willShow;
+    this.setAttribute('aria-pressed', String(willShow));
+  });
+  document.getElementById('contactForm').addEventListener('submit', handleFormSubmit);
 
-      // Show target section
-      targetSection.classList.add('active');
+  const heroScroll = document.querySelector('.hero-scroll');
+  if(heroScroll){
+    heroScroll.addEventListener('click', ()=> showSection('about'));
+    heroScroll.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); showSection('about'); } });
+  }
 
-      // Update active state on all nav links (sidebar + top nav)
-      allNavLinks.forEach(function (link) {
-        const linkTarget = link.getAttribute('data-nav');
+  showSection('home');
+  sidebarOverlay.style.display = 'none';
+  handleHeaderScroll();
+})();
 
-        // For top nav links — match exact section id
-        if (link.classList.contains('nav-link')) {
-          if (linkTarget === targetId) {
-            link.classList.add('active');
-            link.setAttribute('aria-current', 'page');
-          } else {
-            link.classList.remove('active');
-            link.removeAttribute('aria-current');
-          }
-        }
-
-        // For sidebar links — match main sections only
-        // (project detail pages don't have a sidebar entry)
-        if (link.classList.contains('sidebar-link')) {
-          if (linkTarget === targetId) {
-            link.classList.add('active');
-            link.setAttribute('aria-current', 'page');
-          } else {
-            link.classList.remove('active');
-            link.removeAttribute('aria-current');
-          }
-        }
-      });
-
-      // Close sidebar on mobile after navigation
-      if (window.innerWidth <= 1024 && sidebarOpen) {
-        closeSidebar();
-      }
-
-      // Scroll main wrapper to top
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // =============================================
-    // ATTACH NAV CLICK EVENTS
-    // All elements with [data-nav] attribute trigger
-    // section navigation. Handles both <button> and
-    // <div> elements used as nav triggers.
-    // =============================================
-    allNavLinks.forEach(function (link) {
-      // Skip elements that are external links (have href pointing outward)
-      const href = link.getAttribute('href');
-      if (href && href !== '#' && !href.startsWith('javascript')) {
-        return;
-      }
-
-      link.addEventListener('click', function (e) {
-        const targetId = link.getAttribute('data-nav');
-        if (targetId) {
-          e.preventDefault();
-          showSection(targetId);
-        }
-      });
-
-      // Keyboard accessibility: Enter and Space trigger navigation
-      link.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          const targetId = link.getAttribute('data-nav');
-          if (targetId) {
-            e.preventDefault();
-            showSection(targetId);
-          }
-        }
-      });
-    });
-
-    // =============================================
-    // PROJECT CARD CLICK & KEYBOARD NAVIGATION
-    // Cards are <article> elements with [data-nav]
-    // but not buttons, so we wire them up separately
-    // for both mouse and keyboard events.
-    // =============================================
-    const projectCards = document.querySelectorAll('.project-card[data-nav]');
-
-    projectCards.forEach(function (card) {
-      // Click
-      card.addEventListener('click', function () {
-        const targetId = card.getAttribute('data-nav');
-        if (targetId) {
-          showSection(targetId);
-        }
-      });
-
-      // Keyboard
-      card.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          const targetId = card.getAttribute('data-nav');
-          if (targetId) {
-            showSection(targetId);
-          }
-        }
-      });
-    });
-
-    // =============================================
-    // HEADER SCROLL SHADOW
-    // Adds a subtle shadow to the sticky header
-    // once the user scrolls past 10px to give
-    // depth without being heavy-handed.
-    // =============================================
-    function handleHeaderScroll() {
-      if (window.scrollY > 10) {
-        headerEl.classList.add('scrolled');
-      } else {
-        headerEl.classList.remove('scrolled');
-      }
-    }
-
-    window.addEventListener('scroll', handleHeaderScroll, { passive: true });
-
-    // =============================================
-    // HERO SCROLL INDICATOR
-    // The "Scroll" indicator at the bottom of the
-    // hero navigates to the About section smoothly.
-    // =============================================
-    const heroScroll = document.querySelector('.hero-scroll');
-    if (heroScroll) {
-      heroScroll.addEventListener('click', function () {
-        showSection('about');
-      });
-
-      heroScroll.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          showSection('about');
-        }
-      });
-    }
-
-    // =============================================
-    // CONTACT FORM SUBMISSION
-    // Provides elegant inline feedback on submit
-    // rather than a jarring browser alert.
-    // =============================================
-    function handleFormSubmit(e) {
-      e.preventDefault();
-
-      const form        = e.target;
-      const submitBtn   = form.querySelector('button[type="submit"]');
-      const nameInput   = form.querySelector('#contact-name');
-      const emailInput  = form.querySelector('#contact-email');
-      const msgInput    = form.querySelector('#contact-message');
-
-      // Basic validation
-      if (!nameInput.value.trim() || !emailInput.value.trim() || !msgInput.value.trim()) {
-        showFormFeedback(form, 'error', 'Please fill in all required fields.');
-        return;
-      }
-
-      // Email format check
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(emailInput.value.trim())) {
-        showFormFeedback(form, 'error', 'Please enter a valid email address.');
-        return;
-      }
-
-      // Simulate sending (replace with real endpoint integration)
-      const originalText = submitBtn.innerHTML;
-
-      submitBtn.innerHTML = 'Sending\u2026';
-      submitBtn.disabled = true;
-      submitBtn.style.opacity = '0.7';
-
-      setTimeout(function () {
-        // Reset button
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-        submitBtn.style.opacity = '';
-
-        // Show success feedback
-        showFormFeedback(form, 'success', 'Message sent — thank you! I\u2019ll be in touch shortly.');
-
-        // Clear form fields
-        form.reset();
-      }, 1200);
-    }
-
-    // Renders inline feedback message beneath the form
-    function showFormFeedback(form, type, message) {
-      // Remove any existing feedback
-      const existing = form.querySelector('.form-feedback');
-      if (existing) {
-        existing.remove();
-      }
-
-      const feedback = document.createElement('div');
-      feedback.className = 'form-feedback';
-      feedback.setAttribute('role', 'alert');
-      feedback.setAttribute('aria-live', 'polite');
-
-      // Styling based on type
-      const isSuccess = type === 'success';
-      feedback.style.cssText = [
-        'padding: 0.875rem 1rem',
-        'border-radius: 8px',
-        'font-size: 0.875rem',
-        'font-weight: 500',
-        'line-height: 1.5',
-        'margin-top: 0.25rem',
-        isSuccess
-          ? 'background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7;'
-          : 'background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3); color: #fca5a5;'
-      ].join(';');
-
-      feedback.textContent = (isSuccess ? '\u2713  ' : '\u26a0  ') + message;
-      form.appendChild(feedback);
-
-      // Auto-remove success message after 6 seconds
-      if (isSuccess) {
-        setTimeout(function () {
-          if (feedback.parentNode) {
-            feedback.style.transition = 'opacity 0.4s ease';
-            feedback.style.opacity = '0';
-            setTimeout(function () {
-              if (feedback.parentNode) {
-                feedback.remove();
-              }
-            }, 400);
-          }
-        }, 6000);
-      }
-    }
-
-    // =============================================
-    // SIDEBAR BRAND CLICK
-    // Clicking the brand name in the sidebar header
-    // navigates back to the Home section.
-    // =============================================
-    const sidebarBrand = document.querySelector('.sidebar-brand[data-nav]');
-    if (sidebarBrand) {
-      sidebarBrand.addEventListener('click', function () {
-        showSection('home');
-      });
-      sidebarBrand.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          showSection('home');
-        }
-      });
-    }
-
-    // =============================================
-    // INITIAL STATE
-    // Ensure the correct section is displayed on
-    // page load, default to 'home'.
-    // =============================================
-    (function init() {
-      // Make sure home section is active on load
-      showSection('home');
-
-      // Set initial overlay display to none
-      sidebarOverlay.style.display = 'none';
-
-      // Run header scroll check on load
-      handleHeaderScroll();
-    })();
-
-  </script>
-
+})();
+</script>
 </body>
 </html>
