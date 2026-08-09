@@ -1,1290 +1,171 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sofia Monteiro — Portfolio & Archive</title>
-<meta name="description" content="A living archive of creative investigation — experiments, projects, research, and tools, documented as the discoveries they are.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Raleway:ital,wght@0,200;0,300;0,400;0,500;0,600;1,200;1,300;1,400&display=swap" rel="stylesheet">
+    <title>Em breve</title>
 
-<style>
-/* =============================================
-   DESIGN TOKENS
-============================================= */
-:root {
-  --bg-primary:     #0b1a2e;
-  --bg-card:        #132540;
-  --bg-surface:     #162b48;
-  --bg-elevated:    #1a3250;
-  --border:         #1e3a5c;
-  --border-light:   #2a4a6a;
-  --text-primary:   #e8ecf1;
-  --text-secondary: #9aafc8;
-  --text-muted:     #5a7a9a;
-  --accent:         #0d8a7a;
-  --accent-light:   #14a894;
-  --accent-dark:    #0a6e62;
-  --green:          #12a06a;
-  --navy-dark:      #071222;
-  --sidebar-width:  280px;
-  --header-height:  64px;
-  --radius-sm:      2px;
-  --radius-md:      4px;
-  --radius-lg:      6px;
-  --radius-xl:      8px;
-  --shadow-sm:      0 1px 3px rgba(0,0,0,0.3);
-  --shadow-md:      0 4px 14px rgba(0,0,0,0.35);
-  --shadow-lg:      0 8px 30px rgba(0,0,0,0.4);
-  --transition:     0.25s ease;
-  --font-ui:        'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display:   'Raleway', sans-serif;
-}
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-/* =============================================
-   RESET & BASE
-============================================= */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
-html {
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-html::-webkit-scrollbar, body::-webkit-scrollbar, .sidebar::-webkit-scrollbar { display: none; }
+            background: #f2f0eb;
+            color: #1c1c1c;
 
-body {
-  font-family: var(--font-ui);
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  line-height: 1.7;
-  overflow-x: hidden;
-  display: flex;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: 400;
-}
+            font-family: Arial, Helvetica, sans-serif;
 
-a { text-decoration: none; color: inherit; }
-button { font-family: var(--font-ui); cursor: pointer; }
-ul { list-style: none; }
-img, svg { max-width: 100%; display: block; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+            overflow: hidden;
+        }
 
-/* =============================================
-   SIDEBAR
-============================================= */
-.sidebar {
-  width: var(--sidebar-width);
-  background: var(--navy-dark);
-  position: fixed; left: 0; top: 0; height: 100vh;
-  overflow-y: auto; overflow-x: hidden;
-  transition: transform var(--transition);
-  z-index: 1001;
-  display: flex; flex-direction: column;
-  border-right: 1px solid rgba(255,255,255,0.04);
-}
-.sidebar.collapsed { transform: translateX(calc(-1 * var(--sidebar-width))); }
+        /* Subtle background texture */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
 
-.sidebar-header { padding: 1.75rem 1.5rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.05); flex-shrink: 0; }
-.sidebar-brand { display: flex; flex-direction: column; gap: 0.15rem; cursor: pointer; }
-.sidebar-brand-monogram {
-  width: 32px; height: 32px;
-  background: var(--accent);
-  border-radius: var(--radius-sm);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-display); font-size: 1.05rem; font-weight: 500;
-  color: #fff; letter-spacing: 0.02em; margin-bottom: 0.6rem;
-}
-.sidebar-brand-name { font-size: 0.95rem; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; line-height: 1.3; }
-.sidebar-brand-title { font-size: 0.65rem; font-weight: 400; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.1rem; }
+            background-image:
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(0, 0, 0, 0.035) 1px,
+                    transparent 1px
+                );
 
-.sidebar-nav { padding: 1.25rem 0.75rem; flex: 1; overflow-y: auto; scrollbar-width: none; }
-.sidebar-nav::-webkit-scrollbar { display: none; }
-.sidebar-section { margin-bottom: 1.75rem; }
-.sidebar-section-title { font-size: 0.6rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem; padding: 0 0.625rem; }
+            background-size: 22px 22px;
 
-.sidebar-link {
-  display: flex; align-items: center; gap: 0.7rem; padding: 0.55rem 0.7rem;
-  color: var(--text-secondary); border-radius: var(--radius-sm);
-  transition: background var(--transition), color var(--transition);
-  cursor: pointer; margin-bottom: 0.1rem; font-size: 0.85rem; font-weight: 450;
-  border: none; background: none; width: 100%; text-align: left;
-}
-.sidebar-link:hover { background: rgba(255,255,255,0.04); color: var(--text-primary); }
-.sidebar-link.active { background: rgba(13,138,122,0.15); color: var(--accent-light); }
-.sidebar-link-icon { font-size: 0.9rem; width: 18px; text-align: center; flex-shrink: 0; opacity: 0.6; }
-.sidebar-link-icon svg { width: 15px; height: 15px; }
+            pointer-events: none;
+        }
 
-.sidebar-divider { height: 1px; background: rgba(255,255,255,0.05); margin: 0.75rem 0.625rem 1.25rem; }
+        .container {
+            position: relative;
+            width: min(900px, 90%);
+            text-align: center;
+            padding: 40px;
+        }
 
-.sidebar-link-ext {
-  display: flex; align-items: center; gap: 0.7rem; padding: 0.5rem 0.7rem;
-  color: var(--text-muted); border-radius: var(--radius-sm);
-  transition: background var(--transition), color var(--transition);
-  font-size: 0.8rem; font-weight: 400; text-decoration: none;
-}
-.sidebar-link-ext:hover { background: rgba(255,255,255,0.03); color: var(--text-secondary); }
-.sidebar-link-ext svg { width: 13px; height: 13px; opacity: 0.5; flex-shrink: 0; }
+        /* Decorative circle */
+        .circle {
+            width: 90px;
+            height: 90px;
 
-.sidebar-footer { padding: 1.25rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.05); flex-shrink: 0; }
-.sidebar-footer-text { font-size: 0.7rem; color: var(--text-muted); line-height: 1.6; }
+            margin: 0 auto 45px;
 
-/* =============================================
-   HEADER
-============================================= */
-.header {
-  position: fixed; top: 0; left: 0; right: 0; height: var(--header-height); z-index: 1000;
-  background: rgba(11,26,46,0.96);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border);
-  transition: box-shadow var(--transition);
-}
-.header.scrolled { box-shadow: var(--shadow-sm); }
+            border: 1px solid #1c1c1c;
+            border-radius: 50%;
 
-.nav-container { height: 100%; padding: 0 1.75rem; display: flex; align-items: center; gap: 1rem; max-width: 1400px; margin: 0 auto; }
+            position: relative;
 
-.toggle-sidebar {
-  width: 38px; height: 38px; border: 1px solid var(--border); background: transparent;
-  border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
-  cursor: pointer; transition: background var(--transition), border-color var(--transition); flex-shrink: 0;
-}
-.toggle-sidebar:hover { background: rgba(255,255,255,0.05); border-color: var(--border-light); }
-.hamburger { display: flex; flex-direction: column; gap: 3px; width: 16px; }
-.hamburger span { display: block; height: 1.5px; background: var(--text-primary); border-radius: 1px; transition: transform var(--transition), opacity var(--transition); transform-origin: center; }
-.hamburger span:nth-child(2) { width: 65%; }
-.toggle-sidebar.open .hamburger span:nth-child(1) { transform: translateY(4.5px) rotate(45deg); }
-.toggle-sidebar.open .hamburger span:nth-child(2) { opacity: 0; }
-.toggle-sidebar.open .hamburger span:nth-child(3) { transform: translateY(-4.5px) rotate(-45deg); }
+            animation: float 4s ease-in-out infinite;
+        }
 
-.nav-brand { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); letter-spacing: -0.01em; cursor: pointer; transition: opacity var(--transition); border: none; background: none; }
-.nav-brand:hover { opacity: 0.7; }
-.nav-links { display: flex; align-items: center; gap: 0.15rem; }
-.nav-link { padding: 0.4rem 0.8rem; font-size: 0.82rem; font-weight: 500; color: var(--text-secondary); border-radius: var(--radius-sm); transition: background var(--transition), color var(--transition); cursor: pointer; border: none; background: none; letter-spacing: 0.01em; }
-.nav-link:hover { background: rgba(255,255,255,0.04); color: var(--text-primary); }
-.nav-link.active { color: var(--accent-light); background: rgba(13,138,122,0.1); }
-.nav-spacer { flex: 1; }
+        .circle::after {
+            content: "";
 
-/* =============================================
-   SIDEBAR OVERLAY
-============================================= */
-.sidebar-overlay {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000;
-  backdrop-filter: blur(3px); opacity: 0; transition: opacity var(--transition);
-}
-.sidebar-overlay.visible { opacity: 1; }
+            position: absolute;
 
-/* =============================================
-   MAIN WRAPPER
-============================================= */
-.main-wrapper { flex: 1; display: flex; flex-direction: column; min-height: 100vh; padding-top: var(--header-height); width: 100%; }
+            width: 14px;
+            height: 14px;
 
-/* =============================================
-   SECTION SYSTEM — Unified
-============================================= */
-section {
-  display: none;
-  min-height: calc(100vh - var(--header-height));
-  background: var(--bg-primary);
-  position: relative;
-  overflow: hidden;
-}
-section.active { display: block; animation: sectionIn 0.35s ease both; }
-@keyframes sectionIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  section.active { animation: none; }
-  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
-}
+            background: #1c1c1c;
+            border-radius: 50%;
 
-/* Depth background — applied to all sections */
-.section-bg {
-  position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0;
-}
-.section-bg::before {
-  content:''; position:absolute; top:-80px; right:-80px; width:500px; height:500px;
-  background: rgba(13,138,122,0.03); transform: rotate(15deg);
-}
-.section-bg::after {
-  content:''; position:absolute; bottom:-60px; left:-60px; width:350px; height:350px;
-  background: rgba(26,90,138,0.04); transform: rotate(-10deg);
-}
-.section-grid {
-  position:absolute; inset:0; opacity:0.025; pointer-events:none; z-index:0;
-  background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-  background-size:56px 56px;
-}
+            top: 50%;
+            left: 50%;
 
-/* =============================================
-   TYPOGRAPHY
-============================================= */
-.section-title { font-family: var(--font-display); font-size: clamp(2.2rem, 4vw, 3.2rem); font-weight: 400; line-height: 1.15; letter-spacing: -0.02em; color: var(--text-primary); margin-bottom: 0.5rem; }
-.section-label { font-size: 0.6rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--accent-light); margin-bottom: 0.75rem; display: block; }
-.section-subtitle { font-size: 1rem; color: var(--text-secondary); font-weight: 400; max-width: 560px; line-height: 1.7; }
-.section-wrapper { max-width: 1160px; margin: 0 auto; padding: 5.5rem 2rem 4.5rem; position: relative; z-index: 1; }
-.section-header { margin-bottom: 3rem; }
+            transform: translate(-50%, -50%);
+        }
 
-/* =============================================
-   HERO
-============================================= */
-.hero-inner { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: calc(100vh - var(--header-height)); text-align: center; padding: 2rem 2rem 4rem; max-width: 860px; margin: 0 auto; }
+        h1 {
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            font-weight: 400;
+            letter-spacing: -0.04em;
 
-.hero-eyebrow { display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(13,138,122,0.1); border: 1px solid rgba(13,138,122,0.2); color: var(--accent-light); font-size: 0.68rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; padding: 0.3rem 0.8rem; border-radius: var(--radius-sm); margin-bottom: 2rem; animation: sectionIn 0.45s 0.1s both; }
-.hero-eyebrow-dot { width: 5px; height: 5px; background: var(--accent-light); animation: pulse 2.4s ease-in-out infinite; }
-@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+            margin-bottom: 25px;
+        }
 
-.hero-headline { font-family: var(--font-display); font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.03em; color: var(--text-primary); margin-bottom: 1.25rem; animation: sectionIn 0.5s 0.18s both; }
-.hero-headline em { font-style: italic; color: var(--accent-light); font-weight: 300; }
-.hero-subtext { font-size: 1.05rem; color: var(--text-secondary); line-height: 1.8; max-width: 560px; margin: 0 auto 2.5rem; font-weight: 400; animation: sectionIn 0.5s 0.26s both; }
-.hero-cta-group { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: center; animation: sectionIn 0.5s 0.34s both; }
+        p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            line-height: 1.7;
 
-.btn-primary, .btn-secondary, .btn-green {
-  display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.7rem 1.75rem;
-  font-size: 0.85rem; font-weight: 500; letter-spacing: 0.01em; border-radius: var(--radius-sm);
-  transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
-  cursor: pointer; text-decoration: none; border: 1px solid transparent;
-}
-.btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
-.btn-primary:hover { background: var(--accent-dark); box-shadow: 0 2px 12px rgba(13,138,122,0.3); transform: translateY(-1px); }
-.btn-secondary { background: transparent; color: var(--text-primary); border-color: var(--border); }
-.btn-secondary:hover { background: rgba(255,255,255,0.04); border-color: var(--border-light); transform: translateY(-1px); }
-.btn-green { background: var(--green); color: #fff; border-color: var(--green); }
-.btn-green:hover { background: #0d8a5a; box-shadow: 0 2px 12px rgba(18,160,106,0.3); transform: translateY(-1px); }
+            max-width: 650px;
+            margin: 0 auto;
 
+            color: #555;
+        }
 
-/* =============================================
-   ABOUT
-============================================= */
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-.about-portrait {
-  aspect-ratio: 4/5; max-height: 500px;
-  background: var(--bg-elevated);
-  border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center;
-  font-size: 5rem; border: 1px solid var(--border); box-shadow: var(--shadow-md); position: relative; overflow: hidden;
-}
-.about-portrait::after { content:''; position:absolute; inset:0; background: linear-gradient(160deg, transparent 60%, rgba(13,138,122,0.06)); }
-.about-content { display: flex; flex-direction: column; gap: 2rem; }
-.about-bio { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.8; }
-.about-bio p + p { margin-top: 0.85rem; }
-.about-quote { border-left: 2px solid var(--accent); padding: 0.9rem 1.1rem; background: rgba(13,138,122,0.06); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
-.about-quote-text { font-family: var(--font-display); font-size: 1.1rem; font-style: italic; color: var(--text-primary); line-height: 1.5; font-weight: 350; }
+        .line {
+            width: 60px;
+            height: 1px;
 
-.skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-.skill-item { display: flex; align-items: center; gap: 0.6rem; padding: 0.65rem 0.8rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.82rem; font-weight: 500; color: var(--text-primary); transition: border-color var(--transition); }
-.skill-item:hover { border-color: var(--border-light); }
-.skill-icon { font-size: 1rem; flex-shrink: 0; }
+            background: #1c1c1c;
 
-.principles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-.principle-item { padding: 0.75rem 0.9rem; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-sm); font-family: var(--font-display); font-style: italic; font-size: 0.95rem; color: var(--text-primary); line-height: 1.35; }
+            margin: 35px auto;
+        }
 
-/* =============================================
-   ARCHIVE
-============================================= */
-.archive-toolbar { margin-bottom: 2rem; }
-.toolbar-row { display: flex; gap: 0.6rem; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
-.search-field { position: relative; flex: 1 1 260px; min-width: 200px; }
-.search-field svg { position: absolute; left: 0.7rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); width: 14px; height: 14px; }
-#searchInput { width: 100%; font-family: var(--font-ui); font-size: 0.88rem; padding: 0.6rem 0.85rem 0.6rem 2rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--bg-card); color: var(--text-primary); transition: border-color var(--transition), background var(--transition); }
-#searchInput::placeholder { color: var(--text-muted); }
-#searchInput:focus { outline: none; border-color: var(--accent); background: var(--bg-surface); }
+        .small {
+            font-size: 0.75rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
 
-.btn-ghost {
-  font-size: 0.78rem; font-weight: 500; letter-spacing: 0.01em; background: transparent;
-  border: 1px solid var(--border); color: var(--text-secondary); border-radius: var(--radius-sm);
-  padding: 0.55rem 0.85rem; display: inline-flex; align-items: center; gap: 0.4rem; white-space: nowrap;
-  transition: background var(--transition), border-color var(--transition), color var(--transition);
-}
-.btn-ghost:hover { background: rgba(255,255,255,0.04); color: var(--text-primary); }
-.btn-ghost[aria-pressed="true"] { background: rgba(13,138,122,0.1); border-color: rgba(13,138,122,0.3); color: var(--accent-light); }
-.filter-count { display: inline-flex; align-items: center; justify-content: center; min-width: 18px; height: 18px; background: var(--accent); color: #fff; border-radius: var(--radius-sm); font-size: 0.65rem; padding: 0 0.3rem; }
+            color: #777;
+        }
 
-.category-tabs { display: flex; gap: 0.35rem; flex-wrap: wrap; }
-.cat-tab {
-  display: flex; align-items: center; gap: 0.35rem; padding: 0.4rem 0.85rem; font-size: 0.8rem; font-weight: 500;
-  color: var(--text-secondary); border-radius: var(--radius-sm); border: 1px solid var(--border); background: transparent;
-  transition: background var(--transition), color var(--transition), border-color var(--transition);
-}
-.cat-tab .n { font-size: 0.7rem; opacity: 0.6; }
-.cat-tab:hover { background: rgba(255,255,255,0.04); }
-.cat-tab.active { background: rgba(13,138,122,0.1); border-color: rgba(13,138,122,0.3); color: var(--accent-light); }
-.cat-tab-dot { width: 6px; height: 6px; background: var(--tab-accent, var(--accent-light)); flex-shrink: 0; display: inline-block; }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
 
-#filtersPanel { padding-top: 1rem; margin-top: 0.25rem; border-top: 1px solid var(--border); display: grid; grid-template-columns: repeat(auto-fit, minmax(170px,1fr)); gap: 1rem 1.5rem; }
-#filtersPanel[hidden] { display: none; }
-.facet-group summary { cursor: pointer; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.45rem; list-style: none; }
-.facet-group summary::-webkit-details-marker { display: none; }
-.facet-group summary::before { content: "+ "; color: var(--accent-light); font-weight: 600; }
-.facet-group[open] summary::before { content: "– "; }
-.chip-row { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.4rem; }
-.chip { font-size: 0.74rem; padding: 0.25rem 0.55rem; border-radius: var(--radius-sm); border: 1px solid var(--border); background: transparent; color: var(--text-secondary); transition: background var(--transition), border-color var(--transition), color var(--transition); cursor: pointer; }
-.chip[aria-pressed="true"] { background: rgba(13,138,122,0.1); border-color: rgba(13,138,122,0.3); color: var(--accent-light); }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
 
-.active-filters { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.85rem; align-items: center; }
-.active-filters[hidden] { display: none; }
-.active-chip { font-size: 0.72rem; background: var(--bg-card); border: 1px solid var(--border); padding: 0.25rem 0.35rem 0.25rem 0.6rem; display: inline-flex; align-items: center; gap: 0.35rem; color: var(--text-secondary); border-radius: var(--radius-sm); }
-.active-chip button { background: none; border: none; font-size: 0.85rem; line-height: 1; color: var(--accent-light); padding: 0; cursor: pointer; }
-.clear-all { font-size: 0.74rem; text-decoration: underline; color: var(--text-muted); background: none; border: none; cursor: pointer; }
+        @media (max-width: 600px) {
+            .container {
+                padding: 25px;
+            }
 
-.empty-state { text-align: center; padding: 3.5rem 1rem; font-family: var(--font-display); font-style: italic; font-size: 1.3rem; color: var(--text-muted); }
-
-/* =============================================
-   ARCHIVE CARDS
-============================================= */
-.projects-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
-.project-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); overflow: hidden; transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition); cursor: pointer; }
-.project-card:hover, .project-card:focus-visible { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--border-light); }
-.project-thumb { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 2.8rem; position: relative; overflow: hidden; background: var(--bg-surface); }
-.project-thumb::after { content:''; position:absolute; inset:0; background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.15)); }
-.project-body { padding: 1.1rem 1.25rem 1.25rem; }
-.project-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; }
-.project-year { font-size: 0.68rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
-.project-title { font-family: var(--font-display); font-size: 1.15rem; font-weight: 450; color: var(--text-primary); margin-bottom: 0.4rem; letter-spacing: -0.01em; line-height: 1.3; }
-.project-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.85rem; }
-.tags { display: flex; gap: 0.35rem; flex-wrap: wrap; }
-.tag { font-size: 0.65rem; font-weight: 500; color: var(--accent-light); background: rgba(13,138,122,0.08); border: 1px solid rgba(13,138,122,0.15); padding: 0.15rem 0.5rem; border-radius: var(--radius-sm); letter-spacing: 0.01em; }
-.tag-link { cursor: pointer; transition: background var(--transition); }
-.tag-link:hover { background: rgba(13,138,122,0.15); }
-.project-arrow { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.78rem; font-weight: 600; color: var(--accent-light); margin-top: 0.75rem; transition: gap var(--transition); }
-.project-card:hover .project-arrow { gap: 0.55rem; }
-
-/* =============================================
-   ENTRY DETAIL
-============================================= */
-.project-detail-hero { height: 260px; display: flex; align-items: center; justify-content: center; font-size: 5rem; border-radius: var(--radius-md); margin-bottom: 2.25rem; border: 1px solid var(--border); position: relative; overflow: hidden; background: var(--bg-surface); }
-.project-detail-hero::after { content:''; position:absolute; inset:0; background: linear-gradient(135deg, transparent, rgba(13,138,122,0.04)); }
-.content-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 1.75rem 2rem; margin-bottom: 1.25rem; }
-.content-card h2 { font-family: var(--font-display); font-size: 1.35rem; font-weight: 500; color: var(--text-primary); margin-bottom: 0.75rem; letter-spacing: -0.01em; }
-.content-card p { color: var(--text-secondary); font-size: 0.92rem; line-height: 1.75; }
-.content-card .lede { font-family: var(--font-display); font-style: italic; font-size: 1.1rem; color: var(--text-primary); line-height: 1.5; }
-.content-card ul { display: flex; flex-direction: column; gap: 0.55rem; }
-.content-card li { padding-left: 1.1rem; position: relative; color: var(--text-secondary); font-size: 0.92rem; line-height: 1.6; }
-.content-card li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
-.detail-pill { display: inline-block; font-size: 0.68rem; font-weight: 600; padding: 0.22rem 0.6rem; border-radius: var(--radius-sm); margin: 0 0.35rem 0.4rem 0; letter-spacing: 0.02em; }
-
-.btn-back { display: inline-flex; align-items: center; gap: 0.45rem; font-size: 0.82rem; font-weight: 500; color: var(--text-secondary); background: none; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.45rem 0.85rem; cursor: pointer; transition: background var(--transition), color var(--transition); margin-bottom: 1.75rem; }
-.btn-back:hover { background: rgba(255,255,255,0.04); color: var(--text-primary); }
-
-/* =============================================
-   CONTACT
-============================================= */
-.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
-.contact-info { display: flex; flex-direction: column; gap: 1rem; }
-.contact-item { display: flex; align-items: center; gap: 0.85rem; padding: 0.9rem 1rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); transition: background var(--transition); }
-.contact-item:hover { background: rgba(255,255,255,0.06); }
-.contact-icon { width: 36px; height: 36px; border-radius: var(--radius-sm); background: rgba(13,138,122,0.15); display: flex; align-items: center; justify-content: center; font-size: 1rem; flex-shrink: 0; }
-.contact-label { font-size: 0.68rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
-.contact-value { font-size: 0.85rem; color: var(--text-secondary); font-weight: 400; margin-top: 0.05rem; }
-
-.contact-form { display: flex; flex-direction: column; gap: 1rem; }
-.form-group { display: flex; flex-direction: column; gap: 0.35rem; }
-.form-label { font-size: 0.75rem; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
-.form-input, .form-textarea { width: 100%; padding: 0.7rem 0.9rem; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-sm); color: var(--text-primary); font-family: var(--font-ui); font-size: 0.85rem; transition: border-color var(--transition), background var(--transition); outline: none; }
-.form-input::placeholder, .form-textarea::placeholder { color: var(--text-muted); }
-.form-input:focus, .form-textarea:focus { border-color: rgba(13,138,122,0.4); background: rgba(255,255,255,0.06); }
-.form-textarea { resize: vertical; min-height: 110px; }
-
-/* =============================================
-   FOOTER
-============================================= */
-.footer { background: var(--navy-dark); border-top: 1px solid rgba(255,255,255,0.04); padding: 1.75rem 2rem; text-align: center; }
-.footer-text { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.03em; }
-.footer-text a { color: rgba(255,255,255,0.3); transition: color var(--transition); }
-.footer-text a:hover { color: rgba(255,255,255,0.6); }
-
-/* =============================================
-   RESPONSIVE
-============================================= */
-@media (max-width: 1024px) {
-  .projects-grid { grid-template-columns: repeat(2, 1fr); }
-  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .about-portrait { max-height: 280px; aspect-ratio: 16/7; }
-  .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
-}
-@media (max-width: 768px) {
-  :root { --header-height: 56px; }
-  .projects-grid { grid-template-columns: 1fr; }
-  .skills-grid, .principles-grid { grid-template-columns: 1fr; }
-  .section-wrapper { padding: 3rem 1.25rem; }
-  .nav-links { display: none; }
-  .nav-brand { font-size: 0.85rem; }
-}
-@media (max-width: 480px) {
-  .hero-inner { padding: 3rem 1.25rem 2.5rem; }
-  .hero-cta-group { flex-direction: column; width: 100%; }
-  .btn-primary, .btn-secondary, .btn-green { width: 100%; justify-content: center; }
-}
-</style>
+            .circle {
+                width: 70px;
+                height: 70px;
+                margin-bottom: 35px;
+            }
+        }
+    </style>
 </head>
+
 <body>
 
-  <!-- ============================================
-       SIDEBAR
-  ============================================= -->
-  <aside class="sidebar collapsed" id="sidebar" aria-label="Site navigation">
+    <main class="container">
 
-    <div class="sidebar-header">
-      <div class="sidebar-brand" data-nav="home" role="button" tabindex="0" aria-label="Go to Home">
-        <div class="sidebar-brand-monogram">S</div>
-        <span class="sidebar-brand-name">Sofia Monteiro</span>
-        <span class="sidebar-brand-title">Portfolio & Archive</span>
-      </div>
-    </div>
+        <div class="circle"></div>
 
-    <nav class="sidebar-nav" aria-label="Main navigation">
-      <div class="sidebar-section">
-        <div class="sidebar-section-title">Pages</div>
-
-        <button class="sidebar-link active" data-nav="home" aria-current="page">
-          <span class="sidebar-link-icon" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/>
-            </svg>
-          </span>
-          <span>Home</span>
-        </button>
-
-        <button class="sidebar-link" data-nav="about">
-          <span class="sidebar-link-icon" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-            </svg>
-          </span>
-          <span>About</span>
-        </button>
-
-        <button class="sidebar-link" data-nav="archive">
-          <span class="sidebar-link-icon" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="3" y="3" width="7" height="7" rx="0"/><rect x="14" y="3" width="7" height="7" rx="0"/><rect x="3" y="14" width="7" height="7" rx="0"/><rect x="14" y="14" width="7" height="7" rx="0"/>
-            </svg>
-          </span>
-          <span>Archive</span>
-        </button>
-
-        <button class="sidebar-link" data-nav="contact">
-          <span class="sidebar-link-icon" aria-hidden="true">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
-            </svg>
-          </span>
-          <span>Contact</span>
-        </button>
-      </div>
-
-      <div class="sidebar-divider"></div>
-
-      <div class="sidebar-section">
-        <div class="sidebar-section-title">Links</div>
-
-        <a class="sidebar-link-ext" href="https://github.com/dacodeapprentice/Sofia-Monteiro" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
-          <span>GitHub</span>
-        </a>
-        <a class="sidebar-link-ext" href="https://x.com/sofiadmm58" target="_blank" rel="noopener noreferrer">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          <span>X (Twitter)</span>
-        </a>
-        <a class="sidebar-link-ext" href="mailto:sofiadmm58@gmail.com">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          <span>Email</span>
-        </a>
-      </div>
-    </nav>
-
-    <div class="sidebar-footer">
-      <p class="sidebar-footer-text">© 2026 Sofia Monteiro<br>Porto, Portugal</p>
-    </div>
-  </aside>
-
-  <div class="sidebar-overlay" id="sidebarOverlay" aria-hidden="true"></div>
-
-  <!-- ============================================
-       MAIN WRAPPER
-  ============================================= -->
-  <div class="main-wrapper" id="mainWrapper">
-
-    <header class="header" id="header" role="banner">
-      <nav class="nav-container" aria-label="Top navigation">
-        <button class="toggle-sidebar" id="toggleSidebar" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="sidebar">
-          <div class="hamburger" aria-hidden="true"><span></span><span></span><span></span></div>
-        </button>
-
-        <button class="nav-brand" data-nav="home">Sofia Monteiro</button>
-        <div class="nav-spacer" aria-hidden="true"></div>
-
-        <div class="nav-links" role="navigation">
-          <button class="nav-link active" data-nav="home">Home</button>
-          <button class="nav-link" data-nav="about">About</button>
-          <button class="nav-link" data-nav="archive">Archive</button>
-          <button class="nav-link" data-nav="contact">Contact</button>
-        </div>
-      </nav>
-    </header>
-
-    <!-- ============================================
-         HOME / HERO
-    ============================================= -->
-    <section id="home" class="active" aria-label="Welcome">
-      <div class="section-bg" aria-hidden="true"></div>
-      <div class="section-grid" aria-hidden="true"></div>
-
-      <div class="hero-inner">
-        <div class="hero-eyebrow" aria-hidden="true">
-          <span class="hero-eyebrow-dot"></span>
-          Porto, Portugal · Archive Updated Continuously
+        <div class="small">
+            Em construção
         </div>
 
-        <h1 class="hero-headline">Where curiosity becomes <em>investigation</em></h1>
+        <div class="line"></div>
 
-        <p class="hero-subtext">
-          Welcome to Sofia Monteiro's creative archive — experiments, projects, research, and tools, kept as the investigations they actually were. Not a gallery of what got made. A map of how the ideas got found.
+        <h1>
+            Este site encontra-se<br>
+            sob manutenção.
+        </h1>
+
+        <p>
+            E ficará disponível em breve.<br>
+            Obrigada pela visita!
         </p>
 
-        <div class="hero-cta-group">
-          <button class="btn-primary" data-nav="archive">
-            Enter the Archive
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-          <button class="btn-secondary" data-nav="about">Read the Philosophy</button>
-        </div>
-      </div>
-    </section>
+    </main>
 
-    <!-- ============================================
-         ABOUT
-    ============================================= -->
-    <section id="about" aria-label="About Sofia Monteiro">
-      <div class="section-bg" aria-hidden="true"></div>
-      <div class="section-grid" aria-hidden="true"></div>
-
-      <div class="section-wrapper">
-        <div class="section-header">
-          <span class="section-label" aria-hidden="true">About</span>
-          <h2 class="section-title">The mind behind the archive</h2>
-          <p class="section-subtitle">A maker who'd rather document the searching than just show the finding.</p>
-        </div>
-
-        <div class="about-grid">
-          <div class="about-portrait" role="img" aria-label="Sofia Monteiro portrait placeholder">🔬</div>
-
-          <div class="about-content">
-            <div>
-              <span class="section-label">Bio</span>
-              <div class="about-bio">
-                <p>I'm Sofia Monteiro, a creative and technologist working across illustration, code, and design. My process tends to start with a question rather than a brief — what holds a pose together, why a fold resists twisting, how a story can branch without breaking.</p>
-                <p>This site exists because most of what I learn while making something never makes it into the finished thing. The archive is where that part lives — the dead ends, the half-answers, the discovery that came from the attempt that didn't quite work.</p>
-                <p>If you're curious about how something here was made, or want to build on it together, I'd love to hear from you.</p>
-              </div>
-            </div>
-
-            <div class="about-quote" role="blockquote">
-              <p class="about-quote-text">"An unfinished experiment may contain the most important discovery."</p>
-            </div>
-
-            <div>
-              <span class="section-label">Core Disciplines</span>
-              <div class="skills-grid" role="list" aria-label="Core disciplines">
-                <div class="skill-item" role="listitem"><span class="skill-icon" aria-hidden="true">✏️</span><span>Illustration</span></div>
-                <div class="skill-item" role="listitem"><span class="skill-icon" aria-hidden="true">💻</span><span>Code & Tools</span></div>
-                <div class="skill-item" role="listitem"><span class="skill-icon" aria-hidden="true">📐</span><span>Design & Systems</span></div>
-                <div class="skill-item" role="listitem"><span class="skill-icon" aria-hidden="true">🏛️</span><span>Architecture</span></div>
-                <div class="skill-item" role="listitem"><span class="skill-icon" aria-hidden="true">📚</span><span>Research</span></div>
-                <div class="skill-item" role="listitem"><span class="skill-icon" aria-hidden="true">🧭</span><span>UX / UI</span></div>
-              </div>
-            </div>
-
-            <div>
-              <span class="section-label">Working Principles</span>
-              <div class="principles-grid" role="list" aria-label="Working principles">
-                <div class="principle-item" role="listitem">Every entry is a question first.</div>
-                <div class="principle-item" role="listitem">Unfinished work stays visible.</div>
-                <div class="principle-item" role="listitem">Connections matter as much as results.</div>
-                <div class="principle-item" role="listitem">Process is the actual content.</div>
-              </div>
-            </div>
-
-            <div style="display:flex; gap:0.875rem; flex-wrap:wrap; margin-top:0.5rem;">
-              <button class="btn-primary" data-nav="archive">Browse the Archive</button>
-              <button class="btn-secondary" data-nav="contact">Get In Touch</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================
-         ARCHIVE
-    ============================================= -->
-    <section id="archive" aria-label="The Laboratory Archive">
-      <div class="section-bg" aria-hidden="true"></div>
-      <div class="section-grid" aria-hidden="true"></div>
-
-      <div class="section-wrapper">
-        <div class="section-header">
-          <span class="section-label" aria-hidden="true">Investigations</span>
-          <h2 class="section-title">The Laboratory Archive</h2>
-          <p class="section-subtitle">A living index of experiments, projects, research, and tools — searchable, filterable, and quietly connected to each other.</p>
-        </div>
-
-        <div class="archive-toolbar">
-          <div class="toolbar-row">
-            <div class="search-field">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
-              <input type="search" id="searchInput" placeholder="Search topics, techniques, themes…" aria-label="Search the archive">
-            </div>
-            <button class="btn-ghost" id="filterToggle" aria-pressed="false" aria-controls="filtersPanel">
-              Filters <span class="filter-count" id="filterCount" hidden>0</span>
-            </button>
-          </div>
-
-          <div class="category-tabs" id="categoryTabs"></div>
-
-          <div class="active-filters" id="activeFilters" hidden></div>
-          <div id="filtersPanel" hidden></div>
-        </div>
-
-        <div class="projects-grid" id="archiveGrid" role="list" aria-label="Archive entries"></div>
-        <p class="empty-state" id="emptyState" hidden>Nothing here yet — try a different search, or clear a filter.</p>
-      </div>
-    </section>
-
-    <!-- ============================================
-         CONTACT
-    ============================================= -->
-    <section id="contact" aria-label="Contact">
-      <div class="section-bg" aria-hidden="true"></div>
-      <div class="section-grid" aria-hidden="true"></div>
-
-      <div class="section-wrapper">
-        <div class="section-header">
-          <span class="section-label" aria-hidden="true">Get in touch</span>
-          <h2 class="section-title">Start an investigation together</h2>
-          <p class="section-subtitle">Open to collaborations, commissions, and conversations about how something here was made.</p>
-        </div>
-
-        <div class="contact-grid">
-          <div class="contact-info">
-            <div class="contact-item">
-              <div class="contact-icon" aria-hidden="true">📧</div>
-              <div><div class="contact-label">Email</div><div class="contact-value">sofiadmm58@gmail.com</div></div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-icon" aria-hidden="true">📍</div>
-              <div><div class="contact-label">Location</div><div class="contact-value">Porto, Portugal</div></div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-icon" aria-hidden="true">💼</div>
-              <div><div class="contact-label">GitHub</div><div class="contact-value">github.com/dacodeapprentice</div></div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-icon" aria-hidden="true">🐦</div>
-              <div><div class="contact-label">X (Twitter)</div><div class="contact-value">@sofiadmm58</div></div>
-            </div>
-
-            <div style="padding: 1rem; background: rgba(18,160,106,0.08); border: 1px solid rgba(18,160,106,0.2); display:flex; align-items:flex-start; gap:0.75rem; margin-top:0.25rem; border-radius:var(--radius-sm);">
-              <div style="width:6px; height:6px; background: var(--green); flex-shrink:0; margin-top:0.4rem; animation: pulse 2.4s ease-in-out infinite;"></div>
-              <div>
-                <div style="font-size:0.72rem; font-weight:600; color: var(--green); text-transform:uppercase; letter-spacing:0.06em;">Available</div>
-                <div style="font-size:0.82rem; color: var(--text-muted); margin-top:0.15rem; line-height:1.6;">Currently open to new collaborations and freelance projects.</div>
-              </div>
-            </div>
-          </div>
-
-          <form class="contact-form" id="contactForm" novalidate aria-label="Send a message">
-            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY">
-            <input type="hidden" name="subject" value="New message from the portfolio archive">
-            <input type="hidden" name="from_name" value="Portfolio Contact Form">
-            <div class="form-group">
-              <label class="form-label" for="contact-name">Name</label>
-              <input type="text" id="contact-name" name="name" class="form-input" placeholder="Your full name" required autocomplete="name">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="contact-email">Email</label>
-              <input type="email" id="contact-email" name="email" class="form-input" placeholder="your@email.com" required autocomplete="email">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="contact-subject">Subject</label>
-              <input type="text" id="contact-subject" name="subject_user" class="form-input" placeholder="What's this about?">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="contact-message">Message</label>
-              <textarea id="contact-message" name="message" class="form-textarea" placeholder="Tell me what you're curious about…" required></textarea>
-            </div>
-            <button type="submit" class="btn-green" style="align-self:flex-start;">
-              Send Message
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-            </button>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer" role="contentinfo">
-      <p class="footer-text">
-        © 2026 Sofia Monteiro. All rights reserved. &nbsp;·&nbsp;
-        <a href="https://github.com/dacodeapprentice/Sofia-Monteiro" target="_blank" rel="noopener noreferrer">GitHub</a>
-        &nbsp;·&nbsp;
-        <a href="https://x.com/sofiadmm58" target="_blank" rel="noopener noreferrer">X (Twitter)</a>
-      </p>
-    </footer>
-
-  </div>
-
-<script>
-(function(){
-"use strict";
-
-const RAW_DATA = [
-  { id:'E1', code:'EXP·01', category:'Experiment', emoji:'🫀', title:'Anatomy Study Series',
-    discipline:'Illustration', medium:'Charcoal & Graphite', subject:'Human Anatomy', purpose:'Observation & Skill-Building',
-    date:'2024-03', dateDisplay:'Mar 2024', level:'Ongoing',
-    question:'How much underlying skeletal and muscular structure does a viewer actually need to read a pose as believable?',
-    process:'Forty timed studies from life and reference, moving from full skeletal underpainting toward gesture-only marks. Each session removed one layer of visible structure to find where believability broke down.',
-    discoveries:[
-      'Believability survives the loss of most internal lines — it depends on a handful of load-bearing landmarks (clavicle, pelvis tilt, weight-bearing leg).',
-      'Speed improved faster than accuracy; the two had to be trained separately.',
-      "Charcoal's smudge-and-rebuild quality matched the iterative nature of the question better than ink would have."
-    ],
-    result:'A working shorthand of roughly twelve landmarks that consistently carry a pose, now used as a warm-up routine before figurative work.',
-    applications:'Useful for illustrators, animators, and character designers who need to draw convincingly from imagination rather than constant reference.',
-    connections:['P1'] },
-
-  { id:'E2', code:'EXP·02', category:'Experiment', emoji:'📐', title:'Folded Plane Studies',
-    discipline:'Design', medium:'Paper & Physical Models', subject:'Geometry & Form', purpose:'Structural Exploration',
-    date:'2023-11', dateDisplay:'Nov 2023', level:'Resolved',
-    question:'How does a single flat sheet gain rigidity through folding alone, with no added material?',
-    process:'About sixty paper models, starting from known crease patterns and deviating one fold at a time, photographed under raking light to record how shadow revealed structural tension.',
-    discoveries:[
-      'Rigidity came almost entirely from triangulated fold clusters, not from the number of folds.',
-      'A small number of asymmetric folds outperformed symmetric patterns for resisting twist.',
-      'The most structurally interesting failures happened at the edge, not the centre, of each sheet.'
-    ],
-    result:'A small physical library of fold patterns ranked by rigidity-to-material ratio, catalogued for later reference.',
-    applications:'A reference set for architects, product designers, or packaging designers exploring lightweight structural forms.',
-    connections:['P2'] },
-
-  { id:'E3', code:'EXP·03', category:'Experiment', emoji:'🌀', title:'Generative Noise Sketches',
-    discipline:'Code', medium:'JavaScript & Canvas', subject:'Procedural Generation', purpose:'Visual Exploration',
-    date:'2024-06', dateDisplay:'Jun 2024', level:'Ongoing',
-    question:'What does it look like to walk through noise, instead of just sampling it for texture?',
-    process:'Wrote a small engine that treats a Perlin noise field as terrain a particle can cross, then let hundreds of particles trace paths influenced by that same field over time.',
-    discoveries:[
-      "Particle trails revealed the noise field's structure far more clearly than a static heightmap render did.",
-      'Small changes to particle speed produced disproportionately different compositions — the system was more sensitive than expected.',
-      "The most visually interesting results came from deliberately breaking the field with sharp discontinuities."
-    ],
-    result:'An open-ended sketch engine, still growing, that has produced dozens of generative compositions and a reusable noise-walking technique.',
-    applications:'A generative-art toolkit whose underlying particle-on-field technique transfers directly to interactive storytelling and game feedback systems.',
-    connections:['P3','R1'] },
-
-  { id:'E4', code:'EXP·04', category:'Experiment', emoji:'🔠', title:'Modular Type Specimens',
-    discipline:'Graphic Design', medium:'Type Design', subject:'Systems & Grids', purpose:'Typeface Exploration',
-    date:'2023-08', dateDisplay:'Aug 2023', level:'Prototype',
-    question:'How few base shapes can a usable typeface actually be built from?',
-    process:'Started from one rounded module and tried to construct a full alphabet using only its rotations, mirrors, and scaled copies — redrawing any letter that broke the rule rather than making an exception for it.',
-    discoveries:[
-      'Roughly 70% of the lowercase alphabet held up under the constraint; the rest needed a second, related module.',
-      'Strict modularity made the face highly legible at large display sizes and weak at small body sizes.',
-      'The constraint surfaced letterforms a freehand approach likely would not have found.'
-    ],
-    result:'A display-only specimen set (uppercase and numerals), still a prototype, with the lowercase set unresolved.',
-    applications:'A reference case for type designers or design-systems teams exploring constraint-based letterform construction.',
-    connections:[] },
-
-  { id:'P1', code:'PRJ·01', category:'Project', emoji:'🧙', title:'Character Design: The Wanderers',
-    discipline:'Character Design', medium:'Digital Painting', subject:'Character & Narrative', purpose:'Worldbuilding for a Personal IP',
-    date:'2024-05', dateDisplay:'May 2024', level:'Resolved',
-    question:'Can a cast of six characters read as a coherent family of designs while each still carries a distinct personality?',
-    process:'Built a shared design grammar first — silhouette rules, a limited material palette, one proportion system — then designed each character inside those constraints, leaning on the anatomy-study shorthand to keep poses readable at thumbnail size.',
-    discoveries:[
-      'Constraints applied before character ideas made the cast feel related without anyone looking generic.',
-      "Silhouette read at 64px was a better test of a good design than any amount of detail at full size.",
-      'Two characters initially felt redundant; merging their roles strengthened the group as a whole.'
-    ],
-    result:'A finished cast of six characters with a shared visual language, used as the cover cast for an ongoing worldbuilding project.',
-    applications:'A reusable process for designing an ensemble — useful to game studios, illustrators, or writers building a visual identity for a cast.',
-    connections:['E1'] },
-
-  { id:'P2', code:'PRJ·02', category:'Project', emoji:'🏛️', title:'Pavilion — A Modular Structure Concept',
-    discipline:'Architecture', medium:'3D Model & Physical Study', subject:'Modularity', purpose:'Architectural Proposal',
-    date:'2024-01', dateDisplay:'Jan 2024', level:'Resolved',
-    question:'Can a single repeating folded panel assemble into a structure large enough to shelter people, with no specialised joinery?',
-    process:'Scaled the highest-performing fold pattern from the paper studies into one modular panel, then tested how it could repeat, mirror, and stack into a usable enclosure, first in cardboard and then as a small 3D-printed model.',
-    discoveries:[
-      'One panel, mirrored along two axes, was enough to generate a full pavilion form — no second panel type was needed.',
-      'The folded geometry that resisted twist at sheet scale also resisted wind load at structure scale.',
-      'Assembly order mattered more than panel design for keeping the structure stable mid-build.'
-    ],
-    result:'A buildable concept for a small modular pavilion using a single repeating panel, documented with an assembly sequence and structural notes.',
-    applications:'A starting point for temporary event structures, pop-up shelters, or any project needing a fast-to-assemble, low-waste enclosure.',
-    connections:['E2','R3'] },
-
-  { id:'P3', code:'PRJ·03', category:'Project', emoji:'🌿', title:'Branching Paths — An Interactive Fiction Engine',
-    discipline:'Code & Writing', medium:'JavaScript', subject:'Interactive Storytelling', purpose:'A Narrative Tool for Writers',
-    date:'2024-07', dateDisplay:'Jul 2024', level:'Resolved',
-    question:'Can a writer build a branching story without needing to think in code at all?',
-    process:"Adapted the particle-and-field thinking from the noise sketches into a narrative field — story beats as nodes with weighted pulls — then wrapped it in a plain-text authoring format so a writer only ever edits story content, never logic.",
-    discoveries:[
-      'Writers moved faster through the format when choices were framed as questions rather than commands.',
-      'A visual map of the story graph caught structural dead-ends that reading the text alone missed.',
-      "The biggest authoring slowdown wasn't the tool — it was writers second-guessing branch count before drafting."
-    ],
-    result:'A working engine and lightweight authoring format, used to build three short interactive stories so far.',
-    applications:'For writers, game-narrative designers, or educators building branching scenarios with no programming background required.',
-    connections:['E3','T2'] },
-
-  { id:'P4', code:'PRJ·04', category:'Project', emoji:'🧭', title:'Wayfinder — An Accessible Navigation App',
-    discipline:'UX / UI Design', medium:'Mobile App Prototype', subject:'Accessibility', purpose:'Help Visually-Impaired Users Navigate Indoor Spaces',
-    date:'2023-12', dateDisplay:'Dec 2023', level:'Resolved',
-    question:'Can indoor wayfinding work well using sound and haptics alone, with no screen attention required?',
-    process:'Designed and prototyped a wayfinding app built around audio cues and haptic pulses rather than a map screen, testing directional-cue timing with visually-impaired volunteers across several iterations.',
-    discoveries:[
-      'Continuous audio cues caused fatigue; short rhythmic pulses that changed pace near turns worked far better.',
-      'Haptic cues alone were too easy to misread — the combination of sound and haptic, not either alone, gave reliable results.',
-      "Testers consistently wanted a way to rehearse a route before walking it — a feature outside the original scope."
-    ],
-    result:'A tested prototype with an audio-haptic navigation system and a route-rehearsal mode added directly from testing feedback.',
-    applications:'For accessibility-focused product teams, or any indoor navigation system — museums, hospitals, transit hubs — wanting non-visual wayfinding.',
-    connections:[] },
-
-  { id:'R1', code:'RES·01', category:'Research', emoji:'🌻', title:'Notes on Phyllotaxis & Natural Growth',
-    discipline:'Research', medium:'Notes & Diagrams', subject:'Biology & Mathematics', purpose:'Reference for Generative Work',
-    date:'2024-02', dateDisplay:'Feb 2024', level:'Reference',
-    question:'Why do so many unrelated natural growth patterns converge on the same spiral angle?',
-    process:'Collected and annotated phyllotaxis diagrams across sunflowers, pinecones, and succulents, cross-referencing them against the golden-angle literature to understand the angle as a packing solution rather than a coincidence.',
-    discoveries:[
-      "The recurring angle (~137.5°) is the most efficient way to avoid ever-aligning overlaps — not an arbitrary magic number.",
-      'The pattern emerges from local rules (each new element rotating a fixed angle from the last), with no global plan.',
-      'The same local-rule logic mapped directly onto the noise-walking particle sketches.'
-    ],
-    result:'A reference set of annotated diagrams and a short written explanation, kept as a standing resource.',
-    applications:'Background reading for generative artists or anyone designing packing or distribution algorithms.',
-    connections:['E3'] },
-
-  { id:'R2', code:'RES·02', category:'Research', emoji:'🎞️', title:'Colour Theory in Early Cinema',
-    discipline:'Research', medium:'Notes & Stills', subject:'Film History', purpose:'Visual Reference',
-    date:'2023-09', dateDisplay:'Sep 2023', level:'Reference',
-    question:'How did filmmakers communicate colour and mood before colour film existed?',
-    process:'Reviewed hand-tinted and stencil-coloured films from the early 1900s, cataloguing which colours were used for which emotional or narrative purpose before standardised colour stock made the choice less deliberate.',
-    discoveries:[
-      'Tinting was used narratively (blue for night, amber for interiors) well before it became a stylistic default.',
-      "Stencil colouring's technical limits — a handful of flat colours per frame — produced a palette discipline that's hard to replicate digitally without imposing it on purpose.",
-      "Several mistakes in hand-tinting (bleed, inconsistency) read as texture rather than error to a modern eye."
-    ],
-    result:'An annotated reference collection of stills and notes, organised by colour-to-emotion mapping.',
-    applications:'A palette reference for illustrators, art directors, or filmmakers wanting a historically grounded, limited-palette approach.',
-    connections:[] },
-
-  { id:'R3', code:'RES·03', category:'Research', emoji:'🏗️', title:'Studies in Modular & Brutalist Architecture',
-    discipline:'Research', medium:'Notes & Photography', subject:'Architecture History', purpose:'Reference for Structural Work',
-    date:'2023-10', dateDisplay:'Oct 2023', level:'Reference',
-    question:'What made modular brutalist housing systems repeatable across wildly different sites?',
-    process:'Documented several modular housing case studies, focusing on the single repeating unit each system was built from and how that unit handled variation in site, light, and orientation.',
-    discoveries:[
-      'The most successful systems standardised structure but deliberately left surface and infill flexible.',
-      'Repetition read as monotonous only when the unit ignored site orientation; rotated or mirrored units avoided this.',
-      "Many criticisms of brutalist sameness were really criticisms of unmaintained material, not the modular logic itself."
-    ],
-    result:'A working set of principles for modular structural design, since applied directly to the pavilion project.',
-    applications:'Reference for architects or product designers building any system meant to repeat across varied conditions.',
-    connections:['P2'] },
-
-  { id:'T1', code:'TL·01', category:'Tool', emoji:'📓', title:'Index — A Creative Process Journal Template',
-    discipline:'Methodology', medium:'Print & Digital Template', subject:'Process & Methodology', purpose:'Help Creatives Document Their Process',
-    date:'2024-04', dateDisplay:'Apr 2024', level:'Resolved',
-    question:'Why do most of the useful discoveries from a creative process disappear before the work is even finished?',
-    process:"Built a one-page-per-investigation journal template — question, process, discoveries, result, applications — and used it daily for three months to record this archive's own entries before designing the website around it.",
-    discoveries:[
-      "Forcing a question to be written before starting work changed how the work was approached, not just how it was recorded.",
-      "The hardest field to fill in honestly was discoveries — most people, this one included, want to skip straight to result.",
-      "This template is, literally, the structure every entry in this archive is built from."
-    ],
-    result:'A free, reusable template, in print and digital form, that this entire archive is based on.',
-    applications:'For any maker who wants to document process well enough to learn from it later, not just to show it off.',
-    connections:[] },
-
-  { id:'T2', code:'TL·02', category:'Tool', emoji:'🧵', title:'Thread — A Branching Narrative Toolkit',
-    discipline:'Code', medium:'Open-Source JavaScript Library', subject:'Interactive Storytelling', purpose:'Help Writers Build Branching Narratives',
-    date:'2024-07', dateDisplay:'Jul 2024', level:'Resolved',
-    question:'Can the engine behind one interactive-fiction project be made useful to other writers, not just this one?',
-    process:'Extracted the core branching logic from the fiction engine into a standalone, documented library with no project-specific assumptions left in it, then rewrote the authoring format to be readable with no explanation needed.',
-    discoveries:[
-      "Most of the original engine's complexity was project-specific and unnecessary for a general tool — it shrank by more than half.",
-      'Documentation written for a stranger caught several confusing design decisions the original project had simply absorbed.',
-      'A short example story shipped with the library mattered more for adoption than any amount of written explanation.'
-    ],
-    result:'A small open-source library with documentation and a working example story.',
-    applications:'For writers and narrative designers who want branching-story logic without building it from scratch.',
-    connections:['P3'] },
-
-  { id:'T3', code:'TL·03', category:'Tool', emoji:'🎨', title:'Palette — A Colour Extraction Tool',
-    discipline:'Code', medium:'Web Application', subject:'Colour & Perception', purpose:'Extract Usable Palettes from Reference Images',
-    date:'2023-06', dateDisplay:'Jun 2023', level:'Resolved',
-    question:'Can a tool tell the difference between a common colour in an image and a load-bearing one?',
-    process:'Built a small web app that clusters image colours by frequency, then re-weights the clusters by visual prominence — the size and contrast of the regions they occupy — rather than raw pixel count alone.',
-    discoveries:[
-      "Raw frequency clustering consistently missed small, high-contrast accent colours that a human eye picks out first.",
-      "Weighting by region size and contrast got much closer to how people intuitively describe an image's palette.",
-      'Five colours, ranked by this method, were enough to recreate the feel of most reference images tested.'
-    ],
-    result:'A working web tool that extracts a five-colour palette from any uploaded image, ranked by visual importance.',
-    applications:'For illustrators, designers, or anyone building a palette from a reference photo, mood board, or piece of art.',
-    connections:[] }
-];
-
-const byId = {};
-RAW_DATA.forEach(e=>{ byId[e.id]=e; e._links = new Set(e.connections||[]); });
-RAW_DATA.forEach(e=>{ e._links.forEach(id=>{ if(byId[id]) byId[id]._links.add(e.id); }); });
-RAW_DATA.forEach(e=>{ e.connections = Array.from(e._links); e.year = e.date.slice(0,4); });
-const DATA = RAW_DATA;
-
-const CAT_META = {
-  Experiment: { label:'Experiments', color:'#1a6a9a', pale:'rgba(26,106,154,0.08)', hex:'#1a6a9a', gradient:'linear-gradient(135deg, rgba(26,106,154,0.06) 0%, rgba(26,106,154,0.02) 100%)' },
-  Project:    { label:'Projects',    color:'#0d8a6a', pale:'rgba(13,138,106,0.08)', hex:'#0d8a6a', gradient:'linear-gradient(135deg, rgba(13,138,106,0.06) 0%, rgba(13,138,106,0.02) 100%)' },
-  Research:   { label:'Research',    color:'#6a5a9a', pale:'rgba(106,90,154,0.08)', hex:'#6a5a9a', gradient:'linear-gradient(135deg, rgba(106,90,154,0.06) 0%, rgba(106,90,154,0.02) 100%)' },
-  Tool:       { label:'Tools & Systems', color:'#9a7a3a', pale:'rgba(154,122,58,0.08)', hex:'#9a7a3a', gradient:'linear-gradient(135deg, rgba(154,122,58,0.06) 0%, rgba(154,122,58,0.02) 100%)' }
-};
-const FACET_DEFS = [
-  {key:'discipline', label:'Discipline'},
-  {key:'medium',     label:'Medium'},
-  {key:'subject',    label:'Subject'},
-  {key:'purpose',    label:'Purpose'},
-  {key:'year',       label:'Year'},
-  {key:'level',      label:'Level of Development'}
-];
-
-const state = {
-  category:'all',
-  query:'',
-  filters:{ discipline:new Set(), medium:new Set(), subject:new Set(), purpose:new Set(), year:new Set(), level:new Set() }
-};
-
-function $(sel, root){ return (root||document).querySelector(sel); }
-function $all(sel, root){ return Array.from((root||document).querySelectorAll(sel)); }
-function esc(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-
-function activeFilterCount(){ let n=0; Object.values(state.filters).forEach(s=>n+=s.size); return n; }
-
-function matchesEntry(e){
-  if(state.category!=='all' && e.category!==state.category) return false;
-  const q = state.query.trim().toLowerCase();
-  if(q){
-    const hay = [e.title,e.discipline,e.medium,e.subject,e.purpose,e.question,e.result,e.applications,(e.discoveries||[]).join(' ')].join(' ').toLowerCase();
-    if(!hay.includes(q)) return false;
-  }
-  for(const def of FACET_DEFS){
-    const chosen = state.filters[def.key];
-    if(chosen.size && !chosen.has(e[def.key])) return false;
-  }
-  return true;
-}
-
-function renderCategoryTabs(){
-  const counts = {all:DATA.length, Experiment:0, Project:0, Research:0, Tool:0};
-  DATA.forEach(e=>counts[e.category]++);
-  const cats = [['all','All']].concat(Object.keys(CAT_META).map(k=>[k,CAT_META[k].label]));
-  const el = $('#categoryTabs');
-  el.innerHTML = cats.map(([key,label])=>{
-    const meta = CAT_META[key];
-    const styleVars = meta ? ` style="--tab-accent:${meta.hex};"` : '';
-    return `<button class="cat-tab${state.category===key?' active':''}" data-cat="${key}" aria-pressed="${state.category===key}"${styleVars}>
-      ${meta ? '<span class="cat-tab-dot"></span>' : ''}${esc(label)} <span class="n">${counts[key]}</span>
-    </button>`;
-  }).join('');
-  $all('.cat-tab', el).forEach(btn=>{
-    btn.addEventListener('click', ()=>{ state.category = btn.dataset.cat; renderCategoryTabs(); renderArchiveGrid(); });
-  });
-}
-
-function renderFilterPanel(){
-  const panel = $('#filtersPanel');
-  panel.innerHTML = FACET_DEFS.map(def=>{
-    const values = Array.from(new Set(DATA.map(e=>e[def.key]).filter(Boolean))).sort();
-    const chosen = state.filters[def.key];
-    return `<details class="facet-group">
-      <summary>${esc(def.label)} (${values.length})</summary>
-      <div class="chip-row">${values.map(v=>`<button class="chip" data-group="${def.key}" data-value="${esc(v)}" aria-pressed="${chosen.has(v)}">${esc(v)}</button>`).join('')}</div>
-    </details>`;
-  }).join('');
-  $all('.chip', panel).forEach(chip=> chip.addEventListener('click', ()=> toggleFilter(chip.dataset.group, chip.dataset.value)) );
-}
-function toggleFilter(group, value){
-  const set = state.filters[group];
-  if(set.has(value)) set.delete(value); else set.add(value);
-  renderFilterPanel(); renderActiveFilters(); renderArchiveGrid();
-}
-function renderActiveFilters(){
-  const wrap = $('#activeFilters');
-  const chips = [];
-  FACET_DEFS.forEach(def=>{
-    state.filters[def.key].forEach(v=>{
-      chips.push(`<span class="active-chip">${esc(def.label)}: ${esc(v)} <button data-group="${def.key}" data-value="${esc(v)}" aria-label="Remove filter">×</button></span>`);
-    });
-  });
-  const n = activeFilterCount();
-  $('#filterCount').hidden = n===0;
-  $('#filterCount').textContent = n;
-  $('#filterToggle').setAttribute('aria-pressed', n>0 ? 'true' : $('#filterToggle').getAttribute('aria-pressed'));
-  if(!chips.length){ wrap.hidden = true; wrap.innerHTML=''; return; }
-  wrap.hidden = false;
-  wrap.innerHTML = chips.join('') + `<button class="clear-all" id="clearAllBtn">Clear all</button>`;
-  $all('button[data-group]', wrap).forEach(b=> b.addEventListener('click', ()=> toggleFilter(b.dataset.group, b.dataset.value)) );
-  $('#clearAllBtn').addEventListener('click', ()=>{
-    FACET_DEFS.forEach(def=> state.filters[def.key].clear());
-    renderFilterPanel(); renderActiveFilters(); renderArchiveGrid();
-  });
-}
-
-function renderArchiveGrid(){
-  const list = DATA.filter(matchesEntry).sort((a,b)=> b.date.localeCompare(a.date));
-  const gridEl = $('#archiveGrid');
-  const emptyEl = $('#emptyState');
-  if(!list.length){ gridEl.innerHTML=''; emptyEl.hidden=false; return; }
-  emptyEl.hidden = true;
-  gridEl.innerHTML = list.map(e=>{
-    const meta = CAT_META[e.category];
-    return `<article class="project-card" data-id="${e.id}" role="listitem" tabindex="0" aria-label="Open investigation: ${esc(e.title)}">
-      <div class="project-thumb" aria-hidden="true" style="background:${meta.gradient};">${e.emoji}</div>
-      <div class="project-body">
-        <div class="project-meta">
-          <span class="project-year">${esc(e.dateDisplay)}</span>
-          <span class="tag" style="color:${meta.hex};background:${meta.pale};border-color:${meta.hex}33;">${esc(meta.label)}</span>
-        </div>
-        <h3 class="project-title">${esc(e.title)}</h3>
-        <p class="project-desc">"${esc(e.question)}"</p>
-        <div class="tags">
-          <span class="tag">${esc(e.discipline)}</span>
-          <span class="tag">${esc(e.level)}</span>
-        </div>
-        <div class="project-arrow">
-          Read investigation
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </div>
-      </div>
-    </article>`;
-  }).join('');
-  $all('.project-card', gridEl).forEach(card=>{
-    card.addEventListener('click', ()=> showSection('entry-'+card.dataset.id));
-    card.addEventListener('keydown', ev=>{ if(ev.key==='Enter' || ev.key===' '){ ev.preventDefault(); showSection('entry-'+card.dataset.id); } });
-  });
-}
-
-function buildDetailSections(){
-  const archiveSection = document.getElementById('archive');
-  const html = DATA.map(e=>{
-    const meta = CAT_META[e.category];
-    const linked = (e.connections||[]).map(id=>byId[id]).filter(Boolean);
-    return `
-    <section class="project-detail-section" id="entry-${e.id}" aria-label="Investigation: ${esc(e.title)}">
-      <div class="section-bg" aria-hidden="true"></div>
-      <div class="section-grid" aria-hidden="true"></div>
-      <div class="section-wrapper">
-        <button class="btn-back" data-nav="archive" aria-label="Back to Archive">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          Back to Archive
-        </button>
-
-        <span class="section-label" style="color:${meta.hex};">${esc(e.code)} · ${esc(meta.label)} · ${esc(e.discipline)}</span>
-        <h1 class="section-title" style="margin-bottom:0.6rem;">${esc(e.title)}</h1>
-        <p class="section-subtitle" style="font-style:italic; margin-bottom:1.2rem;">"${esc(e.question)}"</p>
-
-        <div class="project-detail-hero" aria-hidden="true" style="background:${meta.gradient};">${e.emoji}</div>
-
-        <div class="content-card">
-          <h2>The Process</h2><p>${esc(e.process)}</p>
-          <h2 style="margin-top:1.5rem;">Discoveries</h2><ul>${e.discoveries.map(d=>`<li>${esc(d)}</li>`).join('')}</ul>
-          <h2 style="margin-top:1.5rem;">The Result</h2><p>${esc(e.result)}</p>
-          <h2 style="margin-top:1.5rem;">Applications & Who May Benefit</h2><p>${esc(e.applications)}</p>
-          ${linked.length ? `<h2 style="margin-top:1.5rem;">Connected Investigations</h2>
-            <div class="tags">${linked.map(l=>`<button class="tag tag-link" data-nav="entry-${l.id}">${esc(l.code)} — ${esc(l.title)}</button>`).join('')}</div>` : ''}
-        </div>
-      </div>
-    </section>`;
-  }).join('');
-  archiveSection.insertAdjacentHTML('afterend', html);
-}
-
-const sidebar        = document.getElementById('sidebar');
-const sidebarOverlay = document.getElementById('sidebarOverlay');
-const toggleBtn       = document.getElementById('toggleSidebar');
-const headerEl        = document.getElementById('header');
-
-let sidebarOpen = false;
-
-function openSidebar(){
-  sidebarOpen = true;
-  sidebar.classList.remove('collapsed');
-  toggleBtn.classList.add('open');
-  toggleBtn.setAttribute('aria-expanded','true');
-  if(window.innerWidth <= 1024){
-    sidebarOverlay.style.display = 'block';
-    sidebarOverlay.getBoundingClientRect();
-    sidebarOverlay.classList.add('visible');
-    document.body.style.overflow = 'hidden';
-  }
-}
-function closeSidebar(){
-  sidebarOpen = false;
-  sidebar.classList.add('collapsed');
-  toggleBtn.classList.remove('open');
-  toggleBtn.setAttribute('aria-expanded','false');
-  sidebarOverlay.classList.remove('visible');
-  document.body.style.overflow = '';
-  setTimeout(function(){ if(!sidebarOpen){ sidebarOverlay.style.display = 'none'; } }, 250);
-}
-function toggleSidebar(){ sidebarOpen ? closeSidebar() : openSidebar(); }
-
-toggleBtn.addEventListener('click', function(e){ e.stopPropagation(); toggleSidebar(); });
-sidebarOverlay.addEventListener('click', closeSidebar);
-document.addEventListener('keydown', function(e){ if(e.key==='Escape' && sidebarOpen){ closeSidebar(); toggleBtn.focus(); } });
-document.addEventListener('click', function(e){
-  if(sidebarOpen && !sidebar.contains(e.target) && !toggleBtn.contains(e.target)){ closeSidebar(); }
-});
-window.addEventListener('resize', function(){
-  if(window.innerWidth > 1024 && sidebarOpen){
-    document.body.style.overflow = '';
-    sidebarOverlay.classList.remove('visible');
-    setTimeout(function(){ sidebarOverlay.style.display = 'none'; }, 250);
-  }
-});
-
-function showSection(targetId){
-  const target = document.getElementById(targetId);
-  if(!target){ console.warn('Section not found: ' + targetId); return; }
-
-  $all('section').forEach(s=> s.classList.remove('active'));
-  target.classList.add('active');
-
-  $all('.nav-link, .sidebar-link').forEach(link=>{
-    const isMatch = link.dataset.nav === targetId;
-    link.classList.toggle('active', isMatch);
-    if(isMatch) link.setAttribute('aria-current','page'); else link.removeAttribute('aria-current');
-  });
-
-  if(window.innerWidth <= 1024 && sidebarOpen) closeSidebar();
-  window.scrollTo({ top:0, behavior:'smooth' });
-}
-
-function wireNav(scope){
-  scope.querySelectorAll('[data-nav]').forEach(function(link){
-    const href = link.getAttribute('href');
-    if(href && href !== '#' && !href.startsWith('javascript')) return;
-    link.addEventListener('click', function(e){ e.preventDefault(); showSection(link.getAttribute('data-nav')); });
-    link.addEventListener('keydown', function(e){ if(e.key==='Enter' || e.key===' '){ e.preventDefault(); showSection(link.getAttribute('data-nav')); } });
-  });
-}
-
-function handleHeaderScroll(){
-  if(window.scrollY > 10) headerEl.classList.add('scrolled'); else headerEl.classList.remove('scrolled');
-}
-window.addEventListener('scroll', handleHeaderScroll, { passive:true });
-
-function handleFormSubmit(e){
-  e.preventDefault();
-  const form = e.target;
-  const submitBtn  = form.querySelector('button[type="submit"]');
-  const nameInput  = form.querySelector('#contact-name');
-  const emailInput = form.querySelector('#contact-email');
-  const subjectInput = form.querySelector('#contact-subject');
-  const msgInput   = form.querySelector('#contact-message');
-
-  if(!nameInput.value.trim() || !emailInput.value.trim() || !msgInput.value.trim()){
-    showFormFeedback(form, 'error', 'Please fill in all required fields.'); return;
-  }
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if(!emailPattern.test(emailInput.value.trim())){
-    showFormFeedback(form, 'error', 'Please enter a valid email address.'); return;
-  }
-  if(submitBtn.dataset.busy === '1') return;
-
-  const originalText = submitBtn.innerHTML;
-  submitBtn.dataset.busy = '1';
-  submitBtn.innerHTML = 'Sending…';
-  submitBtn.disabled = true;
-  submitBtn.style.opacity = '0.7';
-
-  const payload = new FormData(form);
-  if(subjectInput.value.trim()) payload.set('subject', subjectInput.value.trim());
-
-  fetch('https://api.web3forms.com/submit', {
-    method: 'POST',
-    headers: { 'Accept': 'application/json' },
-    body: payload
-  })
-  .then(function(res){ return res.json(); })
-  .then(function(data){
-    if(data.success){
-      showFormFeedback(form, 'success', "Message sent — thank you! I'll be in touch shortly.");
-      form.reset();
-    } else {
-      showFormFeedback(form, 'error', 'Something went wrong sending your message. Please try again.');
-    }
-  })
-  .catch(function(){
-    showFormFeedback(form, 'error', 'Network error — please check your connection and try again.');
-  })
-  .finally(function(){
-    submitBtn.dataset.busy = '0';
-    submitBtn.innerHTML = originalText;
-    submitBtn.disabled = false;
-    submitBtn.style.opacity = '';
-  });
-}
-function showFormFeedback(form, type, message){
-  const existing = form.querySelector('.form-feedback');
-  if(existing) existing.remove();
-  const feedback = document.createElement('div');
-  feedback.className = 'form-feedback';
-  feedback.setAttribute('role','alert');
-  feedback.setAttribute('aria-live','polite');
-  const isSuccess = type==='success';
-  feedback.style.cssText = [
-    'padding: 0.8rem 0.9rem','font-size: 0.82rem','font-weight: 500','line-height: 1.5','margin-top: 0.2rem',
-    isSuccess ? 'background: rgba(18,160,106,0.1); border: 1px solid rgba(18,160,106,0.25); color: #6eebc0;'
-              : 'background: rgba(200,50,50,0.1); border: 1px solid rgba(200,50,50,0.25); color: #f5a0a0;'
-  ].join(';');
-  feedback.textContent = (isSuccess ? '\u2713  ' : '\u26a0  ') + message;
-  form.appendChild(feedback);
-  if(isSuccess){
-    setTimeout(function(){
-      if(feedback.parentNode){
-        feedback.style.transition = 'opacity 0.4s ease';
-        feedback.style.opacity = '0';
-        setTimeout(function(){ if(feedback.parentNode) feedback.remove(); }, 400);
-      }
-    }, 6000);
-  }
-}
-
-(function init(){
-  buildDetailSections();
-  renderCategoryTabs();
-  renderFilterPanel();
-  renderActiveFilters();
-  renderArchiveGrid();
-
-  wireNav(document);
-
-  document.getElementById('searchInput').addEventListener('input', function(ev){
-    state.query = ev.target.value; renderArchiveGrid();
-  });
-  document.getElementById('filterToggle').addEventListener('click', function(){
-    const panel = document.getElementById('filtersPanel');
-    const willShow = panel.hidden;
-    panel.hidden = !willShow;
-    this.setAttribute('aria-pressed', String(willShow));
-  });
-  document.getElementById('contactForm').addEventListener('submit', handleFormSubmit);
-
-  showSection('home');
-  sidebarOverlay.style.display = 'none';
-  handleHeaderScroll();
-})();
-
-})();
-</script>
 </body>
 </html>
